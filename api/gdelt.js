@@ -33,15 +33,21 @@ export default {
       const response = await timeoutFetch(gdelt, 8000);
       const payload = response.ok ? await response.json() : null;
       const articles = Array.isArray(payload?.articles) ? payload.articles.filter(article => article.title && article.url).slice(0, 6) : [];
-      if (articles.length) return Response.json({ provider: 'GDELT', articles }, { headers: { 'cache-control': 'public, max-age=600' } });
-    } catch { /* Le repli RSS ci-dessous maintient la rubrique disponible. */ }
+      if (articles.length) {
+        console.log(`GDELT: ${articles.length} article(s) pour ${englishCountry}.`);
+        return Response.json({ provider: 'GDELT', articles }, { headers: { 'cache-control': 'public, max-age=600' } });
+      }
+      console.warn(`GDELT: réponse sans article pour ${englishCountry} (HTTP ${response.status}).`);
+    } catch (error) { console.warn(`GDELT: ${error.message}`); }
     const rss = new URL('https://news.google.com/rss/search');
     rss.search = new URLSearchParams({ q: `"${englishCountry}" climate`, hl: 'fr', gl: 'FR', ceid: 'FR:fr' });
     try {
       const response = await timeoutFetch(rss, 8000);
       const articles = response.ok ? parseRss(await response.text()) : [];
+      console.log(`RSS de repli: ${articles.length} article(s) pour ${englishCountry}.`);
       return Response.json({ provider: 'Google News RSS · repli', articles }, { headers: { 'cache-control': 'public, max-age=600' } });
-    } catch {
+    } catch (error) {
+      console.error(`RSS de repli: ${error.message}`);
       return Response.json({ error: 'Revue de presse indisponible.' }, { status: 502 });
     }
   }

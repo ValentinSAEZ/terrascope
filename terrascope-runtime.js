@@ -304,7 +304,24 @@ if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
     })
     .catch(error => {
       console.warn('Revue de presse GDELT indisponible :', error.message);
-      feed.innerHTML = '<p class="news-status">La revue de presse est temporairement indisponible. Les indicateurs climat et économie de la fiche restent accessibles.</p>';
+      const provider = news.querySelector('.country-news-head small');
+      if (provider) provider.textContent = 'RECHERCHE PRESSE EN DIRECT · CLIMAT, ÉNERGIE & ÉCONOMIE';
+      feed.replaceChildren();
+      [
+        ['CLIMAT', `Suivre l’actualité climat de ${country}`, `${country} climat`],
+        ['ÉNERGIE', `Suivre l’actualité énergie de ${country}`, `${country} énergie`],
+        ['ÉCONOMIE', `Suivre l’actualité économie de ${country}`, `${country} économie climat`]
+      ].forEach(([category, title, query]) => {
+        const link = document.createElement('a'); link.className = 'news-item'; link.target = '_blank'; link.rel = 'noopener noreferrer';
+        link.href = `https://news.google.com/search?${new URLSearchParams({ q: query, hl: 'fr', gl: 'FR', ceid: 'FR:fr' })}`;
+        const meta = document.createElement('span'); meta.className = 'news-meta'; meta.textContent = `${category} · DIRECT`;
+        const content = document.createElement('span');
+        const heading = document.createElement('span'); heading.className = 'news-title'; heading.textContent = title;
+        const domain = document.createElement('span'); domain.className = 'news-domain'; domain.textContent = 'Google Actualités · recherche en direct';
+        content.append(heading, domain);
+        const arrow = document.createElement('span'); arrow.className = 'news-arrow'; arrow.textContent = '↗';
+        link.append(meta, content, arrow); feed.append(link);
+      });
     });
 }
 
