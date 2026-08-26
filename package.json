@@ -1,0 +1,11 @@
+{
+  "name": "terrascope",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Climate and economic awareness platform.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npx wrangler dev",
+    "deploy": "npm run build && npx wrangler deploy"
+  }
+}

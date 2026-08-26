@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="TerraScope — explorer les trajectoires climatiques et carbone des pays." />
+    <title>TerraScope — Le climat, en perspective</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="economist.css" />
+    <link rel="stylesheet" href="structure.css" />
+    <style>
+      .world-map{position:absolute;right:3vw;top:57px;width:min(55vw,760px);height:515px;overflow:hidden;border:1px solid var(--line);background:#ebe7dd;box-shadow:0 22px 50px rgba(34,43,35,.1);color:#9a9c90}.world-map:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,#f7f5ef 0%,transparent 15%,transparent 83%,#f7f5ef 100%)}.world-map svg{width:160%;height:100%;margin-left:-30%;display:block}.map-paper{fill:#eae6dc}.map-grid{opacity:.54}.map-track{animation:mercator-drift 46s linear infinite}.land{fill:#2d684c;fill-opacity:.88;stroke:#1f513a;stroke-width:2;stroke-linejoin:round}.is-ice{fill:#769389;fill-opacity:.44;stroke:none}.map-node{fill:#e89966;stroke:#f7f5ef;stroke-width:3}.map-kicker,.map-coordinates{position:absolute;z-index:3;font:9px var(--mono);letter-spacing:1px;color:#38634f}.map-kicker{left:21px;top:18px}.map-coordinates{right:20px;bottom:17px;color:#74776e}.map-stat{position:absolute;z-index:3;padding:10px 13px;background:rgba(247,245,239,.94);border:1px solid #d4d0c6;display:flex;flex-direction:column}.map-stat b{font:600 20px var(--serif);color:var(--ink)}.map-stat span{font:8px var(--mono);color:var(--muted);margin-top:3px}.stat-emissions{right:23px;top:65px}.stat-warming{left:30px;bottom:61px}@keyframes mercator-drift{from{transform:translateX(0)}to{transform:translateX(-1200px)}}@media(max-width:850px){.world-map{width:600px;height:400px;right:-250px;top:220px;opacity:.64}}@media(max-width:520px){.world-map{display:none}}@media(prefers-reduced-motion:reduce){.map-track{animation:none}}
+    </style>
+    <style>
+      .world-map{right:-5vw;top:38px;width:min(69vw,910px);height:555px;overflow:hidden;pointer-events:none;z-index:0;color:#66816f;opacity:.72;border:0;background:transparent;box-shadow:none}.world-map:before{pointer-events:none;background:linear-gradient(90deg,var(--paper) 0%,transparent 27%,transparent 82%,var(--paper) 100%)}.map-paper{fill:transparent}.map-grid{opacity:.20}.map-track{animation:mercator-drift 55s linear infinite}.land,.map-node{display:none}.natural-earth-land{fill:url(#land-dots)}.map-kicker,.map-coordinates,.map-stat{display:none}@media(max-width:850px){.world-map{width:650px;height:410px;right:-260px;top:205px;opacity:.38}}@media(max-width:520px){.world-map{display:none}}
+    </style>
+    <style>.land,.map-node,.natural-earth-land,.natural-earth-reference{display:none}.real-dots{position:absolute;inset:0;z-index:1;opacity:.62;background-image:radial-gradient(circle,#2d684c 1.35px,transparent 1.7px);background-size:10px 10px;-webkit-mask-image:url('https://upload.wikimedia.org/wikipedia/commons/b/b3/PUBLIC_DOMAIN_NaturalEarth_z4_World_pseudo_mercator.svg');mask-image:url('https://upload.wikimedia.org/wikipedia/commons/b/b3/PUBLIC_DOMAIN_NaturalEarth_z4_World_pseudo_mercator.svg');-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}</style>
+    <style>
+      .explorer-overlay{position:fixed;inset:0;z-index:20;background:rgba(30,36,31,.28);backdrop-filter:blur(3px);display:grid;place-items:center;padding:24px}.explorer-overlay[hidden]{display:none}.explorer-dialog{width:min(920px,100%);max-height:min(760px,calc(100vh - 48px));overflow:auto;background:var(--paper);border:1px solid var(--line);box-shadow:0 28px 75px rgba(26,35,28,.24);padding:34px}.explorer-top{display:flex;justify-content:space-between;gap:20px;align-items:start;border-bottom:1px solid var(--line);padding-bottom:22px}.explorer-top h2{font:600 40px/1 var(--serif);letter-spacing:-1.5px;margin:6px 0}.explorer-close{width:34px;height:34px;border:1px solid var(--line);background:transparent;color:var(--forest);font:22px var(--sans);cursor:pointer}.explorer-tools{display:flex;justify-content:space-between;gap:20px;align-items:center;margin:23px 0 14px}.explorer-search{width:min(350px,100%);height:42px;border:1px solid var(--line);background:white;padding:0 13px;font:13px var(--mono);color:var(--ink);outline-color:var(--forest)}.sort-options{display:flex;gap:7px}.sort-options button{border:1px solid var(--line);background:transparent;padding:9px 11px;font:10px var(--mono);letter-spacing:.5px;color:#5c6058;cursor:pointer}.sort-options button.is-active{background:var(--forest);border-color:var(--forest);color:#fff}.explorer-list{border-top:1px solid var(--line)}.explorer-row{width:100%;display:grid;grid-template-columns:42px 1fr auto 18px;gap:14px;align-items:center;padding:14px 9px;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:left;color:var(--ink);cursor:pointer}.explorer-row:hover{background:#eeeadf}.rank,.row-emission,.explorer-meta{font:10px var(--mono);color:#777971}.row-name{font:600 19px var(--serif)}.row-emission{color:var(--forest);text-align:right}.explorer-meta{margin:0;font-size:9px;letter-spacing:.4px}.row-arrow{color:var(--forest);font-size:16px}.explorer-empty{padding:30px 0;font:13px var(--sans);color:#777971}@media(max-width:600px){.explorer-overlay{padding:10px}.explorer-dialog{padding:23px 18px;max-height:calc(100vh - 20px)}.explorer-top h2{font-size:33px}.explorer-tools{align-items:stretch;flex-direction:column}.explorer-search{width:100%}.sort-options button{flex:1}.explorer-row{grid-template-columns:30px 1fr auto 14px;gap:8px}.row-name{font-size:17px}}
+    </style>
+    <style>.explorer-row{grid-template-columns:34px 24px 1fr auto 18px}.explorer-flag{display:block;width:20px;height:15px;object-fit:cover;border:1px solid rgba(40,45,39,.12);box-shadow:0 1px 2px rgba(30,35,28,.12)}footer>a:not(.brand){font:10px var(--mono);letter-spacing:.6px;color:var(--forest);text-decoration:none}@media(max-width:600px){.explorer-row{grid-template-columns:26px 22px 1fr auto 13px}}</style>
+  </head>
+  <body>
+    <div class="topline"></div>
+    <header class="nav">
+      <a class="brand" href="#top">terra<span>•</span>scope</a>
+      <div class="ticker" aria-label="Aperçu des données mondiales">
+        <span>MONDE</span><i></i><span>ÉMISSIONS EN 2024&nbsp;: 37,8 GTCO₂</span><i></i><span>RÉFÉRENCE CBAM UE&nbsp;: 75,28 €/TCO₂e · T2 2026</span>
+      </div>
+      <button class="menu" type="button">EXPLORER <b>↗</b></button>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">OBSERVER. COMPRENDRE. AGIR.</p>
+          <h1>Le climat,<br /><em>en perspective.</em></h1>
+          <p class="intro">TerraScope rend lisibles les trajectoires climatiques, économiques et carbone de chaque pays.</p>
+          <form class="search" id="country-search">
+            <label for="country">RECHERCHER UN PAYS <span>→</span></label>
+            <input id="country" autocomplete="off" placeholder="Ex. France, Brésil, Japon…" />
+            <button type="submit" aria-label="Rechercher">↗</button>
+            <div class="suggestions" id="suggestions" hidden></div>
+          </form>
+          <p class="data-note">196 pays · émissions, économie, énergie et trajectoires</p>
+        </div>
+        <div class="world-map" aria-hidden="true">
+          <div class="map-kicker">ATLAS CLIMATIQUE · MONDE</div>
+          <svg viewBox="0 0 1200 560" role="presentation" focusable="false">
+            <defs>
+              <pattern id="mercator-grid" width="100" height="70" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 70" fill="none" stroke="currentColor" stroke-width="1" /></pattern>
+              <pattern id="land-dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.55" fill="#2d684c" /></pattern>
+              <mask id="natural-earth-mask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" mask-type="alpha"><image href="https://upload.wikimedia.org/wikipedia/commons/b/b3/PUBLIC_DOMAIN_NaturalEarth_z4_World_pseudo_mercator.svg" x="0" y="0" width="1200" height="560" preserveAspectRatio="none" /></mask>
+              <filter id="map-shadow"><feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#28382e" flood-opacity=".12" /></filter>
+            </defs>
+            <rect class="map-paper" width="1200" height="560" />
+            <rect class="map-grid" width="1200" height="560" fill="url(#mercator-grid)" />
+            <g class="map-track" filter="url(#map-shadow)">
+              <g class="map-panel">
+                <image class="natural-earth-reference" href="https://upload.wikimedia.org/wikipedia/commons/b/b3/PUBLIC_DOMAIN_NaturalEarth_z4_World_pseudo_mercator.svg" x="0" y="0" width="1200" height="560" preserveAspectRatio="none" />
+                <rect class="natural-earth-land" x="0" y="0" width="1200" height="560" mask="url(#natural-earth-mask)" />
+                <path class="land" d="M88 106 140 68 199 72 232 107 215 142 245 177 225 223 186 230 158 201 130 199 113 167 74 156Z" />
+                <path class="land" d="M235 246 272 269 280 318 304 355 290 418 254 471 223 444 228 381 207 338 216 292Z" />
+                <path class="land" d="M438 100 494 77 558 92 594 118 575 145 600 165 572 189 535 171 514 199 478 187 462 155 425 139Z" />
+                <path class="land" d="M495 207 545 214 575 254 565 305 594 342 562 412 521 430 491 373 461 320 466 261Z" />
+                <path class="land" d="M587 111 658 84 757 92 796 117 862 113 926 146 953 180 922 203 866 193 832 217 789 202 742 220 701 196 650 202 607 171Z" />
+                <path class="land" d="M696 223 745 236 763 286 747 330 772 381 750 430 710 408 687 351 661 303Z" />
+                <path class="land" d="M890 345 937 331 986 354 1010 396 982 438 925 429 901 389Z" />
+                <path class="land is-ice" d="M84 495 186 482 294 497 405 485 510 506 623 489 729 504 848 483 949 502 1071 488 1128 509 1084 531 908 527 754 538 576 524 418 536 234 520 102 530Z" />
+                <circle class="map-node node-one" cx="548" cy="157" r="7" /><circle class="map-node node-two" cx="738" cy="210" r="6" /><circle class="map-node node-three" cx="302" cy="168" r="6" />
+              </g>
+              <g class="map-panel" transform="translate(1200 0)">
+                <image class="natural-earth-reference" href="https://upload.wikimedia.org/wikipedia/commons/b/b3/PUBLIC_DOMAIN_NaturalEarth_z4_World_pseudo_mercator.svg" x="0" y="0" width="1200" height="560" preserveAspectRatio="none" />
+                <rect class="natural-earth-land" x="0" y="0" width="1200" height="560" mask="url(#natural-earth-mask)" />
+                <path class="land" d="M88 106 140 68 199 72 232 107 215 142 245 177 225 223 186 230 158 201 130 199 113 167 74 156Z" /><path class="land" d="M235 246 272 269 280 318 304 355 290 418 254 471 223 444 228 381 207 338 216 292Z" /><path class="land" d="M438 100 494 77 558 92 594 118 575 145 600 165 572 189 535 171 514 199 478 187 462 155 425 139Z" /><path class="land" d="M495 207 545 214 575 254 565 305 594 342 562 412 521 430 491 373 461 320 466 261Z" /><path class="land" d="M587 111 658 84 757 92 796 117 862 113 926 146 953 180 922 203 866 193 832 217 789 202 742 220 701 196 650 202 607 171Z" /><path class="land" d="M696 223 745 236 763 286 747 330 772 381 750 430 710 408 687 351 661 303Z" /><path class="land" d="M890 345 937 331 986 354 1010 396 982 438 925 429 901 389Z" /><path class="land is-ice" d="M84 495 186 482 294 497 405 485 510 506 623 489 729 504 848 483 949 502 1071 488 1128 509 1084 531 908 527 754 538 576 524 418 536 234 520 102 530Z" /><circle class="map-node node-one" cx="548" cy="157" r="7" /><circle class="map-node node-two" cx="738" cy="210" r="6" /><circle class="map-node node-three" cx="302" cy="168" r="6" />
+              </g>
+            </g>
+          </svg>
+          <div class="real-dots"></div>
+          <div class="map-stat stat-emissions"><b>37,8</b><span>GTCO₂ / AN</span></div>
+          <div class="map-stat stat-warming"><b>+1,1°C</b><span>RÉCHAUFFEMENT</span></div>
+          <div class="map-coordinates">180° OUEST&nbsp;&nbsp;·&nbsp;&nbsp;180° EST</div>
+        </div>
+      </section>
+
+      <section class="country-panel" id="country-panel">
+        <div class="country-head">
+          <div><p class="eyebrow">FICHE PAYS · DÉMONSTRATION</p><h2><span class="flag">FR</span> France</h2></div>
+          <p class="updated"><a class="news-link" href="news-france.html">ACTUALITÉS FRANCE ↗</a><br /><span id="data-status">CONNEXION OWID…</span><br />MISE À JOUR · <span id="data-updated">—</span></p>
+        </div>
+        <div class="country-grid">
+          <article class="signal-card">
+            <p class="label">SIGNAL CLIMATIQUE</p>
+            <div class="signal"><span class="signal-dot"></span><strong>En transition</strong></div>
+            <p>Les émissions baissent, mais la trajectoire actuelle reste à renforcer pour 2030.</p>
+            <a href="#trajectory">VOIR LA TRAJECTOIRE <span>↓</span></a>
+          </article>
+          <article class="metric"><p class="label">ÉMISSIONS CO₂ TERRITORIALES</p><strong id="emissions-value">—</strong><span id="emissions-unit">MTCO₂ / an</span><small class="down" id="emissions-change">Chargement de la série…</small></article>
+          <article class="metric"><p class="label">ÉMISSIONS PAR HABITANT</p><strong>5,5</strong><span>TCO₂e / hab.</span><small class="down">↓ sous la moyenne UE</small></article>
+          <article class="metric carbon"><p class="label">PRIX DU CARBONE · UE ETS</p><strong>67,42</strong><span>€ / TCO₂</span><small class="up">↑ +1,6 % aujourd’hui</small></article>
+        </div>
+      </section>
+
+      <section class="trajectory" id="trajectory">
+        <div class="section-title"><p class="eyebrow">DE 1990 À 2050</p><h2>Une trajectoire,<br /><em>plusieurs futurs.</em></h2></div>
+        <div class="chart-card">
+          <div class="chart-head"><div><p class="label">ÉMISSIONS DE GES · FRANCE</p><strong>Évolution historique et scénarios</strong><span class="chart-unit">MtCO₂e · indice 1990 = 100</span></div><div class="legend"><span><i class="actual"></i> Observé</span><span><i class="current"></i> Prolongation</span><span><i class="target"></i> Trajectoire SNBC</span></div></div>
+          <div class="chart" aria-label="Graphique des émissions françaises et de scénarios jusqu’en 2050">
+            <div class="y y1">100</div><div class="y y2">75</div><div class="y y3">50</div><div class="y y4">25</div><div class="baseline b1"></div><div class="baseline b2"></div><div class="baseline b3"></div><div class="baseline b4"></div>
+            <svg viewBox="0 0 900 330" preserveAspectRatio="none" role="img"><path class="historic-area" d="M25 42 C95 49 120 64 170 78 S265 93 325 108 S385 120 444 135 L444 275 L25 275 Z" /><path class="historic" d="M25 42 C95 49 120 64 170 78 S265 93 325 108 S385 120 444 135" /><path class="current-line" d="M444 135 C525 151 620 177 700 199 S810 216 880 223" /><path class="target-line" d="M444 135 C530 177 610 220 700 252 S810 269 880 275" /><circle class="last-dot" cx="444" cy="135" r="5" /></svg>
+            <div class="year y1990">1990</div><div class="year y2025">2025</div><div class="year y2030">2030</div><div class="year y2050">2050</div>
+            <div class="observed-label"><b>−29 %</b><span>depuis 1990</span></div><div class="goal-label">NEUTRALITÉ<br />CARBONE</div>
+          </div>
+          <p class="chart-caption">Lecture indicielle pour comparer les scénarios. Les séries observées seront alimentées par Eurostat et l’OCDE ; la projection sera explicitement distinguée des données mesurées.</p>
+        </div>
+      </section>
+    </main>
+    <footer><a class="brand" href="#top">terra<span>•</span>scope</a><p>Les chiffres ne décident pas seuls. Ils nous aident à mieux décider.</p><a href="sources.html">SOURCES & MÉTHODOLOGIE ↗</a></footer>
+    <script src="data-sources.js"></script><script src="script.js"></script>
+  </body>
+</html>
