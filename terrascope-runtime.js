@@ -17,7 +17,7 @@ window.TERRASCOPE_SOURCES = {
   ember: { name: 'Ember', endpoint: '/api/ember', requiresKey: true },
   gdelt: {
     name: 'GDELT 2.0 DOC API',
-    endpoint: location.hostname === '127.0.0.1' ? 'http://127.0.0.1:8788/api/gdelt' : '/api/gdelt',
+    endpoint: location.hostname === '127.0.0.1' ? 'http://127.0.0.1:8788/api/gdelt' : '/briefing',
     documentation: 'https://www.gdeltproject.org/',
     note: 'Agrégation d’articles de presse : chaque lien conserve sa source éditoriale originale.'
   },
