@@ -24,7 +24,7 @@ window.TERRASCOPE_SOURCES = {
   cbam: { name: 'Commission européenne — CBAM', priceEur: 75.28, period: 'T2 2026', published: '6 juillet 2026', frequency: 'trimestrielle en 2026', url: 'https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/price-cbam-certificates_en' }
 };
 
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const firstMetricLabel = document.querySelector('.live-grid .label');
   if (firstMetricLabel) firstMetricLabel.textContent = 'CO₂ FOSSILE & INDUSTRIE';
   const style = document.createElement('style');
@@ -85,7 +85,7 @@ if (window.location.pathname.endsWith('country-live.html')) {
   }).catch(()=>document.querySelector('#forecast-method').textContent='Scénario temporairement indisponible.');
 }
 
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const country = new URLSearchParams(window.location.search).get('country') || 'Allemagne';
   const names = {Allemagne:'Germany',Autriche:'Austria',Belgique:'Belgium',Espagne:'Spain',Grèce:'Greece','Pays-Bas':'Netherlands',Suède:'Sweden',Tchéquie:'Czechia'};
   fetch(window.TERRASCOPE_SOURCES.owid.electricityMix).then(r=>r.text()).then(text=>{
@@ -99,13 +99,13 @@ if (window.location.pathname.endsWith('country-live.html')) {
   });
 }
 
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const scenarioSkin = document.createElement('style');
   scenarioSkin.textContent = `.forecast{position:relative!important;overflow:hidden!important;background:#1f2823!important;color:#f6f2e8!important;border:0!important;border-radius:2px!important;padding:38px!important;box-shadow:0 20px 45px rgba(27,38,30,.16)!important}.forecast:before{content:''!important;position:absolute!important;width:430px!important;height:430px!important;border:1px solid rgba(187,214,184,.12)!important;border-radius:50%!important;right:-150px!important;top:-265px!important}.forecast .eyebrow{color:#a5c6a9!important}.forecast h2{font-size:38px!important;letter-spacing:-1.5px!important}.forecast .legend{position:relative!important;display:flex!important;flex-wrap:wrap!important;gap:9px!important;margin-top:22px!important}.forecast .legend span{padding:7px 9px!important;background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.12)!important;color:#e4e5dc!important}.forecast .obs{stroke:#f1eee4!important;stroke-width:3.5!important}.forecast .trend{stroke:#e58b67!important;stroke-width:3.5!important}.forecast .target{stroke:#8ec894!important;stroke-width:3.5!important}.forecast svg{position:relative!important;background:repeating-linear-gradient(to bottom,transparent 0 81px,rgba(255,255,255,.1) 82px 83px)!important;border-bottom:1px solid rgba(255,255,255,.25)!important}.forecast .axis{fill:#b9c0b6!important}.forecast .method{position:relative!important;background:rgba(255,255,255,.07)!important;border-left:2px solid #8ec894!important;color:#d4d8d0!important;margin-top:25px!important}.forecast .method b{color:#b7dbbb!important}`;
   document.head.append(scenarioSkin);
 }
 
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const forecast = document.querySelector('.forecast');
   if (forecast) {
     const oldSvg = forecast.querySelector('svg');
@@ -136,7 +136,7 @@ if (window.location.pathname.endsWith('country-live.html')) {
 // The legacy SVG/legend remains in the DOM as the data source for the
 // professional chart. Keep it visually out of the layout, even if an older
 // stylesheet contains an !important display declaration.
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const chartCleanup = document.createElement('style');
   chartCleanup.textContent = `.forecast > .legend,.forecast > svg{display:none!important}.forecast .professional-chart{display:block!important;visibility:visible!important;opacity:1!important}.forecast .professional-chart svg{display:block!important;visibility:visible!important;opacity:1!important}`;
   document.head.append(chartCleanup);
@@ -144,7 +144,7 @@ if (window.location.pathname.endsWith('country-live.html')) {
 
 // Provenance register: each visible number is either retrieved from a named
 // dataset or explicitly identified as a legal target / calculated scenario.
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const provenanceStyle = document.createElement('style');
   provenanceStyle.textContent = `.provenance{margin-top:76px;padding-top:34px;border-top:1px solid var(--line)}.provenance h2{font:600 34px var(--serif);margin:7px 0 10px}.provenance-intro{max-width:720px;font-size:14px;line-height:1.55;color:#62645d}.provenance-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:26px}.provenance-item{padding:20px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.provenance-item:nth-child(even){border-right:0}.provenance-item:nth-last-child(-n+2){border-bottom:0}.provenance-item strong{display:block;font:600 20px var(--serif);margin:8px 0}.provenance-item p{font-size:12px;line-height:1.5;color:#62645d;margin:0}.provenance-item a{font:10px var(--mono);letter-spacing:.4px;color:var(--forest);text-decoration:none}.provenance-status{display:inline-block;margin-top:12px;font:9px var(--mono);letter-spacing:.7px;color:var(--forest)}@media(max-width:650px){.provenance-grid{grid-template-columns:1fr}.provenance-item,.provenance-item:nth-child(even),.provenance-item:nth-last-child(-n+2){border-right:0;border-bottom:1px solid var(--line);padding:20px 0}.provenance-item:last-child{border-bottom:0}}`;
   document.head.append(provenanceStyle);
@@ -169,14 +169,14 @@ if (window.location.pathname.endsWith('country-live.html')) {
   updateProof();
 }
 
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const tickerParts = document.querySelectorAll('.ticker span');
   if (tickerParts[1]) tickerParts[1].textContent = 'ÉMISSIONS CO₂ · SÉRIES ANNUELLES SOURCÉES';
   const pageEyebrow = document.querySelector('.page > .eyebrow');
   if (pageEyebrow) pageEyebrow.textContent = 'PAYS DE L’UNION EUROPÉENNE · SOURCES PUBLIQUES';
 }
 
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const country = new URLSearchParams(window.location.search).get('country') || 'Allemagne';
   const iso3 = {Allemagne:'DEU',Autriche:'AUT',Belgique:'BEL',Bulgarie:'BGR',Chypre:'CYP',Croatie:'HRV',Danemark:'DNK',Espagne:'ESP',Estonie:'EST',Finlande:'FIN',France:'FRA',Grèce:'GRC',Hongrie:'HUN',Irlande:'IRL',Italie:'ITA',Lettonie:'LVA',Lituanie:'LTU',Luxembourg:'LUX',Malte:'MLT','Pays-Bas':'NLD',Pologne:'POL',Portugal:'PRT',Roumanie:'ROU',Slovaquie:'SVK',Slovénie:'SVN',Suède:'SWE',Tchéquie:'CZE'};
   const iso2 = {Allemagne:'de',Autriche:'at',Belgique:'be',Bulgarie:'bg',Chypre:'cy',Croatie:'hr',Danemark:'dk',Espagne:'es',Estonie:'ee',Finlande:'fi',France:'fr',Grèce:'gr',Hongrie:'hu',Irlande:'ie',Italie:'it',Lettonie:'lv',Lituanie:'lt',Luxembourg:'lu',Malte:'mt','Pays-Bas':'nl',Pologne:'pl',Portugal:'pt',Roumanie:'ro',Slovaquie:'sk',Slovénie:'si',Suède:'se',Tchéquie:'cz'};
@@ -211,7 +211,7 @@ if (window.location.pathname.endsWith('country-live.html')) {
 
 // Atlas-style overview, populated only from the values already fetched on the
 // sheet. It gives a dense, comparable entry point without duplicating data.
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const dashboardStyle = document.createElement('style');
   dashboardStyle.textContent = `.climate-dashboard{margin:45px 0 50px}.dashboard-head{display:flex;justify-content:space-between;align-items:end;gap:22px;border-bottom:1px solid var(--line);padding-bottom:17px}.dashboard-head h2{font:600 34px var(--serif);margin:5px 0 0;letter-spacing:-1px}.dashboard-head p:last-child{font:9px var(--mono);color:#777971;margin:0;text-align:right}.dashboard-grid{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}.dashboard-card{position:relative;min-height:166px;padding:20px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}.dashboard-card:nth-child(3n){border-right:0}.dashboard-card:nth-last-child(-n+3){border-bottom:0}.dashboard-card strong{display:block;font:600 31px var(--serif);letter-spacing:-1px;margin:16px 0 3px}.dashboard-card span{font:10px var(--mono);color:#777971}.dashboard-card small{display:block;position:relative;z-index:1;margin-top:11px;font:9px var(--mono);letter-spacing:.3px;color:var(--forest)}.dashboard-card .micro{position:absolute;width:112px;height:44px;right:15px;bottom:16px;opacity:.62}.micro polyline{fill:none;stroke:#2d684c;stroke-width:2.5}.micro path{stroke:#dedbd1;stroke-width:1}.dashboard-card.is-scenario small{color:#a05a38}.dashboard-card.is-scenario{background:linear-gradient(135deg,transparent 70%,rgba(230,223,206,.35))}@media(max-width:760px){.dashboard-grid{grid-template-columns:1fr 1fr}.dashboard-card:nth-child(3n){border-right:1px solid var(--line)}.dashboard-card:nth-child(2n){border-right:0}.dashboard-card:nth-last-child(-n+3){border-bottom:1px solid var(--line)}.dashboard-card:nth-last-child(-n+2){border-bottom:0}}@media(max-width:500px){.dashboard-head{display:block}.dashboard-head p:last-child{text-align:left;margin-top:12px}.dashboard-grid{grid-template-columns:1fr}.dashboard-card,.dashboard-card:nth-child(3n){border-right:0;border-bottom:1px solid var(--line)}.dashboard-card:last-child{border-bottom:0}}`;
   document.head.append(dashboardStyle);
@@ -242,7 +242,7 @@ if (window.location.pathname.endsWith('country-live.html')) {
   refreshDashboard();
 }
 
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const flagStyle = document.createElement('style');
   flagStyle.textContent = `.country-identity{display:flex;align-items:center;gap:18px}.country-identity .flag-image{display:block;width:74px;height:auto;max-height:55px;object-fit:contain;border:0!important;outline:0!important;box-shadow:none!important;background:transparent}.country-identity .country-heading{min-width:0}.source-nav{align-self:stretch;display:flex;align-items:center;padding:0 18px;border-left:1px solid var(--line);font:10px var(--mono);letter-spacing:.7px;color:var(--forest);text-decoration:none}@media(max-width:650px){.source-nav{display:none}.country-identity .flag-image{width:54px;max-height:40px}.country-identity{gap:13px}.country-identity h1{font-size:48px!important}}`;
   document.head.append(flagStyle);
@@ -262,7 +262,7 @@ if (window.location.pathname.endsWith('country-live.html')) {
 
 // Press review — GDELT is an index of external publisher links. No article is
 // copied into TerraScope, and a failed request leaves a transparent fallback.
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const newsStyle = document.createElement('style');
   newsStyle.textContent = `.country-news{margin-top:76px;padding-top:34px;border-top:1px solid var(--line)}.country-news-head{display:flex;justify-content:space-between;align-items:end;gap:24px}.country-news h2{font:600 34px var(--serif);margin:7px 0}.country-news-head small{max-width:280px;text-align:right;font:10px/1.55 var(--mono);color:#777971}.news-feed{margin-top:23px;border-top:1px solid var(--line)}.news-item{display:grid;grid-template-columns:120px minmax(0,1fr) 24px;gap:20px;align-items:start;padding:20px 0;border-bottom:1px solid var(--line);color:inherit;text-decoration:none}.news-item:hover .news-title{color:var(--forest)}.news-meta{font:9px/1.65 var(--mono);letter-spacing:.35px;color:var(--forest)}.news-title{font:600 21px/1.18 var(--serif);letter-spacing:-.35px;transition:color .18s}.news-domain{display:block;margin-top:7px;font:10px var(--mono);color:#777971}.news-arrow{font:18px var(--mono);color:var(--forest)}.news-status{padding:23px 0;font:12px var(--sans);color:#62645d;border-bottom:1px solid var(--line)}.news-foot{margin:17px 0 0;font:10px/1.5 var(--mono);color:#777971}.news-foot a{color:var(--forest)}@media(max-width:650px){.country-news-head{display:block}.country-news-head small{display:block;text-align:left;margin-top:12px}.news-item{grid-template-columns:1fr 18px;gap:8px}.news-meta{grid-column:1}.news-title{font-size:19px}.news-arrow{grid-column:2;grid-row:1 / span 2;align-self:center}}`;
   document.head.append(newsStyle);
@@ -310,7 +310,7 @@ if (window.location.pathname.endsWith('country-live.html')) {
 
 // Shortcuts at the top of every country sheet. The linked blocks are created
 // progressively above, so this runs after the page composition is complete.
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const sectionNavStyle = document.createElement('style');
   sectionNavStyle.textContent = `html{scroll-behavior:smooth}.sheet-shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 2px;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.sheet-shortcuts a{display:inline-flex;align-items:center;min-height:31px;padding:0 11px;border:1px solid #d5d2c8;background:#faf9f5;color:var(--forest);font:9px var(--mono);letter-spacing:.5px;text-decoration:none;transition:background .18s,color .18s,border-color .18s}.sheet-shortcuts a:hover,.sheet-shortcuts a:focus-visible{background:var(--forest);border-color:var(--forest);color:#fff;outline:0}.climate-dashboard,.energy-mix,.economy-context,.forecast,.deep-dive,.country-news,.provenance{scroll-margin-top:84px}@media(max-width:600px){.sheet-shortcuts{gap:6px}.sheet-shortcuts a{padding:0 9px;font-size:8px}}`;
   document.head.append(sectionNavStyle);
@@ -339,7 +339,7 @@ if (window.location.pathname.endsWith('country-live.html')) {
 }
 
 // Clear project notice at the end of every country profile.
-if (window.location.pathname.endsWith('country-live.html')) {
+if (/\/country-live(?:\.html)?$/.test(window.location.pathname)) {
   const projectNoticeStyle = document.createElement('style');
   projectNoticeStyle.textContent = `.project-notice{margin-top:72px;padding:27px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:180px minmax(0,1fr);gap:28px}.project-notice strong{font:10px var(--mono);letter-spacing:.8px;color:var(--forest)}.project-notice p{max-width:710px;margin:0;font-size:12px;line-height:1.65;color:#6a6b64}.project-notice a{color:var(--forest);text-decoration:none}@media(max-width:600px){.project-notice{grid-template-columns:1fr;gap:10px;margin-top:52px}}`;
   document.head.append(projectNoticeStyle);
