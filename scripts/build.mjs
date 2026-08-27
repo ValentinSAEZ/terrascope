@@ -22,7 +22,7 @@ const eurostatEnergyRoute = [
   "      const geo = requestUrl.searchParams.get('geo');",
   "      const year = requestUrl.searchParams.get('year');",
   "      if (!/^[A-Z]{2}$/.test(geo || '') || !/^20\\d{2}$/.test(year || '')) return new Response('Bad energy query', { status: 400 });",
-  "      const siec = ['TOTAL','RA000','N9000','C0000','G3000','O4000XBIO','CF_NR_OTH','X9900'];",
+  "      const siec = ['TOTAL','RA000','N9000','FE'];",
   "      const params = new URLSearchParams({ freq: 'M', unit: 'GWH', geo, sinceTimePeriod: year + '-01', untilTimePeriod: year + '-12', lang: 'EN' });",
   "      siec.forEach(value => params.append('siec', value));",
   "      const response = await fetch('https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_cb_pem?' + params);",
@@ -34,10 +34,16 @@ const eurostatEnergyRoute = [
   "      const sum = code => months.reduce((total, month, position) => total + Number(values[(index[code] || 0) * months.length + position] || 0), 0);",
   "      const total = sum('TOTAL'), renewable = sum('RA000');",
   "      const complete = months.length === 12 && total > 0 && renewable >= 0;",
-  "      const raw = [['Renouvelables','RA000','#397d74'],['Nucléaire','N9000','#355c92'],['Charbon','C0000','#4b4b47'],['Gaz','G3000','#b85a32'],['Pétrole','O4000XBIO','#9b7b5c'],['Autres non renouvelables','CF_NR_OTH','#76766f'],['Autres','X9900','#b1afa7']];",
+  "      const raw = [['Renouvelables et biocarburants','RA000','#397d74'],['Nucléaire','N9000','#355c92'],['Énergies fossiles','FE','#b85a32']];",
   "      const fuels = raw.map(([name, code, color]) => ({ name, value: total ? sum(code) / total * 100 : 0, color })).filter(item => item.value > 0);",
+  "      const residual = 100 - fuels.reduce((sum, item) => sum + item.value, 0);",
+  "      if (residual > 0.01) fuels.push({ name: 'Ajustement de périmètre', value: residual, color: '#a9a59a' });",
   "      return Response.json({ complete, year: Number(year), renewableShare: total ? renewable / total * 100 : null, fuels, source: 'Eurostat nrg_cb_pem', updated: data.updated || null }, { headers: { 'cache-control': 'public, max-age=86400' } });",
   "    }"
 ].join('\n');
 await writeFile('dist/server/index.js', worker.replace("    if (pathname === '/data/eurostat') {", eurostatEnergyRoute + "\n    if (pathname === '/data/eurostat') {"));
+await writeFile('dist/server/index.js', (await readFile('dist/server/index.js', 'utf8')).replace(
+  "  '/data/owid/gdp': 'https://ourworldindata.org/grapher/gdp-worldbank.csv?csvType=full&useColumnShortNames=true'",
+  "  '/data/owid/gdp': 'https://ourworldindata.org/grapher/gdp-worldbank.csv?csvType=full&useColumnShortNames=true',\n  '/data/owid/temperature-anomaly': 'https://ourworldindata.org/grapher/annual-temperature-anomalies.csv?csvType=full&useColumnShortNames=false'"
+));
 console.log(`TerraScope build complete: ${staticFiles.length} static files.`);
