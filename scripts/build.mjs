@@ -46,4 +46,8 @@ await writeFile('dist/server/index.js', (await readFile('dist/server/index.js', 
   "  '/data/owid/gdp': 'https://ourworldindata.org/grapher/gdp-worldbank.csv?csvType=full&useColumnShortNames=true'",
   "  '/data/owid/gdp': 'https://ourworldindata.org/grapher/gdp-worldbank.csv?csvType=full&useColumnShortNames=true',\n  '/data/owid/temperature-anomaly': 'https://ourworldindata.org/grapher/annual-temperature-anomalies.csv?csvType=full&useColumnShortNames=false'"
 ));
+await writeFile('dist/server/index.js', (await readFile('dist/server/index.js', 'utf8')).replace(
+  "'cache-control': 'public, max-age=300'",
+  "'cache-control': asset.type.includes('text/html') || asset.type.includes('javascript') ? 'no-cache' : 'public, max-age=300'"
+));
 console.log(`TerraScope build complete: ${staticFiles.length} static files.`);
