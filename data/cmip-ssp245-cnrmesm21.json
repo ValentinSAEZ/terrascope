@@ -1,18 +1,23 @@
 {
   "metadata": {
-    "indicator": "Projected annual mean near-surface air temperature",
-    "unit": "°C",
+    "indicator": "Simulated annual mean near-surface air temperature anomaly",
+    "unit": "°C relative to 1991–2020",
     "scenario": "SSP2-4.5",
     "model": "CNRM-ESM2-1",
     "ensemble_member": "r1i1p1f2",
     "source": "Copernicus Climate Data Store / CMIP6",
-    "method": "Monthly values are duration-weighted into annual means. Each national value is a fraction-of-grid-cell area-weighted mean using Natural Earth 1:110m boundaries.",
-    "caveat": "Single-model, scenario-conditional projection. It is not a forecast and does not represent inter-model uncertainty.",
+    "method": "Monthly tas values are duration-weighted. National means use fractional grid-cell area weights. Anomalies subtract the same model's 1991–2020 baseline.",
+    "caveat": "Single-model, scenario-conditional simulation. It is not a forecast or an inter-model uncertainty range.",
     "years": [
       2050,
       2100
     ],
-    "input_file": "tas_Amon_CNRM-ESM2-1_ssp245_r1i1p1f2_gr_20500116-21001216.nc"
+    "input_file": "tas_Amon_CNRM-ESM2-1_ssp245_r1i1p1f2_gr_20500116-21001216.nc",
+    "baseline": "1991–2020",
+    "baseline_input_files": [
+      "tas_Amon_CNRM-ESM2-1_historical_r1i1p1f2_gr_19910116-20141216.nc",
+      "tas_Amon_CNRM-ESM2-1_ssp245_r1i1p1f2_gr_20150116-20201216.nc"
+    ]
   },
   "countries": {
     "AUT": {
@@ -21,7 +26,12 @@
         "2050": 8.13,
         "2100": 9.92
       },
-      "intersected_cells": 12
+      "intersected_cells": 12,
+      "baseline_1991_2020_c": 7.34,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.79,
+        "2100": 2.58
+      }
     },
     "BEL": {
       "status": "available",
@@ -29,7 +39,12 @@
         "2050": 12.26,
         "2100": 14.91
       },
-      "intersected_cells": 5
+      "intersected_cells": 5,
+      "baseline_1991_2020_c": 11.87,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.39,
+        "2100": 3.04
+      }
     },
     "BGR": {
       "status": "available",
@@ -37,7 +52,12 @@
         "2050": 13.48,
         "2100": 15.6
       },
-      "intersected_cells": 15
+      "intersected_cells": 15,
+      "baseline_1991_2020_c": 12.64,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.84,
+        "2100": 2.96
+      }
     },
     "HRV": {
       "status": "available",
@@ -45,7 +65,12 @@
         "2050": 14.2,
         "2100": 15.79
       },
-      "intersected_cells": 12
+      "intersected_cells": 12,
+      "baseline_1991_2020_c": 13.15,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 1.05,
+        "2100": 2.64
+      }
     },
     "CYP": {
       "status": "available",
@@ -53,7 +78,12 @@
         "2050": 22.07,
         "2100": 22.76
       },
-      "intersected_cells": 4
+      "intersected_cells": 4,
+      "baseline_1991_2020_c": 20.83,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 1.24,
+        "2100": 1.93
+      }
     },
     "CZE": {
       "status": "available",
@@ -61,7 +91,12 @@
         "2050": 9.82,
         "2100": 11.75
       },
-      "intersected_cells": 13
+      "intersected_cells": 13,
+      "baseline_1991_2020_c": 9.21,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.61,
+        "2100": 2.54
+      }
     },
     "DNK": {
       "status": "available",
@@ -69,7 +104,12 @@
         "2050": 10.64,
         "2100": 13.69
       },
-      "intersected_cells": 10
+      "intersected_cells": 10,
+      "baseline_1991_2020_c": 10.75,
+      "anomaly_vs_1991_2020_c": {
+        "2050": -0.11,
+        "2100": 2.94
+      }
     },
     "EST": {
       "status": "available",
@@ -77,7 +117,12 @@
         "2050": 7.82,
         "2100": 10.69
       },
-      "intersected_cells": 8
+      "intersected_cells": 8,
+      "baseline_1991_2020_c": 7.25,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.57,
+        "2100": 3.44
+      }
     },
     "FIN": {
       "status": "available",
@@ -85,7 +130,12 @@
         "2050": 3.65,
         "2100": 6.91
       },
-      "intersected_cells": 51
+      "intersected_cells": 51,
+      "baseline_1991_2020_c": 3.21,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.44,
+        "2100": 3.7
+      }
     },
     "FRA": {
       "status": "available",
@@ -93,7 +143,12 @@
         "2050": 14.81,
         "2100": 16.61
       },
-      "intersected_cells": 64
+      "intersected_cells": 64,
+      "baseline_1991_2020_c": 13.95,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.86,
+        "2100": 2.66
+      }
     },
     "DEU": {
       "status": "available",
@@ -101,7 +156,12 @@
         "2050": 10.68,
         "2100": 13.16
       },
-      "intersected_cells": 41
+      "intersected_cells": 41,
+      "baseline_1991_2020_c": 10.27,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.41,
+        "2100": 2.89
+      }
     },
     "GRC": {
       "status": "available",
@@ -109,7 +169,12 @@
         "2050": 16.81,
         "2100": 18.01
       },
-      "intersected_cells": 22
+      "intersected_cells": 22,
+      "baseline_1991_2020_c": 15.54,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 1.27,
+        "2100": 2.47
+      }
     },
     "HUN": {
       "status": "available",
@@ -117,7 +182,12 @@
         "2050": 13.46,
         "2100": 15.14
       },
-      "intersected_cells": 14
+      "intersected_cells": 14,
+      "baseline_1991_2020_c": 12.44,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 1.02,
+        "2100": 2.7
+      }
     },
     "IRL": {
       "status": "available",
@@ -125,7 +195,12 @@
         "2050": 10.75,
         "2100": 12.5
       },
-      "intersected_cells": 12
+      "intersected_cells": 12,
+      "baseline_1991_2020_c": 10.81,
+      "anomaly_vs_1991_2020_c": {
+        "2050": -0.06,
+        "2100": 1.69
+      }
     },
     "ITA": {
       "status": "available",
@@ -133,7 +208,12 @@
         "2050": 15.1,
         "2100": 16.17
       },
-      "intersected_cells": 45
+      "intersected_cells": 45,
+      "baseline_1991_2020_c": 13.68,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 1.42,
+        "2100": 2.49
+      }
     },
     "LVA": {
       "status": "available",
@@ -141,7 +221,12 @@
         "2050": 8.38,
         "2100": 11.01
       },
-      "intersected_cells": 14
+      "intersected_cells": 14,
+      "baseline_1991_2020_c": 7.68,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.7,
+        "2100": 3.33
+      }
     },
     "LTU": {
       "status": "available",
@@ -149,11 +234,16 @@
         "2050": 8.92,
         "2100": 11.58
       },
-      "intersected_cells": 12
+      "intersected_cells": 12,
+      "baseline_1991_2020_c": 8.26,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.66,
+        "2100": 3.32
+      }
     },
     "LUX": {
       "status": "not_available",
-      "reason": "Fewer than four intersected cells in the 1.4° CMIP6 grid; a national mean would be misleading."
+      "reason": "Insufficient national coverage in the 1.4° CMIP6 grid."
     },
     "NLD": {
       "status": "available",
@@ -161,7 +251,12 @@
         "2050": 11.95,
         "2100": 14.75
       },
-      "intersected_cells": 8
+      "intersected_cells": 8,
+      "baseline_1991_2020_c": 11.71,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.24,
+        "2100": 3.04
+      }
     },
     "POL": {
       "status": "available",
@@ -169,7 +264,12 @@
         "2050": 10.55,
         "2100": 12.55
       },
-      "intersected_cells": 32
+      "intersected_cells": 32,
+      "baseline_1991_2020_c": 9.67,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.88,
+        "2100": 2.88
+      }
     },
     "PRT": {
       "status": "available",
@@ -177,7 +277,12 @@
         "2050": 16.74,
         "2100": 17.69
       },
-      "intersected_cells": 11
+      "intersected_cells": 11,
+      "baseline_1991_2020_c": 15.94,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.8,
+        "2100": 1.75
+      }
     },
     "ROU": {
       "status": "available",
@@ -185,7 +290,12 @@
         "2050": 12.12,
         "2100": 14.02
       },
-      "intersected_cells": 25
+      "intersected_cells": 25,
+      "baseline_1991_2020_c": 11.11,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 1.01,
+        "2100": 2.91
+      }
     },
     "SVK": {
       "status": "available",
@@ -193,7 +303,12 @@
         "2050": 11.12,
         "2100": 12.78
       },
-      "intersected_cells": 9
+      "intersected_cells": 9,
+      "baseline_1991_2020_c": 10.14,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.98,
+        "2100": 2.64
+      }
     },
     "SVN": {
       "status": "available",
@@ -201,7 +316,12 @@
         "2050": 12.07,
         "2100": 13.77
       },
-      "intersected_cells": 5
+      "intersected_cells": 5,
+      "baseline_1991_2020_c": 11.19,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.88,
+        "2100": 2.58
+      }
     },
     "ESP": {
       "status": "available",
@@ -209,7 +329,12 @@
         "2050": 14.2,
         "2100": 15.57
       },
-      "intersected_cells": 45
+      "intersected_cells": 45,
+      "baseline_1991_2020_c": 13.29,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.91,
+        "2100": 2.28
+      }
     },
     "SWE": {
       "status": "available",
@@ -217,11 +342,16 @@
         "2050": 4.13,
         "2100": 7.38
       },
-      "intersected_cells": 62
+      "intersected_cells": 62,
+      "baseline_1991_2020_c": 4.0,
+      "anomaly_vs_1991_2020_c": {
+        "2050": 0.13,
+        "2100": 3.38
+      }
     },
     "MLT": {
       "status": "not_available",
-      "reason": "Fewer than four intersected cells in the 1.4° CMIP6 grid; a national mean would be misleading."
+      "reason": "Insufficient national coverage in the 1.4° CMIP6 grid."
     }
   }
 }

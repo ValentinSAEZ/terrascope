@@ -37,7 +37,7 @@
     '<section class="policy"><p class="eyebrow">CADRE POLITIQUE</p><h2>Accords et <em>mise en œuvre.</em></h2><div><article><h3>Accord de Paris</h3><p>'+label+' participe à la contribution déterminée au niveau national de l’Union européenne auprès de la CCNUCC.</p></article><article><h3>Loi européenne sur le climat</h3><p>Réduction nette d’au moins 55 % à 2030 et neutralité climatique à 2050.</p></article><article><h3>Économie & transition</h3><p>L’OCDE fournit les indicateurs comparatifs pour lire la transition dans son contexte économique.</p></article></div></section>'+
     '<section id="sources" class="sources"><p class="eyebrow">NIVEAU 3 · VÉRIFIER & APPROFONDIR</p><h2>Sources, définitions et <em>limites.</em></h2><div><a href="https://ourworldindata.org/co2-and-greenhouse-gas-emissions" target="_blank" rel="noopener"><b>OWID / Global Carbon Budget</b><span>CO₂ territorial, CO₂/habitant et séries historiques.</span></a><a href="https://ourworldindata.org/grapher/annual-temperature-anomalies" target="_blank" rel="noopener"><b>Copernicus C3S / ERA5 · via OWID</b><span>Anomalies annuelles de température de surface, référence 1991–2020.</span></a><a href="https://ec.europa.eu/eurostat/web/main/data/database" target="_blank" rel="noopener"><b>Eurostat</b><span>Production nette d’électricité (NRG_CB_PEM) et indicateurs SDG.</span></a><a href="https://climate-adapt.eea.europa.eu/en/metadata/indicators/hot-days" target="_blank" rel="noopener"><b>Copernicus ERA5-Land</b><span>Jours à T<sub>max</sub> ≥ 30 °C : publication prévue uniquement après agrégation nationale reproductible.</span></a><a href="https://www.eea.europa.eu/en/analysis/indicators/economic-losses-from-climate-related" target="_blank" rel="noopener"><b>AEE / EEA</b><span>Dommages physiques et pertes économiques liées aux extrêmes météo-climatiques.</span></a></div><p class="note"><b>Rigueur :</b> une absence de valeur signifie qu’aucune série harmonisée n’a été affichée, et non une valeur nulle. Le donut totalise 100 % : l’« ajustement de périmètre » rend visible le reliquat de classement Eurostat au lieu de le masquer. TerraScope est un projet indépendant de sensibilisation.</p></section></main>';
   const projectionCard=document.querySelector('#future .futuregrid article:last-child');
-  projectionCard.innerHTML='<span>2050 & 2100 · SSP2-4.5</span><strong id="projection-2050">Chargement…</strong><p id="projection-description">Température annuelle moyenne projetée · CMIP6 / Copernicus.</p>';
+  projectionCard.innerHTML='<span>ANOMALIE ANNUELLE SIMULÉE · SSP2-4.5</span><strong id="projection-2050">Chargement…</strong><p id="projection-description">Écart de température par rapport à 1991–2020 · CMIP6 / Copernicus.</p>';
   const chart=document.querySelector('.chart');
   chart.querySelector('svg text[x="80"][y="22"]')?.remove();
   chart.querySelector('.chart-note')?.remove();
@@ -83,10 +83,10 @@
   fetch(url.projections).then(r=>r.ok?r.json():Promise.reject()).then(data=>{
     const projection=data.countries?.[c[0]];
     if(!projection||projection.status!=='available') throw Error('projection not available');
-    const at2050=projection.annual_temperature_c?.['2050'], at2100=projection.annual_temperature_c?.['2100'];
+    const at2050=projection.anomaly_vs_1991_2020_c?.['2050'], at2100=projection.anomaly_vs_1991_2020_c?.['2100'];
     if(!Number.isFinite(at2050)||!Number.isFinite(at2100)) throw Error('invalid projection');
-    put('#projection-2050','2050 · '+n(at2050)+' °C');
-    put('#projection-description','2100 · '+n(at2100)+' °C. Température annuelle moyenne projetée · CMIP6 CNRM-ESM2-1, scénario SSP2-4.5. Projection conditionnelle issue d’un seul modèle, pas une prévision.');
+    put('#projection-2050','2050 · '+(at2050>=0?'+':'')+n(at2050)+' °C');
+    put('#projection-description','2100 · '+(at2100>=0?'+':'')+n(at2100)+' °C. Anomalie de température annuelle simulée vs 1991–2020 · CMIP6 CNRM-ESM2-1, scénario SSP2-4.5. Simulation conditionnelle à un modèle, pas une prévision.');
   }).catch(()=>{put('#projection-2050','Non affiché');put('#projection-description','Aucune moyenne nationale suffisamment résolue dans le jeu CMIP6 fourni.');});
   fetch(url.temperature).then(r=>r.ok?r.text():Promise.reject()).then(text=>{
     const recent=series(text,c[0],/temperature anomaly/i).filter(row=>row.year>=2021&&row.year<=2025);
