@@ -17,6 +17,21 @@ MONTHS = [f"{month:02d}" for month in range(1, 13)]
 DAYS = [f"{day:02d}" for day in range(1, 32)]
 
 
+def load_local_copernicus_key() -> None:
+    """Load a local .env token without adding a dependency or changing Git state."""
+    env_file = Path(__file__).resolve().parents[1] / ".env"
+    if not env_file.exists() or os.environ.get("COPERNICUS_CDS_API_KEY"):
+        return
+    for raw_line in env_file.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        name, value = line.split("=", 1)
+        if name.strip() == "COPERNICUS_CDS_API_KEY":
+            os.environ["COPERNICUS_CDS_API_KEY"] = value.strip().strip('"').strip("'")
+            return
+
+
 def request_for(year: int, month: str) -> dict:
     return {
         "variable": "2m_temperature",
@@ -38,6 +53,7 @@ def main() -> None:
     parser.add_argument("--out", type=Path, default=Path("data/raw/era5-land"))
     parser.add_argument("--month", choices=MONTHS, help="Retrieve one month only (connectivity check).")
     args = parser.parse_args()
+    load_local_copernicus_key()
     key = os.environ.get("COPERNICUS_CDS_API_KEY")
     if not key:
         raise SystemExit("COPERNICUS_CDS_API_KEY is not set. Put it in a local environment variable, not in this repository.")
