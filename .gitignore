@@ -4,3 +4,6 @@ work/
 outputs/
 .openai/
 .wrangler/
+.env
+.cdsapirc
+data/raw/
