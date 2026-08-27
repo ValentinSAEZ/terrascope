@@ -4,6 +4,7 @@ const staticFiles = [
   'index.html', 'country-live.html', 'country.html', 'europe.html', 'news-france.html', 'sources.html', 'ranking.html',
   'data/cmip-ssp245-cnrmesm21.json',
   'data/era5-observed-eu.json',
+  'data/effis-burnt-area-eu.json',
   'terrascope-runtime.js', 'ranking-runtime.js', 'script.js', 'styles.css', 'economist.css', 'structure.css'
 ];
 

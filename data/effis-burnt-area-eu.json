@@ -1,0 +1,117 @@
+{
+  "indicator": "Annual burnt area reported by EFFIS",
+  "unit": "hectares",
+  "year": 2024,
+  "source": "European Forest Fire Information System (EFFIS), country totals annual workbook",
+  "method": "Published country total of burnt area. It must not be interpreted as the number of ignitions, the area of forest only, or a causal attribution to climate change.",
+  "countries": {
+    "AUT": {
+      "status": "available",
+      "burnt_area_ha": 142.0
+    },
+    "BEL": {
+      "status": "not_available",
+      "reason": "No EFFIS country total in the published annual workbook."
+    },
+    "BGR": {
+      "status": "available",
+      "burnt_area_ha": 17116.0
+    },
+    "HRV": {
+      "status": "available",
+      "burnt_area_ha": 14607.0
+    },
+    "CYP": {
+      "status": "available",
+      "burnt_area_ha": 3425.0
+    },
+    "CZE": {
+      "status": "available",
+      "burnt_area_ha": 140.4
+    },
+    "DNK": {
+      "status": "not_available",
+      "reason": "No EFFIS country total in the published annual workbook."
+    },
+    "EST": {
+      "status": "available",
+      "burnt_area_ha": 16.6
+    },
+    "FIN": {
+      "status": "available",
+      "burnt_area_ha": 390.0
+    },
+    "FRA": {
+      "status": "available",
+      "burnt_area_ha": 2949.0
+    },
+    "DEU": {
+      "status": "available",
+      "burnt_area_ha": 334.0
+    },
+    "GRC": {
+      "status": "available",
+      "burnt_area_ha": 28288.5
+    },
+    "HUN": {
+      "status": "available",
+      "burnt_area_ha": 2799.0
+    },
+    "IRL": {
+      "status": "not_available",
+      "reason": "No EFFIS country total in the published annual workbook."
+    },
+    "ITA": {
+      "status": "available",
+      "burnt_area_ha": 52623.0
+    },
+    "LVA": {
+      "status": "available",
+      "burnt_area_ha": 63.0
+    },
+    "LTU": {
+      "status": "available",
+      "burnt_area_ha": 49.5
+    },
+    "LUX": {
+      "status": "not_available",
+      "reason": "No EFFIS country total in the published annual workbook."
+    },
+    "MLT": {
+      "status": "not_available",
+      "reason": "No EFFIS country total in the published annual workbook."
+    },
+    "NLD": {
+      "status": "available",
+      "burnt_area_ha": 17.0
+    },
+    "POL": {
+      "status": "available",
+      "burnt_area_ha": 1357.8
+    },
+    "PRT": {
+      "status": "available",
+      "burnt_area_ha": 137651.0
+    },
+    "ROU": {
+      "status": "available",
+      "burnt_area_ha": 10360.0
+    },
+    "SVK": {
+      "status": "available",
+      "burnt_area_ha": 81.7
+    },
+    "SVN": {
+      "status": "available",
+      "burnt_area_ha": 134.4
+    },
+    "ESP": {
+      "status": "available",
+      "burnt_area_ha": 47711.1
+    },
+    "SWE": {
+      "status": "available",
+      "burnt_area_ha": 310.0
+    }
+  }
+}
