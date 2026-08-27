@@ -1,10 +1,10 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 
 const staticFiles = [
-  'index.html', 'country-live.html', 'country.html', 'europe.html', 'news-france.html', 'sources.html',
+  'index.html', 'country-live.html', 'country.html', 'europe.html', 'news-france.html', 'sources.html', 'ranking.html',
   'data/cmip-ssp245-cnrmesm21.json',
   'data/era5-observed-eu.json',
-  'terrascope-runtime.js', 'script.js', 'styles.css', 'economist.css', 'structure.css'
+  'terrascope-runtime.js', 'ranking-runtime.js', 'script.js', 'styles.css', 'economist.css', 'structure.css'
 ];
 
 await rm('public', { recursive: true, force: true });
