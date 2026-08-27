@@ -1,0 +1,227 @@
+{
+  "metadata": {
+    "indicator": "Projected annual mean near-surface air temperature",
+    "unit": "°C",
+    "scenario": "SSP2-4.5",
+    "model": "CNRM-ESM2-1",
+    "ensemble_member": "r1i1p1f2",
+    "source": "Copernicus Climate Data Store / CMIP6",
+    "method": "Monthly values are duration-weighted into annual means. Each national value is a fraction-of-grid-cell area-weighted mean using Natural Earth 1:110m boundaries.",
+    "caveat": "Single-model, scenario-conditional projection. It is not a forecast and does not represent inter-model uncertainty.",
+    "years": [
+      2050,
+      2100
+    ],
+    "input_file": "tas_Amon_CNRM-ESM2-1_ssp245_r1i1p1f2_gr_20500116-21001216.nc"
+  },
+  "countries": {
+    "AUT": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 8.13,
+        "2100": 9.92
+      },
+      "intersected_cells": 12
+    },
+    "BEL": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 12.26,
+        "2100": 14.91
+      },
+      "intersected_cells": 5
+    },
+    "BGR": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 13.48,
+        "2100": 15.6
+      },
+      "intersected_cells": 15
+    },
+    "HRV": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 14.2,
+        "2100": 15.79
+      },
+      "intersected_cells": 12
+    },
+    "CYP": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 22.07,
+        "2100": 22.76
+      },
+      "intersected_cells": 4
+    },
+    "CZE": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 9.82,
+        "2100": 11.75
+      },
+      "intersected_cells": 13
+    },
+    "DNK": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 10.64,
+        "2100": 13.69
+      },
+      "intersected_cells": 10
+    },
+    "EST": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 7.82,
+        "2100": 10.69
+      },
+      "intersected_cells": 8
+    },
+    "FIN": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 3.65,
+        "2100": 6.91
+      },
+      "intersected_cells": 51
+    },
+    "FRA": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 14.81,
+        "2100": 16.61
+      },
+      "intersected_cells": 64
+    },
+    "DEU": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 10.68,
+        "2100": 13.16
+      },
+      "intersected_cells": 41
+    },
+    "GRC": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 16.81,
+        "2100": 18.01
+      },
+      "intersected_cells": 22
+    },
+    "HUN": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 13.46,
+        "2100": 15.14
+      },
+      "intersected_cells": 14
+    },
+    "IRL": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 10.75,
+        "2100": 12.5
+      },
+      "intersected_cells": 12
+    },
+    "ITA": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 15.1,
+        "2100": 16.17
+      },
+      "intersected_cells": 45
+    },
+    "LVA": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 8.38,
+        "2100": 11.01
+      },
+      "intersected_cells": 14
+    },
+    "LTU": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 8.92,
+        "2100": 11.58
+      },
+      "intersected_cells": 12
+    },
+    "LUX": {
+      "status": "not_available",
+      "reason": "Fewer than four intersected cells in the 1.4° CMIP6 grid; a national mean would be misleading."
+    },
+    "NLD": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 11.95,
+        "2100": 14.75
+      },
+      "intersected_cells": 8
+    },
+    "POL": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 10.55,
+        "2100": 12.55
+      },
+      "intersected_cells": 32
+    },
+    "PRT": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 16.74,
+        "2100": 17.69
+      },
+      "intersected_cells": 11
+    },
+    "ROU": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 12.12,
+        "2100": 14.02
+      },
+      "intersected_cells": 25
+    },
+    "SVK": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 11.12,
+        "2100": 12.78
+      },
+      "intersected_cells": 9
+    },
+    "SVN": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 12.07,
+        "2100": 13.77
+      },
+      "intersected_cells": 5
+    },
+    "ESP": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 14.2,
+        "2100": 15.57
+      },
+      "intersected_cells": 45
+    },
+    "SWE": {
+      "status": "available",
+      "annual_temperature_c": {
+        "2050": 4.13,
+        "2100": 7.38
+      },
+      "intersected_cells": 62
+    },
+    "MLT": {
+      "status": "not_available",
+      "reason": "Fewer than four intersected cells in the 1.4° CMIP6 grid; a national mean would be misleading."
+    }
+  }
+}

@@ -2,11 +2,13 @@ import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 
 const staticFiles = [
   'index.html', 'country-live.html', 'country.html', 'europe.html', 'news-france.html', 'sources.html',
+  'data/cmip-ssp245-cnrmesm21.json',
   'terrascope-runtime.js', 'script.js', 'styles.css', 'economist.css', 'structure.css'
 ];
 
 await rm('public', { recursive: true, force: true });
 await mkdir('public', { recursive: true });
+await mkdir('public/data', { recursive: true });
 await Promise.all(staticFiles.map(file => cp(file, `public/${file}`)));
 await rm('dist', { recursive: true, force: true });
 await mkdir('dist/server/api', { recursive: true });
