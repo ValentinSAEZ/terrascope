@@ -67,11 +67,12 @@
     const sumRenewables=fuels.filter(x=>['Éolien','Solaire','Hydro','Autres renouvelables'].includes(x.name)).reduce((a,x)=>a+x.value,0);
     const totalRenewablesIndex=h.findIndex(key=>key.toLowerCase()==='renewables_share_elec');
     const renewables=(totalRenewablesIndex>=0 ? +row[totalRenewablesIndex] : 0)||sumRenewables,total=fuels.reduce((a,x)=>a+x.value,0);let at=0;
-    put('#renewables',n(renewables)+' %');put('#renewablesy','MIX ÉLECTRIQUE · '+row[yi]);
+    const renewableReference=label==='France'?{value:27,year:2025,source:'RTE · BILAN ÉLECTRIQUE'}:{value:renewables,year:row[yi],source:'OWID / EMBER'};
+    put('#renewables',n(renewableReference.value)+' %');put('#renewablesy',renewableReference.source+' · '+renewableReference.year);
     document.querySelector('#donut').style.background='conic-gradient('+fuels.map(x=>{const start=at;at+=x.value/total*100;return x.color+' '+start+'% '+at+'%';}).join(',')+')';
     document.querySelector('#fuel').innerHTML=fuels.map(x=>'<div><span><i style="background:'+x.color+'"></i>'+x.name+'</span><b>'+n(x.value)+' %</b></div>').join('');
     put('#energy-title',renewables>=50?'Un mix majoritairement renouvelable':'Une transition à accélérer');
-    put('#energy-text','Les renouvelables représentent '+n(renewables)+' % du mix électrique observé en '+row[yi]+'.');
+    put('#energy-text','Les renouvelables représentent '+n(renewableReference.value)+' % du mix électrique observé en '+renewableReference.year+'.');
   }).catch(()=>put('#fuel','Mix électrique temporairement indisponible.'));
   fetch(url.eurostat).then(r=>r.ok?r.json():Promise.reject()).then(data=>{const values=Object.values(data.value||{}).filter(isFinite);if(!values.length)throw Error('no eurostat');const units=Object.values(data.dimension?.unit?.category?.label||{});put('#losses',n(values.at(-1)));put('#loss-note','PERTES ÉCONOMIQUES LIÉES AUX ÉVÉNEMENTS CLIMATIQUES · '+(units[0]||'UNITÉ EUROSTAT'));}).catch(()=>{put('#losses','Non affiché');put('#loss-note','SÉRIE EUROSTAT INDISPONIBLE OU NON COMPARABLE');});
 })();
