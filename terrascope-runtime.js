@@ -17,7 +17,7 @@
   const url = {
     co2:'/data/owid/co2',
     capita:'/data/owid/capita',
-    mix:'/data/owid/mix',
+    mix:'/data/eurostat-energy?geo='+c[1]+'&year=2025',
     gdp:'/data/owid/gdp',
     eurostat:'/data/eurostat?geo='+c[1]
   };
@@ -60,19 +60,14 @@
     document.querySelector('#history').setAttribute('points',co2.map((x,i)=>(20+i/(co2.length-1)*960)+','+(200-(x.value-min)/Math.max(.1,max-min)*150)).join(' '));put('#endyear',last.year);
     put('#summary',label+' a émis '+n(last.value)+' MtCO₂ en '+last.year+'. Les émissions ont '+(change<0?'baissé':'augmenté')+' de '+n(Math.abs(change))+' % depuis '+base.year+' ; ce portrait les replace dans le mix énergétique et les risques climatiques.');
   }).catch(()=>put('#summary','Certaines séries sont temporairement indisponibles. TerraScope n’affiche pas de valeur de remplacement.'));
-  fetch(url.mix).then(r=>r.text()).then(text=>{
-    const rows=csv(text),h=rows.shift(),ei=h.indexOf('entity'),yi=h.indexOf('year'),row=rows.filter(r=>r[ei]===c[2]).sort((a,b)=>+b[yi]-+a[yi])[0];if(!row)throw Error('no mix');
-    const sourceValue=word=>+row[h.findIndex(key=>key.toLowerCase().includes(word))]||0;
-    const fuels=[['Éolien','wind','#397d74'],['Solaire','solar','#d59b3e'],['Hydro','hydro','#66a0ba'],['Autres renouvelables','other_renewables','#8ca360'],['Nucléaire','nuclear','#355c92'],['Gaz','gas','#b85a32'],['Charbon','coal','#4b4b47']].map(x=>({name:x[0],value:sourceValue(x[1]),color:x[2]})).filter(x=>x.value>.3);
-    const sumRenewables=fuels.filter(x=>['Éolien','Solaire','Hydro','Autres renouvelables'].includes(x.name)).reduce((a,x)=>a+x.value,0);
-    const totalRenewablesIndex=h.findIndex(key=>key.toLowerCase()==='renewables_share_elec');
-    const renewables=(totalRenewablesIndex>=0 ? +row[totalRenewablesIndex] : 0)||sumRenewables,total=fuels.reduce((a,x)=>a+x.value,0);let at=0;
-    const renewableReference=label==='France'?{value:27,year:2025,source:'RTE · BILAN ÉLECTRIQUE'}:{value:renewables,year:row[yi],source:'OWID / EMBER'};
-    put('#renewables',n(renewableReference.value)+' %');put('#renewablesy',renewableReference.source+' · '+renewableReference.year);
+  fetch(url.mix).then(r=>r.ok?r.json():Promise.reject()).then(data=>{
+    if(!data.complete||!Number.isFinite(data.renewableShare)) throw Error('incomplete energy year');
+    const fuels=data.fuels.filter(x=>x.value>.3),total=fuels.reduce((sum,x)=>sum+x.value,0);let at=0;
+    put('#renewables',n(data.renewableShare)+' %');put('#renewablesy','EUROSTAT · PRODUCTION NETTE · '+data.year);
     document.querySelector('#donut').style.background='conic-gradient('+fuels.map(x=>{const start=at;at+=x.value/total*100;return x.color+' '+start+'% '+at+'%';}).join(',')+')';
     document.querySelector('#fuel').innerHTML=fuels.map(x=>'<div><span><i style="background:'+x.color+'"></i>'+x.name+'</span><b>'+n(x.value)+' %</b></div>').join('');
-    put('#energy-title',renewables>=50?'Un mix majoritairement renouvelable':'Une transition à accélérer');
-    put('#energy-text','Les renouvelables représentent '+n(renewableReference.value)+' % du mix électrique observé en '+renewableReference.year+'.');
+    put('#energy-title',data.renewableShare>=50?'Un mix majoritairement renouvelable':'Une transition à accélérer');
+    put('#energy-text','Les renouvelables représentent '+n(data.renewableShare)+' % de la production nette d’électricité en '+data.year+'. Calcul : somme annuelle Eurostat des renouvelables et biocarburants / production nette totale.');
   }).catch(()=>put('#fuel','Mix électrique temporairement indisponible.'));
   fetch(url.eurostat).then(r=>r.ok?r.json():Promise.reject()).then(data=>{const values=Object.values(data.value||{}).filter(isFinite);if(!values.length)throw Error('no eurostat');const units=Object.values(data.dimension?.unit?.category?.label||{});put('#losses',n(values.at(-1)));put('#loss-note','PERTES ÉCONOMIQUES LIÉES AUX ÉVÉNEMENTS CLIMATIQUES · '+(units[0]||'UNITÉ EUROSTAT'));}).catch(()=>{put('#losses','Non affiché');put('#loss-note','SÉRIE EUROSTAT INDISPONIBLE OU NON COMPARABLE');});
 })();
