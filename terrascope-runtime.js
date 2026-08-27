@@ -15,11 +15,11 @@
   const label = new URLSearchParams(location.search).get('country') || 'Allemagne';
   const c = countries[label] || countries.Allemagne;
   const url = {
-    co2:'https://ourworldindata.org/grapher/annual-co2-emissions-per-country.csv?csvType=full&useColumnShortNames=true',
-    capita:'https://ourworldindata.org/grapher/co2-emissions-per-capita.csv?csvType=full&useColumnShortNames=true',
-    mix:'https://ourworldindata.org/grapher/share-elec-by-source.csv?csvType=full&useColumnShortNames=true',
-    gdp:'https://ourworldindata.org/grapher/gdp-worldbank.csv?csvType=full&useColumnShortNames=true',
-    eurostat:'https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sdg_13_40?geo='+c[1]+'&lastTimePeriod=1&lang=EN'
+    co2:'/data/owid/co2',
+    capita:'/data/owid/capita',
+    mix:'/data/owid/mix',
+    gdp:'/data/owid/gdp',
+    eurostat:'/data/eurostat?geo='+c[1]
   };
   const n = value => Number(value).toLocaleString('fr-FR',{maximumFractionDigits:1});
   const put = (id, value) => { const node=document.querySelector(id); if(node) node.textContent=value; };
