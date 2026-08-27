@@ -65,7 +65,8 @@
     const sourceValue=word=>+row[h.findIndex(key=>key.toLowerCase().includes(word))]||0;
     const fuels=[['Éolien','wind','#397d74'],['Solaire','solar','#d59b3e'],['Hydro','hydro','#66a0ba'],['Autres renouvelables','other_renewables','#8ca360'],['Nucléaire','nuclear','#355c92'],['Gaz','gas','#b85a32'],['Charbon','coal','#4b4b47']].map(x=>({name:x[0],value:sourceValue(x[1]),color:x[2]})).filter(x=>x.value>.3);
     const sumRenewables=fuels.filter(x=>['Éolien','Solaire','Hydro','Autres renouvelables'].includes(x.name)).reduce((a,x)=>a+x.value,0);
-    const renewables=sourceValue('renewables')||sumRenewables,total=fuels.reduce((a,x)=>a+x.value,0);let at=0;
+    const totalRenewablesIndex=h.findIndex(key=>key.toLowerCase()==='renewables_share_elec');
+    const renewables=(totalRenewablesIndex>=0 ? +row[totalRenewablesIndex] : 0)||sumRenewables,total=fuels.reduce((a,x)=>a+x.value,0);let at=0;
     put('#renewables',n(renewables)+' %');put('#renewablesy','MIX ÉLECTRIQUE · '+row[yi]);
     document.querySelector('#donut').style.background='conic-gradient('+fuels.map(x=>{const start=at;at+=x.value/total*100;return x.color+' '+start+'% '+at+'%';}).join(',')+')';
     document.querySelector('#fuel').innerHTML=fuels.map(x=>'<div><span><i style="background:'+x.color+'"></i>'+x.name+'</span><b>'+n(x.value)+' %</b></div>').join('');
