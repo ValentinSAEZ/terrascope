@@ -7,3 +7,4 @@ outputs/
 .env
 .cdsapirc
 data/raw/
+__pycache__/
