@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="État, couverture et fraîcheur des données publiées par TerraScope.">
+  <title>Santé des données — TerraScope</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,600;1,600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="responsive-ui.css?v=5">
+  <style>
+    .health-page{width:min(100%,1120px);margin:auto;padding:clamp(48px,7vw,82px) var(--page-gutter) 105px}.back{font:10px var(--mono);letter-spacing:1px;color:var(--forest);text-decoration:none}.health-hero{padding:43px 0 34px}.health-hero h1{font:600 clamp(49px,6vw,76px)/.94 var(--serif);letter-spacing:-3px;margin:13px 0 22px}.health-hero h1 em{color:var(--forest)}.health-hero>p:last-child{max-width:720px;margin:0;font-size:16px;line-height:1.6;color:#62645d}.health-summary{display:grid;grid-template-columns:1.3fr 1fr 1fr;border-block:1px solid var(--line)}.health-summary article{padding:24px 25px;border-right:1px solid var(--line)}.health-summary article:first-child{padding-left:0}.health-summary article:last-child{border-right:0}.health-summary span,.health-card span,.health-source summary{font:9px var(--mono);letter-spacing:.7px;color:var(--forest)}.health-summary strong{display:block;margin-top:9px;font:600 28px var(--serif)}.health-summary small{display:block;margin-top:7px;font:10px/1.45 var(--mono);color:#777971}.health-section{padding-top:62px}.health-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:23px}.health-head h2{font:600 39px var(--serif);letter-spacing:-1.2px;margin:0}.health-head p{max-width:430px;margin:0;font-size:12px;line-height:1.55;color:#686a63;text-align:right}.health-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}.health-card{min-height:145px;padding:21px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.health-card:nth-child(3n+1){padding-left:0}.health-card:nth-child(3n){border-right:0}.health-card strong{display:block;margin:17px 0 4px;font:600 30px var(--serif)}.health-card small{font:9px/1.45 var(--mono);color:#777971}.coverage-track{height:3px;margin-top:17px;background:#ddd9cf}.coverage-track i{display:block;height:100%;background:var(--forest)}.health-rules{display:grid;grid-template-columns:1fr 1fr;border-block:1px solid var(--line)}.health-rule{padding:22px 24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.health-rule:nth-child(even){border-right:0}.health-rule:nth-last-child(-n+2){border-bottom:0}.health-rule b{font:600 21px var(--serif)}.health-rule p{margin:8px 0 0;font-size:12px;line-height:1.55;color:#676960}.health-sources{border-top:1px solid var(--line)}.health-source{border-bottom:1px solid var(--line)}.health-source summary{display:grid;grid-template-columns:190px 1fr 20px;gap:20px;align-items:center;padding:17px 0;cursor:pointer;list-style:none}.health-source summary::-webkit-details-marker{display:none}.health-source summary b{font:600 18px var(--serif);letter-spacing:0;color:var(--ink)}.health-source summary i{font-style:normal;text-align:right}.health-source p{max-width:730px;margin:0 0 20px 210px;font-size:12px;line-height:1.6;color:#686a63}.health-source a{color:var(--forest)}.health-caveat{margin-top:50px;padding:21px 23px;border-left:2px solid var(--forest);background:#eeeadf;font-size:12px;line-height:1.65;color:#5c6058}.health-error{color:#9a4e37!important}@media(max-width:720px){.health-summary,.health-grid,.health-rules{grid-template-columns:1fr}.health-summary article,.health-card,.health-card:nth-child(3n+1),.health-rule{padding:20px 0;border-right:0}.health-summary article{border-bottom:1px solid var(--line)}.health-summary article:last-child{border-bottom:0}.health-head{display:block}.health-head p{text-align:left;margin-top:10px}.health-card:nth-child(3n){border-right:0}.health-rule:nth-last-child(2){border-bottom:1px solid var(--line)}.health-source summary{grid-template-columns:1fr 20px;gap:9px}.health-source summary span{grid-column:1}.health-source p{margin-left:0}.health-page{padding-inline:20px}}
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+  <header class="nav"><a class="brand" href="index.html">terra<span>•</span>scope</a><div class="ticker"><span>TRANSPARENCE</span><i></i><span>COUVERTURE · FRAÎCHEUR · MÉTHODE</span></div><a class="menu" href="index.html">RETOUR <b>↖</b></a></header>
+  <main class="health-page">
+    <a class="back" href="index.html">← ACCUEIL</a>
+    <section class="health-hero"><p class="eyebrow">CONTRÔLE QUALITÉ · PUBLICATION ANNUELLE</p><h1>La santé<br><em>des données.</em></h1><p>Cette page expose ce que TerraScope publie réellement : année commune, couverture des pays, sources mobilisées et règles qui peuvent bloquer un chiffre.</p></section>
+    <section class="health-summary" aria-live="polite">
+      <article><span>ÉTAT DU SNAPSHOT</span><strong id="health-status">Vérification…</strong><small id="health-generated">Chargement du registre publié</small></article>
+      <article><span>ANNÉE COMMUNE</span><strong id="health-year">—</strong><small>Observations et classements principaux</small></article>
+      <article><span>PÉRIMÈTRE</span><strong id="health-scope">—</strong><small id="health-country-count">Pays contrôlés</small></article>
+    </section>
+
+    <section class="health-section"><div class="health-head"><h2>Couverture publiée.</h2><p>Une valeur absente reste indisponible : le taux n’est jamais amélioré par une estimation silencieuse.</p></div><div class="health-grid" id="coverage-grid"><p>Chargement de la couverture…</p></div></section>
+
+    <section class="health-section"><div class="health-head"><h2>Contrôles bloquants.</h2><p>Le snapshot n’est publié que si ces règles restent satisfaites.</p></div><div class="health-rules"><article class="health-rule"><b>Même année</b><p>Chaque observation principale doit correspondre exactement à l’année commune.</p></article><article class="health-rule"><b>Jamais zéro par défaut</b><p>Une absence de donnée produit « Non publié », jamais une valeur artificielle.</p></article><article class="health-rule"><b>Calendrier complet</b><p>Électricité et climat quotidien exigent douze mois et tous les jours attendus.</p></article><article class="health-rule"><b>Comparabilité européenne</b><p>Unités, définitions et contrôles de bornes sont identiques pour les 27 pays.</p></article></div></section>
+
+    <section class="health-section"><div class="health-head"><h2>Registre des sources.</h2><p>Ouvrir une ligne pour consulter sa définition publiée.</p></div><div class="health-sources" id="health-sources"></div></section>
+    <p class="health-caveat"><b>Limites assumées.</b> L’indicateur d’inondation reste non publié tant que son périmètre scientifique n’est pas arrêté. Les valeurs 2050–2100 sont des simulations CMIP6 séparées du snapshot observé et ne constituent pas des prévisions.</p>
+  </main>
+  <footer><a class="brand" href="index.html">terra<span>•</span>scope</a><p>La confiance commence par la traçabilité.</p><a class="health-footer-link" href="sources.html">SOURCES & MÉTHODOLOGIE ↗</a></footer>
+  <script>
+    (()=>{
+      const labels={co2_territorial_mt:'CO₂ territorial',population:'Population',co2_per_capita_t:'CO₂ par habitant',gdp_ppp_billion:'PIB PPA',co2_intensity_g_per_dollar:'Intensité carbone',renewable_electricity_share_pct:'Électricité renouvelable',warming_anomaly_c:'Réchauffement observé',hot_days_ge_30_c:'Jours ≥ 30 °C',burnt_area_ha:'Surface brûlée'};
+      const sourceNames={co2:'Émissions',population:'Population',gdp:'Économie',electricity:'Électricité',warming:'Température',hot_days:'Chaleur extrême',fire:'Incendies'};
+      fetch('/data/annual-snapshot.json',{cache:'no-cache'}).then(response=>response.ok?response.json():Promise.reject()).then(snapshot=>{
+        if(!/^validated/.test(snapshot.status)) throw new Error('non validated');
+        const countries=Object.keys(snapshot.countries||{}).length;
+        document.querySelector('#health-status').textContent='Validé';
+        document.querySelector('#health-year').textContent=snapshot.reference_year;
+        document.querySelector('#health-scope').textContent=snapshot.scope;
+        document.querySelector('#health-country-count').textContent=countries+' pays contrôlés';
+        document.querySelector('#health-generated').textContent='Registre généré le '+new Intl.DateTimeFormat('fr-FR',{dateStyle:'long',timeZone:'Europe/Paris'}).format(new Date(snapshot.generated_at));
+        document.querySelector('#coverage-grid').innerHTML=Object.entries(snapshot.coverage).map(([key,item])=>'<article class="health-card"><span>'+String(labels[key]||key).toUpperCase()+'</span><strong>'+item.available+' / '+item.total+'</strong><small>'+item.percentage.toLocaleString('fr-FR')+' % des pays</small><div class="coverage-track" aria-hidden="true"><i style="width:'+Math.max(0,Math.min(100,item.percentage))+'%"></i></div></article>').join('');
+        document.querySelector('#health-sources').innerHTML=Object.entries(snapshot.sources).map(([key,source])=>'<details class="health-source"><summary><span>'+String(sourceNames[key]||key).toUpperCase()+'</span><b>'+source.label+'</b><i>＋</i></summary><p>'+source.definition+' <a href="'+source.url+'" target="_blank" rel="noopener">Consulter la source ↗</a></p></details>').join('');
+      }).catch(()=>{
+        document.querySelector('#health-status').textContent='Indisponible';
+        document.querySelector('#health-status').classList.add('health-error');
+        document.querySelector('#health-generated').textContent='Aucune valeur de remplacement n’est affichée.';
+        document.querySelector('#coverage-grid').innerHTML='<p class="health-error">Le registre annuel ne peut pas être chargé.</p>';
+      });
+    })();
+  </script>
+</body>
+</html>

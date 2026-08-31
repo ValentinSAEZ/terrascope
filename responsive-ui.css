@@ -318,6 +318,22 @@ footer > * {
   min-width: 0;
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px 18px;
+}
+
+.footer-links a,
+.health-footer-link {
+  font: 10px var(--mono);
+  letter-spacing: 0.6px;
+  color: var(--forest);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
 @media (max-width: 1024px) {
   .ticker {
     display: none;
@@ -790,6 +806,10 @@ footer > * {
 
   footer .brand {
     align-self: flex-start;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
   }
 }
 

@@ -3,6 +3,13 @@
   box-shadow: 0 16px 42px rgba(34, 50, 40, 0.12);
 }
 
+/* The form carries the focus state for the whole search control. Keeping the
+   native outline on the full-width input created a second, offset rectangle. */
+.search input:focus,
+.search input:focus-visible {
+  outline: 0;
+}
+
 .search .suggestions {
   position: absolute;
   inset: calc(100% + 7px) -1px auto -1px;

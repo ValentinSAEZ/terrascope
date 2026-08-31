@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="economist.css" />
     <link rel="stylesheet" href="structure.css" />
-    <link rel="stylesheet" href="search-ui.css?v=2" />
-    <link rel="stylesheet" href="responsive-ui.css?v=4" />
+    <link rel="stylesheet" href="search-ui.css?v=3" />
+    <link rel="stylesheet" href="responsive-ui.css?v=5" />
     <style>
       .world-map{position:absolute;right:3vw;top:57px;width:min(55vw,760px);height:515px;overflow:hidden;border:1px solid var(--line);background:#ebe7dd;box-shadow:0 22px 50px rgba(34,43,35,.1);color:#9a9c90}.world-map:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,#f7f5ef 0%,transparent 15%,transparent 83%,#f7f5ef 100%)}.world-map svg{width:160%;height:100%;margin-left:-30%;display:block}.map-paper{fill:#eae6dc}.map-grid{opacity:.54}.map-track{animation:mercator-drift 46s linear infinite}.land{fill:#2d684c;fill-opacity:.88;stroke:#1f513a;stroke-width:2;stroke-linejoin:round}.is-ice{fill:#769389;fill-opacity:.44;stroke:none}.map-node{fill:#e89966;stroke:#f7f5ef;stroke-width:3}.map-kicker,.map-coordinates{position:absolute;z-index:3;font:9px var(--mono);letter-spacing:1px;color:#38634f}.map-kicker{left:21px;top:18px}.map-coordinates{right:20px;bottom:17px;color:#74776e}.map-stat{position:absolute;z-index:3;padding:10px 13px;background:rgba(247,245,239,.94);border:1px solid #d4d0c6;display:flex;flex-direction:column}.map-stat b{font:600 20px var(--serif);color:var(--ink)}.map-stat span{font:8px var(--mono);color:var(--muted);margin-top:3px}.stat-emissions{right:23px;top:65px}.stat-warming{left:30px;bottom:61px}@keyframes mercator-drift{from{transform:translateX(0)}to{transform:translateX(-1200px)}}@media(max-width:850px){.world-map{width:600px;height:400px;right:-250px;top:220px;opacity:.64}}@media(max-width:520px){.world-map{display:none}}@media(prefers-reduced-motion:reduce){.map-track{animation:none}}
     </style>
@@ -91,7 +91,7 @@
       <section class="country-panel" id="country-panel">
         <div class="country-head">
           <div><p class="eyebrow">FICHE PAYS · DÉMONSTRATION</p><h2><span class="flag">FR</span> France</h2></div>
-          <p class="updated"><a class="news-link" href="news-france.html">ACTUALITÉS FRANCE ↗</a><br /><span id="data-status">CHARGEMENT DU SNAPSHOT VALIDÉ…</span><br />MILLÉSIME · <span id="data-updated">—</span></p>
+          <p class="updated"><a class="news-link" href="news-france.html">ACTUALITÉS FRANCE ↗</a><br /><span id="data-status">CHARGEMENT DES DONNÉES…</span><br />ANNÉE · <span id="data-updated">—</span></p>
         </div>
         <div class="country-grid">
           <article class="signal-card">
@@ -120,7 +120,7 @@
         </div>
       </section>
     </main>
-    <footer><a class="brand" href="#top">terra<span>•</span>scope</a><p>Les chiffres ne décident pas seuls. Ils nous aident à mieux décider.</p><a href="/sources">SOURCES & MÉTHODOLOGIE ↗</a></footer>
+    <footer><a class="brand" href="#top">terra<span>•</span>scope</a><p>Les chiffres ne décident pas seuls. Ils nous aident à mieux décider.</p><span class="footer-links"><a href="/data-health">SANTÉ DES DONNÉES ↗</a><a href="/sources">SOURCES & MÉTHODOLOGIE ↗</a></span></footer>
     <script src="terrascope-runtime.js"></script><script src="script.js"></script>
   </body>
 </html>

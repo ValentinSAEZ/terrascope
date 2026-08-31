@@ -23,7 +23,7 @@
       derived: 'emissions_change_since_1990_pct',
       title: 'Émissions depuis 1990,<br><em>classement européen.</em>',
       intro: 'Le pourcentage compare chaque pays à son propre niveau de CO₂ territorial en 1990. Une baisse apparaît en tête du classement.',
-      definition: '<b>Définition.</b> Variation des émissions territoriales entre 1990 et le millésime comparable, à périmètre Global Carbon Budget constant.',
+      definition: '<b>Définition.</b> Variation des émissions territoriales entre 1990 et l’année commune, à périmètre Global Carbon Budget constant.',
       suffix: ' %', ascending: true,
     },
     renewables: {
@@ -69,7 +69,7 @@
           +'<strong class="rank-value">'+sign+number(country.value)+config.suffix+'</strong>'
           +'<span class="rank-year">'+snapshot.reference_year+'</span></a>';
       }).join('') || '<p class="rank-empty">Aucune observation comparable disponible.</p>';
-      status.textContent = 'SNAPSHOT VALIDÉ · '+values.length+' PAYS · MILLÉSIME COMMUN '+snapshot.reference_year;
+      status.textContent = 'DONNÉES VALIDÉES · '+values.length+' PAYS · ANNÉE '+snapshot.reference_year;
     })
     .catch(() => {
       status.textContent = 'LE SNAPSHOT ANNUEL VALIDÉ EST TEMPORAIREMENT INDISPONIBLE.';

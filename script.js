@@ -103,7 +103,7 @@ function drawLiveHistory(inputSeries) {
   document.querySelector('.y2025').textContent = last.year;
   const decline = ((last.value / first.value) - 1) * 100;
   document.querySelector('.observed-label').innerHTML = `<b>${decline < 0 ? '−' : '+'}${Math.abs(decline).toLocaleString('fr-FR', { maximumFractionDigits: 0 })} %</b><span>depuis ${first.year}</span>`;
-  document.querySelector('.chart-caption').textContent = `Historique Global Carbon Budget arrêté au millésime comparable ${last.year}. Les lignes orange et verte restent des scénarios prospectifs, distincts des émissions observées.`;
+  document.querySelector('.chart-caption').textContent = `Historique Global Carbon Budget jusqu’en ${last.year}. Les lignes orange et verte restent des scénarios prospectifs, distincts des émissions observées.`;
 }
 
 async function hydrateFranceCo2() {
@@ -127,7 +127,7 @@ async function hydrateFranceCo2() {
       element.className = change <= 0 ? 'down' : 'up';
     }
     drawLiveHistory(rows);
-    status.textContent = `SNAPSHOT VALIDÉ · ${snapshot.reference_year}`;
+    status.textContent = `DONNÉES VALIDÉES · ${snapshot.reference_year}`;
   } catch (error) {
     status.textContent = 'SNAPSHOT ANNUEL · INDISPONIBLE';
     document.querySelector('#emissions-change').textContent = 'Série temporairement indisponible';
@@ -176,7 +176,7 @@ async function hydrateExplorerEmissions() {
       const source = byName.get(row.name)?.metrics?.co2_territorial_mt;
       return source?.status === 'available' ? { ...row, emission: source.value, year: source.year } : row;
     });
-    explorerStatus.textContent = `SOURCE · GLOBAL CARBON BUDGET · MILLÉSIME COMMUN ${snapshot.reference_year}`;
+    explorerStatus.textContent = `SOURCE · GLOBAL CARBON BUDGET · ANNÉE ${snapshot.reference_year}`;
   } catch (error) {
     explorerStatus.textContent = 'SNAPSHOT ANNUEL TEMPORAIREMENT INDISPONIBLE · TRI ALPHABÉTIQUE DISPONIBLE';
     explorerSort = 'name'; explorer.querySelector('[data-sort="name"]').classList.add('is-active'); explorer.querySelector('[data-sort="emissions"]').classList.remove('is-active');

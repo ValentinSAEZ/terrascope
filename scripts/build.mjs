@@ -1,7 +1,7 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 
 const staticFiles = [
-  'index.html', 'country-live.html', 'country.html', 'europe.html', 'news-france.html', 'sources.html', 'ranking.html',
+  'index.html', 'country-live.html', 'country.html', 'europe.html', 'news-france.html', 'sources.html', 'ranking.html', 'data-health.html',
   'data/annual-snapshot.json',
   'data/cmip-ssp245-cnrmesm21.json',
   'terrascope-runtime.js', 'ranking-runtime.js', 'script.js',
@@ -37,7 +37,8 @@ const aliases = {
   '/europe': 'europe.html',
   '/news-france': 'news-france.html',
   '/sources': 'sources.html',
-  '/ranking': 'ranking.html'
+  '/ranking': 'ranking.html',
+  '/data-health': 'data-health.html'
 };
 
 export default {
