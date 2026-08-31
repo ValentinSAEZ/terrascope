@@ -2,26 +2,64 @@ const countries = ["Allemagne", "Autriche", "Belgique", "Bulgarie", "Chypre", "C
 const form = document.querySelector('#country-search');
 const input = document.querySelector('#country');
 const suggestions = document.querySelector('#suggestions');
+const countryIso2Search = {Allemagne:'de',Autriche:'at',Belgique:'be',Bulgarie:'bg',Chypre:'cy',Croatie:'hr',Danemark:'dk',Espagne:'es',Estonie:'ee',Finlande:'fi',France:'fr',Grèce:'gr',Hongrie:'hu',Irlande:'ie',Italie:'it',Lettonie:'lv',Lituanie:'lt',Luxembourg:'lu',Malte:'mt','Pays-Bas':'nl',Pologne:'pl',Portugal:'pt',Roumanie:'ro',Slovaquie:'sk',Slovénie:'si',Suède:'se',Tchéquie:'cz'};
+const normalizeSearch = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('fr').trim();
+let activeSuggestion = -1;
+
+function closeSuggestions() {
+  suggestions.hidden = true;
+  input.setAttribute('aria-expanded', 'false');
+  input.removeAttribute('aria-activedescendant');
+  activeSuggestion = -1;
+}
+
+function setActiveSuggestion(index) {
+  const options = [...suggestions.querySelectorAll('[role="option"]')];
+  if (!options.length) return;
+  activeSuggestion = (index + options.length) % options.length;
+  options.forEach((option, optionIndex) => {
+    const selected=optionIndex === activeSuggestion;
+    option.classList.toggle('is-active', selected);
+    option.setAttribute('aria-selected', String(selected));
+  });
+  input.setAttribute('aria-activedescendant', options[activeSuggestion].id);
+}
 
 function showMatches() {
-  const query = input.value.trim().toLowerCase();
-  const matches = countries.filter(country => country.toLowerCase().includes(query)).slice(0, 4);
-  suggestions.innerHTML = matches.map(country => `<button type="button" data-country="${country}">${country} <span>↗</span></button>`).join('');
-  suggestions.hidden = !query || !matches.length;
+  const query = normalizeSearch(input.value);
+  const matches = countries.map(country => ({country,normalized:normalizeSearch(country)})).filter(item => !query || item.normalized.includes(query)).sort((left,right) => {
+    if (!query) return left.country.localeCompare(right.country, 'fr');
+    const leftScore=left.normalized.startsWith(query)?0:left.normalized.split(/[-\s]/).some(word=>word.startsWith(query))?1:2;
+    const rightScore=right.normalized.startsWith(query)?0:right.normalized.split(/[-\s]/).some(word=>word.startsWith(query))?1:2;
+    return leftScore-rightScore||left.country.localeCompare(right.country,'fr');
+  }).slice(0, 7);
+  suggestions.innerHTML = matches.length ? matches.map((item,index) => `<button id="country-option-${index}" type="button" role="option" aria-selected="false" data-country="${item.country}"><img src="https://flagcdn.com/${countryIso2Search[item.country]}.svg" alt="" width="28" height="20"><span><b>${item.country}</b><small>Fiche climat · Union européenne</small></span><i>↗</i></button>`).join('') : '<p class="suggestions-empty">Aucun pays disponible ne correspond à cette recherche.</p>';
+  suggestions.hidden = false;
+  input.setAttribute('aria-expanded', 'true');
+  activeSuggestion = -1;
 }
 
 input.addEventListener('input', showMatches);
+input.addEventListener('focus', showMatches);
+input.addEventListener('keydown', event => {
+  const options = suggestions.querySelectorAll('[role="option"]');
+  if (event.key === 'ArrowDown' && options.length) { event.preventDefault(); setActiveSuggestion(activeSuggestion + 1); }
+  if (event.key === 'ArrowUp' && options.length) { event.preventDefault(); setActiveSuggestion(activeSuggestion - 1); }
+  if (event.key === 'Escape') closeSuggestions();
+  if (event.key === 'Enter' && activeSuggestion >= 0) { event.preventDefault(); options[activeSuggestion].click(); }
+});
 suggestions.addEventListener('click', (event) => {
   const button = event.target.closest('button');
   if (!button) return;
   input.value = button.dataset.country;
-  suggestions.hidden = true;
+  closeSuggestions();
   window.location.href = `country-live.html?country=${encodeURIComponent(button.dataset.country)}`;
 });
+document.addEventListener('pointerdown', event => { if (!form.contains(event.target)) closeSuggestions(); });
 form.addEventListener('submit', (event) => {
   event.preventDefault();
-  suggestions.hidden = true;
-  const selected = countries.find(country => country.toLowerCase() === input.value.trim().toLowerCase());
+  closeSuggestions();
+  const selected = countries.find(country => normalizeSearch(country) === normalizeSearch(input.value));
   if (selected) window.location.href = `country-live.html?country=${encodeURIComponent(selected)}`;
   else input.focus();
 });

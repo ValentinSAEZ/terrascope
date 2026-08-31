@@ -41,11 +41,11 @@
           <p class="intro">TerraScope rend lisibles les trajectoires climatiques, économiques et carbone de chaque pays.</p>
           <form class="search" id="country-search">
             <label for="country">RECHERCHER UN PAYS <span>→</span></label>
-            <input id="country" autocomplete="off" placeholder="Ex. France, Brésil, Japon…" />
+            <input id="country" autocomplete="off" placeholder="Ex. France, Allemagne, Italie…" role="combobox" aria-autocomplete="list" aria-controls="suggestions" aria-expanded="false" spellcheck="false" />
             <button type="submit" aria-label="Rechercher">↗</button>
-            <div class="suggestions" id="suggestions" hidden></div>
+            <div class="suggestions" id="suggestions" role="listbox" aria-label="Pays proposés" hidden></div>
           </form>
-          <p class="data-note">196 pays · émissions, économie, énergie et trajectoires</p>
+          <p class="data-note">27 pays de l’Union européenne · fiches climatiques disponibles</p>
         </div>
         <div class="world-map" aria-hidden="true">
           <div class="map-kicker">ATLAS CLIMATIQUE · MONDE</div>
