@@ -5,7 +5,7 @@ const staticFiles = [
   'data/cmip-ssp245-cnrmesm21.json',
   'data/era5-observed-eu.json',
   'data/effis-burnt-area-eu.json',
-  'terrascope-runtime.js', 'ranking-runtime.js', 'script.js', 'styles.css', 'economist.css', 'structure.css', 'search-ui.css'
+  'terrascope-runtime.js', 'ranking-runtime.js', 'script.js', 'styles.css', 'economist.css', 'structure.css', 'search-ui.css', 'responsive-ui.css'
 ];
 
 await rm('public', { recursive: true, force: true });
