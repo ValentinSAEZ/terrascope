@@ -27,12 +27,16 @@ function setActiveSuggestion(index) {
 
 function showMatches() {
   const query = normalizeSearch(input.value);
+  if (!query) {
+    suggestions.innerHTML = '';
+    closeSuggestions();
+    return;
+  }
   const matches = countries.map(country => ({country,normalized:normalizeSearch(country)})).filter(item => !query || item.normalized.includes(query)).sort((left,right) => {
-    if (!query) return left.country.localeCompare(right.country, 'fr');
     const leftScore=left.normalized.startsWith(query)?0:left.normalized.split(/[-\s]/).some(word=>word.startsWith(query))?1:2;
     const rightScore=right.normalized.startsWith(query)?0:right.normalized.split(/[-\s]/).some(word=>word.startsWith(query))?1:2;
     return leftScore-rightScore||left.country.localeCompare(right.country,'fr');
-  }).slice(0, 7);
+  }).slice(0, 6);
   suggestions.innerHTML = matches.length ? matches.map((item,index) => `<button id="country-option-${index}" type="button" role="option" aria-selected="false" data-country="${item.country}"><img src="https://flagcdn.com/${countryIso2Search[item.country]}.svg" alt="" width="28" height="20"><span><b>${item.country}</b><small>Fiche climat · Union européenne</small></span><i>↗</i></button>`).join('') : '<p class="suggestions-empty">Aucun pays disponible ne correspond à cette recherche.</p>';
   suggestions.hidden = false;
   input.setAttribute('aria-expanded', 'true');
@@ -40,7 +44,6 @@ function showMatches() {
 }
 
 input.addEventListener('input', showMatches);
-input.addEventListener('focus', showMatches);
 input.addEventListener('keydown', event => {
   const options = suggestions.querySelectorAll('[role="option"]');
   if (event.key === 'ArrowDown' && options.length) { event.preventDefault(); setActiveSuggestion(activeSuggestion + 1); }
