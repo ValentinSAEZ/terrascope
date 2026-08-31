@@ -1,9 +1,78 @@
 (() => {
-  const countries={Allemagne:['DEU','DE','de'],Autriche:['AUT','AT','at'],Belgique:['BEL','BE','be'],Bulgarie:['BGR','BG','bg'],Chypre:['CYP','CY','cy'],Croatie:['HRV','HR','hr'],Danemark:['DNK','DK','dk'],Espagne:['ESP','ES','es'],Estonie:['EST','EE','ee'],Finlande:['FIN','FI','fi'],France:['FRA','FR','fr'],Grèce:['GRC','EL','gr'],Hongrie:['HUN','HU','hu'],Irlande:['IRL','IE','ie'],Italie:['ITA','IT','it'],Lettonie:['LVA','LV','lv'],Lituanie:['LTU','LT','lt'],Luxembourg:['LUX','LU','lu'],Malte:['MLT','MT','mt'],'Pays-Bas':['NLD','NL','nl'],Pologne:['POL','PL','pl'],Portugal:['PRT','PT','pt'],Roumanie:['ROU','RO','ro'],Slovaquie:['SVK','SK','sk'],Slovénie:['SVN','SI','si'],Suède:['SWE','SE','se'],Tchéquie:['CZE','CZ','cz']};
-  const metric=new URLSearchParams(location.search).get('metric')||'co2', current=new URLSearchParams(location.search).get('country'), n=x=>Number(x).toLocaleString('fr-FR',{maximumFractionDigits:1}), list=document.querySelector('#ranking'), status=document.querySelector('#status');
-  const config={co2:{title:'CO₂ territorial,<br><em>classement européen.</em>',intro:'Émissions territoriales de CO₂ fossile et industriel : elles excluent l’empreinte de consommation et les autres gaz à effet de serre.',definition:'<b>Définition.</b> MtCO₂ par an. Dernière année commune disponible. Source : Global Carbon Budget, diffusé par OWID.',unit:'MtCO₂ / an',source:'/data/owid/co2',find:/emissions_total/i,transform:x=>x/1e6,ascending:false},capita:{title:'CO₂ par habitant,<br><em>classement européen.</em>',intro:'Une comparaison ramenée à la population : même périmètre territorial de CO₂ fossile et industriel.',definition:'<b>Définition.</b> tCO₂ par habitant. Dernière année commune disponible. Source : Global Carbon Budget, diffusé par OWID.',unit:'tCO₂ / hab.',source:'/data/owid/capita',find:/per.*capita|capita/i,transform:x=>x,ascending:false},change:{title:'Émissions depuis 1990,<br><em>classement européen.</em>',intro:'Le pourcentage compare chaque pays à son propre niveau de CO₂ territorial en 1990. Une baisse apparaît en tête du classement.',definition:'<b>Définition.</b> Variation des émissions territoriales de CO₂ entre 1990 et la dernière année commune. Calcul TerraScope à partir de Global Carbon Budget / OWID.',unit:'variation',source:'/data/owid/co2',find:/emissions_total/i,transform:x=>x/1e6,ascending:true},renewables:{title:'Production renouvelable,<br><em>classement européen.</em>',intro:'Part des renouvelables dans la production nette d’électricité ; ce n’est pas la part de renouvelables dans la consommation totale d’énergie.',definition:'<b>Définition.</b> %. Production nette d’électricité, année 2025 lorsque les douze mois sont publiés. Source : Eurostat NRG_CB_PEM.',unit:'% du mix',ascending:false}}[metric]||null;
-  if(!config){location.replace('ranking.html?metric=co2');return} document.querySelector('#title').innerHTML=config.title;document.querySelector('#intro').textContent=config.intro;document.querySelector('#definition').innerHTML=config.definition;document.querySelectorAll('[data-metric]').forEach(a=>a.classList.toggle('active',a.dataset.metric===metric));
-  const csv=t=>t.trim().split(/\r?\n/).map(r=>r.split(',')); const get=(t,code,find)=>{const rows=csv(t),h=rows.shift(),ci=h.findIndex(x=>x.toLowerCase()==='code'),yi=h.findIndex(x=>x.toLowerCase()==='year'),vi=h.findIndex(x=>find.test(x));return rows.filter(r=>r[ci]===code&&Number.isFinite(+r[vi])).map(r=>({year:+r[yi],value:+r[vi]})).sort((a,b)=>a.year-b.year)};
-  const draw=(values,year)=>{values.sort((a,b)=>config.ascending?a.value-b.value:b.value-a.value);list.innerHTML=values.map((x,i)=>'<a class="rank-row '+(x.name===current?'is-current':'')+'" href="country-live.html?country='+encodeURIComponent(x.name)+'"><span class="rank-number">'+(i+1)+'</span><span class="rank-country"><img src="https://flagcdn.com/'+countries[x.name][2]+'.svg" alt="">'+x.name+'</span><strong class="rank-value">'+(x.value>=0&&metric==='change'?'+':'')+n(x.value)+(metric==='change'?' %':'')+'</strong><span class="rank-year">'+(year||x.year)+'</span></a>').join('')||'<p class="rank-empty">Aucune observation comparable disponible.</p>';status.textContent='OBSERVATIONS DIRECTES · '+values.length+' PAYS · MILLÉSIME '+(year||'VARIABLE')+' · '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});};
-  async function load(){try{if(metric==='renewables'){const results=await Promise.all(Object.keys(countries).map(async name=>{const r=await fetch('/data/eurostat-energy?geo='+countries[name][1]+'&year=2025');const d=r.ok?await r.json():null;return d?.complete&&Number.isFinite(d.renewableShare)?{name,value:d.renewableShare,year:d.year}:null}));const values=results.filter(Boolean),year=values.length?Math.min(...values.map(x=>x.year)):null;draw(values.filter(x=>x.year===year),year);return}const text=await fetch(config.source).then(r=>r.ok?r.text():Promise.reject());const values=Object.entries(countries).map(([name,[code]])=>{const rows=get(text,code,config.find);if(metric==='change'){const base=rows.find(x=>x.year===1990),last=rows.at(-1);return base&&last?{name,value:(config.transform(last.value)/config.transform(base.value)-1)*100,year:last.year}:null}const last=rows.at(-1);return last?{name,value:config.transform(last.value),year:last.year}:null}).filter(Boolean);const year=Math.min(...values.map(x=>x.year));draw(values.filter(x=>x.year===year),year)}catch(e){status.textContent='LA SOURCE EST TEMPORAIREMENT INDISPONIBLE ; AUCUNE VALEUR DE REMPLACEMENT N’EST AFFICHÉE.';list.innerHTML='<p class="rank-empty">Réessayez lorsque la source est accessible.</p>'}}load();
+  const metric = new URLSearchParams(location.search).get('metric') || 'co2';
+  const current = new URLSearchParams(location.search).get('country');
+  const list = document.querySelector('#ranking');
+  const status = document.querySelector('#status');
+  const number = value => Number(value).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+  const config = {
+    co2: {
+      key: 'co2_territorial_mt',
+      title: 'CO₂ territorial,<br><em>classement européen.</em>',
+      intro: 'Émissions territoriales de CO₂ fossile et industriel : elles excluent l’empreinte de consommation et les autres gaz à effet de serre.',
+      definition: '<b>Définition.</b> MtCO₂ par an. Tous les pays utilisent le même millésime Global Carbon Budget.',
+      suffix: '', ascending: false,
+    },
+    capita: {
+      key: 'co2_per_capita_t',
+      title: 'CO₂ par habitant,<br><em>classement européen.</em>',
+      intro: 'Émissions territoriales rapportées à la population de la même année ; aucun dénominateur d’un autre millésime n’est utilisé.',
+      definition: '<b>Définition.</b> tCO₂ par habitant. Calcul TerraScope : CO₂ Global Carbon Budget ÷ population Banque mondiale, même pays et même année.',
+      suffix: '', ascending: false,
+    },
+    change: {
+      derived: 'emissions_change_since_1990_pct',
+      title: 'Émissions depuis 1990,<br><em>classement européen.</em>',
+      intro: 'Le pourcentage compare chaque pays à son propre niveau de CO₂ territorial en 1990. Une baisse apparaît en tête du classement.',
+      definition: '<b>Définition.</b> Variation des émissions territoriales entre 1990 et le millésime comparable, à périmètre Global Carbon Budget constant.',
+      suffix: ' %', ascending: true,
+    },
+    renewables: {
+      key: 'renewable_electricity_share_pct',
+      title: 'Production renouvelable,<br><em>classement européen.</em>',
+      intro: 'Part des renouvelables dans la production d’électricité ; ce n’est pas leur part dans toute la consommation d’énergie.',
+      definition: '<b>Définition.</b> Pourcentage de la production d’électricité, même année pour les 27 pays. Ember annuel lorsque configuré, sinon Eurostat sur douze mois complets.',
+      suffix: ' %', ascending: false,
+    },
+  }[metric];
+
+  if (!config) { location.replace('ranking.html?metric=co2'); return; }
+  document.querySelector('#title').innerHTML = config.title;
+  document.querySelector('#intro').textContent = config.intro;
+  document.querySelector('#definition').innerHTML = config.definition;
+  document.querySelectorAll('[data-metric]').forEach(link => link.classList.toggle('active', link.dataset.metric === metric));
+
+  const valueFor = country => {
+    if (config.derived) {
+      const value = country.derived?.[config.derived];
+      return Number.isFinite(value) ? value : null;
+    }
+    const observation = country.metrics?.[config.key];
+    return observation?.status === 'available' && Number.isFinite(observation.value) ? observation.value : null;
+  };
+
+  fetch('/data/annual-snapshot.json', { cache: 'no-cache' })
+    .then(response => response.ok ? response.json() : Promise.reject(new Error('snapshot unavailable')))
+    .then(snapshot => {
+      if (!/^validated/.test(snapshot.status)) throw new Error('snapshot not validated');
+      const values = Object.entries(snapshot.countries).map(([code, country]) => ({
+        code,
+        name: country.name_fr,
+        iso2: country.iso2.toLowerCase(),
+        value: valueFor(country),
+      })).filter(country => country.value !== null);
+      values.sort((a, b) => config.ascending ? a.value - b.value : b.value - a.value);
+      list.innerHTML = values.map((country, index) => {
+        const sign = metric === 'change' && country.value >= 0 ? '+' : '';
+        return '<a class="rank-row '+(country.name === current ? 'is-current' : '')+'" href="country-live.html?country='+encodeURIComponent(country.name)+'">'
+          +'<span class="rank-number">'+(index + 1)+'</span>'
+          +'<span class="rank-country"><img src="https://flagcdn.com/'+country.iso2+'.svg" alt="">'+country.name+'</span>'
+          +'<strong class="rank-value">'+sign+number(country.value)+config.suffix+'</strong>'
+          +'<span class="rank-year">'+snapshot.reference_year+'</span></a>';
+      }).join('') || '<p class="rank-empty">Aucune observation comparable disponible.</p>';
+      status.textContent = 'SNAPSHOT VALIDÉ · '+values.length+' PAYS · MILLÉSIME COMMUN '+snapshot.reference_year;
+    })
+    .catch(() => {
+      status.textContent = 'LE SNAPSHOT ANNUEL VALIDÉ EST TEMPORAIREMENT INDISPONIBLE.';
+      list.innerHTML = '<p class="rank-empty">Aucune valeur de remplacement n’est affichée.</p>';
+    });
 })();

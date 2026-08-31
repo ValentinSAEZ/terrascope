@@ -1,10 +1,14 @@
 {
   "name": "terrascope",
   "private": true,
+  "type": "module",
   "version": "1.0.0",
   "description": "Climate and economic awareness platform.",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "data:refresh": "node scripts/refresh-annual-snapshot.mjs",
+    "data:validate": "node scripts/validate-annual-snapshot.mjs",
+    "data:update": "npm run data:refresh && npm run data:validate",
     "dev": "npx wrangler dev",
     "deploy": "npm run build && npx wrangler deploy"
   }

@@ -19,13 +19,22 @@ COUNTRIES = {
     "470": "MLT", "528": "NLD", "616": "POL", "620": "PRT", "642": "ROU", "703": "SVK",
     "705": "SVN", "724": "ESP", "752": "SWE",
 }
+ISO3 = set(COUNTRIES.values())
 ORIGIN = dt.datetime(1970, 1, 1)
 
 
 def country_masks(boundaries_path, latitudes, longitudes):
     features = json.load(open(boundaries_path, encoding="utf-8"))["features"]
-    geometries = {COUNTRIES[str(f.get("id", "")).zfill(3)]: shape(f["geometry"])
-                  for f in features if str(f.get("id", "")).zfill(3) in COUNTRIES}
+    geometries = {}
+    for feature in features:
+        properties = feature.get("properties", {})
+        candidates = [
+            properties.get("ADM0_A3"), properties.get("ISO_A3"), properties.get("SOV_A3"),
+            COUNTRIES.get(str(feature.get("id", "")).zfill(3)),
+        ]
+        code = next((candidate for candidate in candidates if candidate in ISO3), None)
+        if code:
+            geometries[code] = shape(feature["geometry"])
     # Europe-only window, split across ERA5's 0° longitude edge.
     lat_idx = np.where((latitudes >= 34) & (latitudes <= 72))[0]
     west_idx = np.where(longitudes >= 348)[0]
@@ -69,7 +78,7 @@ def main(source_path, boundaries_path, output_path):
                 date = ORIGIN + dt.timedelta(seconds=int(timestamp))
                 duration = calendar.monthrange(date.year, date.month)[1]
                 for code, (flat, weights) in masks.items():
-                    if len(flat) < 4:
+                    if len(flat) < 1:
                         continue
                     values = region[local_index, flat]
                     valid = np.isfinite(values)
@@ -101,7 +110,7 @@ def main(source_path, boundaries_path, output_path):
         "indicator": "Observed annual mean 2 m air temperature anomaly", "unit": "°C relative to 1991–2020",
         "source": "Copernicus Climate Change Service / ERA5 monthly averaged reanalysis",
         "period": "1950–2025 (complete years)", "recent_period": "2021–2025",
-        "method": "Monthly 2 m temperature values are weighted by month length. Country means use 0.1° ERA5 cell centres weighted by cosine latitude and Natural Earth 1:10m boundaries.",
+        "method": "Monthly 2 m temperature values are weighted by month length. Country means use 0.1° ERA5 cell centres weighted by cosine latitude and Natural Earth 1:10m boundaries. Intersected-cell counts are retained to audit small-country resolution.",
         "caveat": "Reanalysis combines observations and a numerical weather model; it is not a direct station-only measurement.",
     }, "countries": countries}
     os.makedirs(os.path.dirname(output_path), exist_ok=True)

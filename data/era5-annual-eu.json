@@ -1,0 +1,198 @@
+{
+  "indicator": "Observed annual mean 2 m air temperature anomaly",
+  "unit": "°C relative to 1991–2020",
+  "year": 2024,
+  "source": "Copernicus Climate Change Service / ERA5 monthly averaged reanalysis",
+  "method": "Twelve complete monthly means, weighted by month length; national grid-cell means weighted by cosine latitude.",
+  "countries": {
+    "AUT": {
+      "status": "available",
+      "annual_temperature_c": 8.77,
+      "baseline_1991_2020_c": 6.36,
+      "anomaly_vs_1991_2020_c": 2.41,
+      "grid_cells": 1002
+    },
+    "BEL": {
+      "status": "available",
+      "annual_temperature_c": 11.37,
+      "baseline_1991_2020_c": 10.23,
+      "anomaly_vs_1991_2020_c": 1.14,
+      "grid_cells": 390
+    },
+    "BGR": {
+      "status": "available",
+      "annual_temperature_c": 13.29,
+      "baseline_1991_2020_c": 11.01,
+      "anomaly_vs_1991_2020_c": 2.28,
+      "grid_cells": 1236
+    },
+    "CYP": {
+      "status": "available",
+      "annual_temperature_c": 20.12,
+      "baseline_1991_2020_c": 18.48,
+      "anomaly_vs_1991_2020_c": 1.64,
+      "grid_cells": 53
+    },
+    "CZE": {
+      "status": "available",
+      "annual_temperature_c": 10.56,
+      "baseline_1991_2020_c": 8.45,
+      "anomaly_vs_1991_2020_c": 2.11,
+      "grid_cells": 986
+    },
+    "DEU": {
+      "status": "available",
+      "annual_temperature_c": 10.96,
+      "baseline_1991_2020_c": 9.39,
+      "anomaly_vs_1991_2020_c": 1.57,
+      "grid_cells": 4582
+    },
+    "DNK": {
+      "status": "available",
+      "annual_temperature_c": 9.94,
+      "baseline_1991_2020_c": 8.94,
+      "anomaly_vs_1991_2020_c": 1.0,
+      "grid_cells": 614
+    },
+    "ESP": {
+      "status": "available",
+      "annual_temperature_c": 15.02,
+      "baseline_1991_2020_c": 13.49,
+      "anomaly_vs_1991_2020_c": 1.53,
+      "grid_cells": 5294
+    },
+    "EST": {
+      "status": "available",
+      "annual_temperature_c": 8.04,
+      "baseline_1991_2020_c": 6.33,
+      "anomaly_vs_1991_2020_c": 1.71,
+      "grid_cells": 708
+    },
+    "FIN": {
+      "status": "available",
+      "annual_temperature_c": 4.03,
+      "baseline_1991_2020_c": 2.91,
+      "anomaly_vs_1991_2020_c": 1.12,
+      "grid_cells": 6215
+    },
+    "FRA": {
+      "status": "available",
+      "annual_temperature_c": 12.16,
+      "baseline_1991_2020_c": 11.19,
+      "anomaly_vs_1991_2020_c": 0.97,
+      "grid_cells": 6425
+    },
+    "GRC": {
+      "status": "available",
+      "annual_temperature_c": 16.71,
+      "baseline_1991_2020_c": 14.17,
+      "anomaly_vs_1991_2020_c": 2.54,
+      "grid_cells": 1355
+    },
+    "HRV": {
+      "status": "available",
+      "annual_temperature_c": 14.23,
+      "baseline_1991_2020_c": 11.64,
+      "anomaly_vs_1991_2020_c": 2.59,
+      "grid_cells": 621
+    },
+    "HUN": {
+      "status": "available",
+      "annual_temperature_c": 13.17,
+      "baseline_1991_2020_c": 11.35,
+      "anomaly_vs_1991_2020_c": 1.82,
+      "grid_cells": 1100
+    },
+    "IRL": {
+      "status": "available",
+      "annual_temperature_c": 10.33,
+      "baseline_1991_2020_c": 9.72,
+      "anomaly_vs_1991_2020_c": 0.61,
+      "grid_cells": 924
+    },
+    "ITA": {
+      "status": "available",
+      "annual_temperature_c": 14.45,
+      "baseline_1991_2020_c": 12.44,
+      "anomaly_vs_1991_2020_c": 2.01,
+      "grid_cells": 3322
+    },
+    "LTU": {
+      "status": "available",
+      "annual_temperature_c": 9.43,
+      "baseline_1991_2020_c": 7.47,
+      "anomaly_vs_1991_2020_c": 1.96,
+      "grid_cells": 922
+    },
+    "LUX": {
+      "status": "available",
+      "annual_temperature_c": 10.45,
+      "baseline_1991_2020_c": 9.28,
+      "anomaly_vs_1991_2020_c": 1.17,
+      "grid_cells": 34
+    },
+    "LVA": {
+      "status": "available",
+      "annual_temperature_c": 8.73,
+      "baseline_1991_2020_c": 6.9,
+      "anomaly_vs_1991_2020_c": 1.83,
+      "grid_cells": 950
+    },
+    "MLT": {
+      "status": "available",
+      "annual_temperature_c": 20.55,
+      "baseline_1991_2020_c": 19.14,
+      "anomaly_vs_1991_2020_c": 1.41,
+      "grid_cells": 2
+    },
+    "NLD": {
+      "status": "available",
+      "annual_temperature_c": 11.73,
+      "baseline_1991_2020_c": 10.47,
+      "anomaly_vs_1991_2020_c": 1.26,
+      "grid_cells": 489
+    },
+    "POL": {
+      "status": "available",
+      "annual_temperature_c": 10.94,
+      "baseline_1991_2020_c": 8.76,
+      "anomaly_vs_1991_2020_c": 2.18,
+      "grid_cells": 4119
+    },
+    "PRT": {
+      "status": "available",
+      "annual_temperature_c": 16.03,
+      "baseline_1991_2020_c": 15.07,
+      "anomaly_vs_1991_2020_c": 0.96,
+      "grid_cells": 922
+    },
+    "ROU": {
+      "status": "available",
+      "annual_temperature_c": 12.11,
+      "baseline_1991_2020_c": 9.78,
+      "anomaly_vs_1991_2020_c": 2.33,
+      "grid_cells": 2741
+    },
+    "SVK": {
+      "status": "available",
+      "annual_temperature_c": 10.92,
+      "baseline_1991_2020_c": 8.48,
+      "anomaly_vs_1991_2020_c": 2.44,
+      "grid_cells": 593
+    },
+    "SVN": {
+      "status": "available",
+      "annual_temperature_c": 11.52,
+      "baseline_1991_2020_c": 9.58,
+      "anomaly_vs_1991_2020_c": 1.94,
+      "grid_cells": 241
+    },
+    "SWE": {
+      "status": "available",
+      "annual_temperature_c": 4.7,
+      "baseline_1991_2020_c": 3.55,
+      "anomaly_vs_1991_2020_c": 1.15,
+      "grid_cells": 7851
+    }
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "indicator": "Area-weighted mean annual count of ERA5-Land grid-cell days with daily Tmax >= 30 °C",
+  "unit": "days per year",
+  "source": "Copernicus Climate Change Service / ERA5-Land post-processed daily statistics",
+  "year": 2024,
+  "daily_statistic": "daily maximum of 2 m temperature, UTC, sampled hourly",
+  "method": "0.1° grid cells whose centres fall within national boundaries; cosine-latitude area weighting; a complete calendar is mandatory. Grid-cell counts are retained so small-country resolution can be audited.",
+  "countries": {
+    "CYP": {
+      "status": "available",
+      "mean_hot_days": 90.7,
+      "grid_cells": 53
+    },
+    "FRA": {
+      "status": "available",
+      "mean_hot_days": 8.7,
+      "grid_cells": 6425
+    },
+    "LTU": {
+      "status": "available",
+      "mean_hot_days": 1.3,
+      "grid_cells": 922
+    },
+    "CZE": {
+      "status": "available",
+      "mean_hot_days": 4.6,
+      "grid_cells": 986
+    },
+    "DEU": {
+      "status": "available",
+      "mean_hot_days": 3.7,
+      "grid_cells": 4582
+    },
+    "EST": {
+      "status": "available",
+      "mean_hot_days": 0.1,
+      "grid_cells": 708
+    },
+    "LVA": {
+      "status": "available",
+      "mean_hot_days": 0.5,
+      "grid_cells": 950
+    },
+    "SWE": {
+      "status": "available",
+      "mean_hot_days": 0.0,
+      "grid_cells": 7851
+    },
+    "FIN": {
+      "status": "available",
+      "mean_hot_days": 0.0,
+      "grid_cells": 6215
+    },
+    "LUX": {
+      "status": "available",
+      "mean_hot_days": 1.5,
+      "grid_cells": 34
+    },
+    "BEL": {
+      "status": "available",
+      "mean_hot_days": 1.8,
+      "grid_cells": 390
+    },
+    "ESP": {
+      "status": "available",
+      "mean_hot_days": 49.4,
+      "grid_cells": 5294
+    },
+    "DNK": {
+      "status": "available",
+      "mean_hot_days": 0.0,
+      "grid_cells": 614
+    },
+    "ROU": {
+      "status": "available",
+      "mean_hot_days": 37.2,
+      "grid_cells": 2741
+    },
+    "HUN": {
+      "status": "available",
+      "mean_hot_days": 46.3,
+      "grid_cells": 1100
+    },
+    "SVK": {
+      "status": "available",
+      "mean_hot_days": 14.5,
+      "grid_cells": 593
+    },
+    "POL": {
+      "status": "available",
+      "mean_hot_days": 7.1,
+      "grid_cells": 4119
+    },
+    "IRL": {
+      "status": "available",
+      "mean_hot_days": 0.0,
+      "grid_cells": 924
+    },
+    "GRC": {
+      "status": "available",
+      "mean_hot_days": 55.2,
+      "grid_cells": 1355
+    },
+    "AUT": {
+      "status": "available",
+      "mean_hot_days": 6.7,
+      "grid_cells": 1002
+    },
+    "ITA": {
+      "status": "available",
+      "mean_hot_days": 39.8,
+      "grid_cells": 3322
+    },
+    "NLD": {
+      "status": "available",
+      "mean_hot_days": 1.1,
+      "grid_cells": 489
+    },
+    "HRV": {
+      "status": "available",
+      "mean_hot_days": 40.7,
+      "grid_cells": 621
+    },
+    "SVN": {
+      "status": "available",
+      "mean_hot_days": 14.8,
+      "grid_cells": 241
+    },
+    "BGR": {
+      "status": "available",
+      "mean_hot_days": 45.3,
+      "grid_cells": 1236
+    },
+    "PRT": {
+      "status": "available",
+      "mean_hot_days": 45.5,
+      "grid_cells": 922
+    },
+    "MLT": {
+      "status": "available",
+      "mean_hot_days": 15.5,
+      "grid_cells": 2
+    }
+  }
+}

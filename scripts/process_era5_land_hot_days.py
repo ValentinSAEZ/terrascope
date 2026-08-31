@@ -19,13 +19,14 @@ import numpy as np
 from shapely.geometry import Point, shape
 from shapely.prepared import prep
 
-EU27 = {
+NUMERIC_TO_ISO3 = {
     "040": "AUT", "056": "BEL", "100": "BGR", "191": "HRV", "196": "CYP", "203": "CZE",
     "208": "DNK", "233": "EST", "246": "FIN", "250": "FRA", "276": "DEU", "300": "GRC",
     "348": "HUN", "372": "IRL", "380": "ITA", "428": "LVA", "440": "LTU", "442": "LUX",
     "470": "MLT", "528": "NLD", "616": "POL", "620": "PRT", "642": "ROU", "703": "SVK",
     "705": "SVN", "724": "ESP", "752": "SWE",
 }
+EU27 = set(NUMERIC_TO_ISO3.values())
 
 
 def dates_from_file(dataset: h5py.Dataset) -> list[date]:
@@ -49,12 +50,17 @@ def country_cells(geojson: Path, lat: np.ndarray, lon: np.ndarray) -> dict[str, 
     weights = np.repeat(np.cos(np.deg2rad(lat)), len(lon))
     result: dict[str, tuple[np.ndarray, np.ndarray]] = {}
     for feature in features:
-        code = EU27.get(str(feature.get("id", "")).zfill(3))
+        properties = feature.get("properties", {})
+        candidates = [
+            properties.get("ADM0_A3"), properties.get("ISO_A3"), properties.get("SOV_A3"),
+            NUMERIC_TO_ISO3.get(str(feature.get("id", "")).zfill(3)),
+        ]
+        code = next((candidate for candidate in candidates if candidate in EU27), None)
         if not code:
             continue
         polygon = prep(shape(feature["geometry"]))
         indices = np.fromiter((index for index, point in enumerate(points) if polygon.contains(point)), dtype=np.int64)
-        if len(indices) >= 4:
+        if len(indices) >= 1:
             result[code] = (indices, weights[indices])
     return result
 
@@ -107,7 +113,7 @@ def main() -> None:
         "source": "Copernicus Climate Change Service / ERA5-Land post-processed daily statistics",
         "year": args.year,
         "daily_statistic": "daily maximum of 2 m temperature, UTC, sampled hourly",
-        "method": "0.1° grid cells whose centres fall within national boundaries; cosine-latitude area weighting; a complete calendar is mandatory.",
+        "method": "0.1° grid cells whose centres fall within national boundaries; cosine-latitude area weighting; a complete calendar is mandatory. Grid-cell counts are retained so small-country resolution can be audited.",
         "countries": countries,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

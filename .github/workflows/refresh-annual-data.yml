@@ -1,0 +1,98 @@
+name: Refresh annual TerraScope data
+
+on:
+  workflow_dispatch:
+    inputs:
+      reference_year:
+        description: Comparable observation year (leave empty for current year minus two)
+        required: false
+        type: string
+  schedule:
+    - cron: '17 5 15 6 *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: annual-terrascope-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      EMBER_API_KEY: ${{ secrets.EMBER_API_KEY }}
+      COPERNICUS_CDS_API_KEY: ${{ secrets.COPERNICUS_CDS_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Choose the candidate common year
+        shell: bash
+        run: |
+          if [ -n "${{ inputs.reference_year }}" ]; then
+            echo "REFERENCE_YEAR=${{ inputs.reference_year }}" >> "$GITHUB_ENV"
+          else
+            echo "REFERENCE_YEAR=$(($(date +%Y)-2))" >> "$GITHUB_ENV"
+          fi
+
+      - name: Prepare climate processing
+        if: env.COPERNICUS_CDS_API_KEY != ''
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check -r requirements-data.txt
+          mkdir -p data/raw
+          curl --fail --location --retry 3 \
+            'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson' \
+            --output data/raw/ne_10m_admin_0_countries.geojson
+
+      - name: Retrieve and process ERA5 annual climate indicators
+        if: env.COPERNICUS_CDS_API_KEY != ''
+        shell: bash
+        run: |
+          python scripts/fetch_era5_monthly_temperature.py \
+            --year "$REFERENCE_YEAR" \
+            --output "data/raw/era5-monthly-${REFERENCE_YEAR}.nc"
+          python scripts/process_era5_annual_temperature.py \
+            --year "$REFERENCE_YEAR" \
+            --input "data/raw/era5-monthly-${REFERENCE_YEAR}.nc" \
+            --countries data/raw/ne_10m_admin_0_countries.geojson \
+            --baseline data/era5-observed-eu.json \
+            --output data/era5-annual-eu.json
+          python scripts/fetch_era5_land_hot_days.py --year "$REFERENCE_YEAR" --out data/raw/era5-land
+          python scripts/process_era5_land_hot_days.py \
+            --year "$REFERENCE_YEAR" \
+            --input data/raw/era5-land \
+            --countries data/raw/ne_10m_admin_0_countries.geojson \
+            --output data/era5-land-hot-days-eu.json
+
+      - name: Build and validate the common-year snapshot
+        run: npm run data:update
+
+      - name: Verify the deployable site
+        run: npm run build
+
+      - name: Publish validated generated data
+        shell: bash
+        run: |
+          git add data/annual-snapshot.json
+          if [ -f data/era5-annual-eu.json ]; then
+            git add data/era5-annual-eu.json
+          fi
+          if [ -f data/era5-land-hot-days-eu.json ]; then
+            git add data/era5-land-hot-days-eu.json
+          fi
+          if git diff --cached --quiet; then
+            echo "No annual data change to publish."
+            exit 0
+          fi
+          git config user.name 'TerraScope Data Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git commit -m "Update comparable climate data for ${REFERENCE_YEAR}"
+          git push

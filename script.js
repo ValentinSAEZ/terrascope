@@ -79,11 +79,8 @@ function parseCsvLine(line) {
   values.push(value); return values;
 }
 
-function drawLiveHistory(rows, yearIndex, valueIndex) {
-  const series = rows
-    .map(row => ({ year: Number(row[yearIndex]), value: Number(row[valueIndex]) / 1e6 }))
-    .filter(point => point.year >= 1990)
-    .sort((left, right) => left.year - right.year);
+function drawLiveHistory(inputSeries) {
+  const series = inputSeries.filter(point => point.year >= 1990).sort((left, right) => left.year - right.year);
   if (series.length < 2) return;
   const first = series[0];
   const last = series.at(-1);
@@ -106,45 +103,41 @@ function drawLiveHistory(rows, yearIndex, valueIndex) {
   document.querySelector('.y2025').textContent = last.year;
   const decline = ((last.value / first.value) - 1) * 100;
   document.querySelector('.observed-label').innerHTML = `<b>${decline < 0 ? '−' : '+'}${Math.abs(decline).toLocaleString('fr-FR', { maximumFractionDigits: 0 })} %</b><span>depuis ${first.year}</span>`;
-  document.querySelector('.chart-caption').textContent = `Historique chargé en direct depuis OWID / Global Carbon Budget jusqu’en ${last.year}. Les lignes orange et verte restent des scénarios prospectifs, distincts des émissions observées.`;
+  document.querySelector('.chart-caption').textContent = `Historique Global Carbon Budget arrêté au millésime comparable ${last.year}. Les lignes orange et verte restent des scénarios prospectifs, distincts des émissions observées.`;
 }
 
 async function hydrateFranceCo2() {
   const status = document.querySelector('#data-status');
   try {
-    const response = await fetch(window.TERRASCOPE_SOURCES.owid.co2France);
+    const response = await fetch('/data/annual-snapshot.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const lines = (await response.text()).trim().split(/\r?\n/);
-    const headers = parseCsvLine(lines.shift());
-    const entityIndex = headers.findIndex(header => header.toLowerCase() === 'entity');
-    const yearIndex = headers.findIndex(header => header.toLowerCase() === 'year');
-    const valueIndex = headers.findIndex(header => /annual.*co2.*emissions|emissions_total/i.test(header));
-    const rows = lines.map(parseCsvLine).filter(row => row[entityIndex] === 'France' && Number.isFinite(Number(row[valueIndex])));
-    const latest = rows.sort((a, b) => Number(b[yearIndex]) - Number(a[yearIndex]))[0];
-    const prior = rows.find(row => Number(row[yearIndex]) === Number(latest[yearIndex]) - 5);
+    const snapshot = await response.json();
+    if (!/^validated/.test(snapshot.status)) throw new Error('Snapshot non validé');
+    const rows = snapshot.countries?.FRA?.series?.co2_territorial_mt || [];
+    const latest = rows.find(row => row.year === snapshot.reference_year);
+    const prior = rows.find(row => row.year === snapshot.reference_year - 5);
     if (!latest) throw new Error('Série France introuvable');
-    const megatonnes = Number(latest[valueIndex]) / 1e6;
+    const megatonnes = latest.value;
     document.querySelector('#emissions-value').textContent = megatonnes.toLocaleString('fr-FR', { maximumFractionDigits: 0 });
-    document.querySelector('#data-updated').textContent = latest[yearIndex];
+    document.querySelector('#data-updated').textContent = snapshot.reference_year;
     if (prior) {
-      const change = ((Number(latest[valueIndex]) / Number(prior[valueIndex])) - 1) * 100;
+      const change = ((latest.value / prior.value) - 1) * 100;
       const element = document.querySelector('#emissions-change');
       element.textContent = `${change < 0 ? '↓' : '↑'} ${Math.abs(change).toLocaleString('fr-FR', { maximumFractionDigits: 1 })} % sur 5 ans`;
       element.className = change <= 0 ? 'down' : 'up';
     }
-    drawLiveHistory(rows, yearIndex, valueIndex);
-    status.textContent = 'DONNÉES OWID · LIVE';
+    drawLiveHistory(rows);
+    status.textContent = `SNAPSHOT VALIDÉ · ${snapshot.reference_year}`;
   } catch (error) {
-    status.textContent = 'DONNÉES OWID · INDISPONIBLES';
+    status.textContent = 'SNAPSHOT ANNUEL · INDISPONIBLE';
     document.querySelector('#emissions-change').textContent = 'Série temporairement indisponible';
   }
 }
 hydrateFranceCo2();
 
-// Country explorer — the same OWID series used by the country sheet powers
-// the ranking, so the comparison never mixes sources or years silently.
+// Country explorer — the validated annual snapshot powers both country cards
+// and rankings, so comparisons cannot silently mix years.
 const explorerButton = document.querySelector('.menu');
-const countryOwidNames = {Allemagne:'Germany',Autriche:'Austria',Belgique:'Belgium',Bulgarie:'Bulgaria',Chypre:'Cyprus',Croatie:'Croatia',Danemark:'Denmark',Espagne:'Spain',Estonie:'Estonia',Finlande:'Finland',France:'France',Grèce:'Greece',Hongrie:'Hungary',Irlande:'Ireland',Italie:'Italy',Lettonie:'Latvia',Lituanie:'Lithuania',Luxembourg:'Luxembourg',Malte:'Malta','Pays-Bas':'Netherlands',Pologne:'Poland',Portugal:'Portugal',Roumanie:'Romania',Slovaquie:'Slovakia',Slovénie:'Slovenia',Suède:'Sweden',Tchéquie:'Czechia'};
 const countryIso2 = {Allemagne:'de',Autriche:'at',Belgique:'be',Bulgarie:'bg',Chypre:'cy',Croatie:'hr',Danemark:'dk',Espagne:'es',Estonie:'ee',Finlande:'fi',France:'fr',Grèce:'gr',Hongrie:'hu',Irlande:'ie',Italie:'it',Lettonie:'lv',Lituanie:'lt',Luxembourg:'lu',Malte:'mt','Pays-Bas':'nl',Pologne:'pl',Portugal:'pt',Roumanie:'ro',Slovaquie:'sk',Slovénie:'si',Suède:'se',Tchéquie:'cz'};
 const explorer = document.createElement('div');
 explorer.className = 'explorer-overlay'; explorer.hidden = true;
@@ -174,20 +167,18 @@ renderExplorer();
 
 async function hydrateExplorerEmissions() {
   try {
-    const response = await fetch(window.TERRASCOPE_SOURCES.owid.co2France);
+    const response = await fetch('/data/annual-snapshot.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const lines = (await response.text()).trim().split(/\r?\n/);
-    const headers = parseCsvLine(lines.shift());
-    const entityIndex = headers.findIndex(header => header.toLowerCase() === 'entity');
-    const yearIndex = headers.findIndex(header => header.toLowerCase() === 'year');
-    const valueIndex = headers.findIndex(header => /annual.*co2.*emissions|emissions_total/i.test(header));
-    const latestByEntity = new Map();
-    lines.map(parseCsvLine).forEach(row => { const entity = row[entityIndex], year = Number(row[yearIndex]), value = Number(row[valueIndex]); if (Number.isFinite(year) && Number.isFinite(value) && (!latestByEntity.has(entity) || year > latestByEntity.get(entity).year)) latestByEntity.set(entity, { year, value }); });
-    explorerRows = explorerRows.map(row => { const source = latestByEntity.get(countryOwidNames[row.name]); return source ? { ...row, emission: source.value / 1e6, year: source.year } : row; });
-    const latestYear = Math.max(...explorerRows.map(row => row.year || 0));
-    explorerStatus.textContent = `SOURCE · OWID / GLOBAL CARBON BUDGET · DERNIÈRE OBSERVATION ${latestYear}`;
+    const snapshot = await response.json();
+    if (!/^validated/.test(snapshot.status)) throw new Error('Snapshot non validé');
+    const byName = new Map(Object.values(snapshot.countries).map(country => [country.name_fr, country]));
+    explorerRows = explorerRows.map(row => {
+      const source = byName.get(row.name)?.metrics?.co2_territorial_mt;
+      return source?.status === 'available' ? { ...row, emission: source.value, year: source.year } : row;
+    });
+    explorerStatus.textContent = `SOURCE · GLOBAL CARBON BUDGET · MILLÉSIME COMMUN ${snapshot.reference_year}`;
   } catch (error) {
-    explorerStatus.textContent = 'SOURCE OWID TEMPORAIREMENT INDISPONIBLE · TRI ALPHABÉTIQUE DISPONIBLE';
+    explorerStatus.textContent = 'SNAPSHOT ANNUEL TEMPORAIREMENT INDISPONIBLE · TRI ALPHABÉTIQUE DISPONIBLE';
     explorerSort = 'name'; explorer.querySelector('[data-sort="name"]').classList.add('is-active'); explorer.querySelector('[data-sort="emissions"]').classList.remove('is-active');
   }
   renderExplorer();

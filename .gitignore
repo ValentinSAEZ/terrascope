@@ -2,9 +2,11 @@ node_modules/
 public/
 work/
 outputs/
-.openai/
+.openai/*
+!.openai/hosting.json
 .wrangler/
 .env
 .cdsapirc
 data/raw/
+data/*.part
 __pycache__/
