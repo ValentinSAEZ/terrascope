@@ -13,6 +13,7 @@ const staticFiles = [
   'data/cmip-ssp245-cnrmesm21.json',
   'data/climate-projections.json', 'climate-projections.js', 'projection-contract.js', 'climate-projections.css',
   'health-ui.css', 'health-ui.js',
+  'blueprint-ui.css', 'blueprint-ui.js',
   'terrascope-runtime.js', 'ranking-runtime.js', 'data-contract.js', 'script.js', 'country-ui.js', 'country-ui.css',
   'styles.css', 'economist.css', 'structure.css', 'search-ui.css', 'responsive-ui.css', 'ranking-ui.css',
 ];

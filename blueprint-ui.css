@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+/* Foundations: Lato, 4px rhythm, 1px rules, 2px corners. Existing colors unchanged. */
+html body.blueprint{--sans:'Lato','Space Grotesk',sans-serif;--bp-radius:2px;--bp-space:4px;font-size:16px;line-height:1.6}
+html body.blueprint{--serif:'Lato','Space Grotesk',sans-serif;font-family:var(--sans)}
+html body.blueprint [hidden]{display:none!important}
+html body.blueprint :is(button,input,select){font-family:var(--sans);border-radius:2px!important}
+html body.blueprint :is(strong,b,.ranking-amount){font-variant-numeric:tabular-nums}
+html body.blueprint :is(a,button,summary):focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+html body.blueprint .nav{min-height:64px;height:auto;padding-block:14px;align-items:center}
+html body.blueprint .brand{font-size:25px;letter-spacing:-.8px}
+html body.blueprint .ticker{font:12px/1.5 var(--sans);letter-spacing:.2px}
+html body.blueprint .menu{font:13px/1.5 var(--sans);min-height:40px}
+html body.blueprint :is(.eyebrow,.ranking-kicker){font-size:12px;letter-spacing:.5px}
+html body.blueprint :is(.sheet,.ranking-workspace,.health-page,.sources-page,.region,.news){max-width:1280px;padding-top:28px!important;padding-bottom:52px!important}
+html body.blueprint :is(.ranking-heading h1,.health-hero h1,.sources-page h1,.region h1,.news h1){font-family:var(--sans);font-size:clamp(30px,3.5vw,44px)!important;font-weight:500;line-height:1.2!important;letter-spacing:-1px!important}
+html body.blueprint :is(.ranking-heading h1,.health-hero h1,.sources-page h1,.region h1,.news h1) em{font-style:normal}
+html body.blueprint :is(.ranking-heading,.health-hero){margin-bottom:24px;padding-block:16px}
+html body.blueprint :is(.ranking-heading h1 br){display:none}
+html body.blueprint :is(.ranking-metrics,.health-nav,.method-tabs){gap:0!important;background:transparent;border:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;margin-bottom:24px;padding:0!important}
+html body.blueprint :is(.ranking-metrics a,.health-nav a,.method-tabs button){border-radius:0!important;box-shadow:none!important;border:0;border-right:1px solid var(--line);font:14px/1.5 var(--sans);padding:12px 18px;min-height:46px}
+html body.blueprint :is(.ranking-metrics a[aria-current=true],.health-nav a[aria-current=page]){background:var(--forest);color:var(--paper)}
+/* A single country workspace, rather than a stack of rounded cards. */
+html body.blueprint.country-atlas .sheet{padding-inline:clamp(18px,4vw,48px)!important}
+html body.blueprint.country-atlas .sheet .hero-sheet{padding:18px 0 24px!important}
+html body.blueprint.country-atlas .sheet h1{font:500 clamp(30px,3.8vw,44px)/1.2 var(--sans)!important;letter-spacing:-1px!important}
+html body.blueprint.country-atlas .sheet .identity img{width:38px!important;max-height:28px}
+html body.blueprint.country-atlas .sheet .lede{font-size:14px!important;max-width:90ch!important}
+html body.blueprint .atlas-workspace{display:block;border:1px solid var(--line)}
+html body.blueprint .atlas-sidebar{position:static;padding:0;border:0;border-bottom:1px solid var(--line)}
+html body.blueprint .atlas-sidebar>.eyebrow,html body.blueprint .atlas-health{display:none}
+html body.blueprint.country-atlas .sheet .tabs{display:flex;flex-direction:row;flex-wrap:wrap!important;gap:0!important;padding:0!important}
+html body.blueprint.country-atlas .sheet .tabs a{flex:1;padding:13px 16px;border-radius:0;border-right:1px solid var(--line);text-align:center;white-space:nowrap;font-size:14px}
+html body.blueprint.country-atlas .sheet .tabs a:last-child{border-right:0}
+html body.blueprint .atlas-content{padding:28px!important}
+html body.blueprint.country-atlas .sheet .head{margin-bottom:24px!important}
+html body.blueprint.country-atlas .sheet :is(.head h2,.sources h2){font:500 24px/1.35 var(--sans)!important;letter-spacing:-.4px!important;margin-bottom:18px!important}
+html body.blueprint.country-atlas .sheet .head h2 em{font-style:normal}
+html body.blueprint.country-atlas .sheet .head .eyebrow{font-size:12px;margin-bottom:8px}
+html body.blueprint.country-atlas .sheet .metrics{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);grid-template-columns:repeat(4,minmax(0,1fr))!important}
+html body.blueprint.country-atlas .sheet .metrics>*{background:transparent!important;border:0!important;border-right:1px solid var(--line)!important;border-radius:0;padding:22px!important;min-height:190px}
+html body.blueprint.country-atlas .sheet .metrics>:last-child{border-right:0!important}
+html body.blueprint.country-atlas .sheet .metrics .rank-card:hover{background:#eeeadf!important}
+html body.blueprint.country-atlas .sheet .metrics strong{font:500 clamp(28px,3vw,36px)/1.2 var(--sans)!important;letter-spacing:-.7px;margin:16px 0 8px}
+html body.blueprint.country-atlas .sheet .metrics p{font-size:14px;min-height:42px}
+html body.blueprint.country-atlas .sheet .metrics small{font:12px/1.6 var(--sans);margin-top:14px}
+html body.blueprint .atlas-shortcuts{gap:0;border:1px solid var(--line);margin-top:26px}
+html body.blueprint .atlas-shortcuts a{background:transparent;border:0;border-radius:0;padding:24px;border-bottom:1px solid var(--line)}
+html body.blueprint .atlas-shortcuts a:nth-child(odd){border-right:1px solid var(--line)}
+html body.blueprint .atlas-shortcuts a:nth-last-child(-n+2){border-bottom:0}
+html body.blueprint .atlas-shortcuts h3{font:500 18px/1.4 var(--sans)}
+/* Historical graph stays exact: no smoothing or invented intermediate points. */
+html body.blueprint.country-atlas .sheet .compare{background:transparent;border-radius:0}
+html body.blueprint.country-atlas .sheet .compare article{padding:20px 24px!important}
+html body.blueprint.country-atlas .sheet .compare strong{font:500 30px/1.3 var(--sans)}
+html body.blueprint.country-atlas .sheet .chart{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:24px 0 12px!important;margin-top:28px!important}
+html body.blueprint.country-atlas .sheet .chart-header{padding-bottom:18px;border:0}
+html body.blueprint.country-atlas .sheet .chart h3{font:500 22px/1.4 var(--sans)}
+html body.blueprint.country-atlas .sheet .chart-readout strong{font:500 32px/1.2 var(--sans)}
+html body.blueprint.country-atlas .sheet .chart svg{aspect-ratio:1000/300!important}
+/* Donut + aligned percentage rows, using the existing mix values and colors. */
+html body.blueprint.country-atlas .sheet .energy{grid-template-columns:minmax(230px,.8fr) minmax(0,1.4fr)!important;gap:32px;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent;padding:28px 0!important}
+html body.blueprint.country-atlas .sheet .donut{width:260px!important;height:260px!important;max-width:100%;justify-self:center;align-self:center}
+html body.blueprint.country-atlas .sheet .donut:after{inset:58px;background:var(--paper)}
+html body.blueprint.country-atlas .sheet .donut span{font:14px/1.5 var(--sans)}
+html body.blueprint.country-atlas .sheet .fuel{font:14px/1.5 var(--sans);gap:0}
+html body.blueprint.country-atlas .sheet .fuel div{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;min-height:58px;padding:15px 0 19px;border-bottom:1px solid var(--line)}
+html body.blueprint.country-atlas .sheet .fuel div::after{content:'';position:absolute;bottom:8px;left:0;width:var(--fuel-share,0%);height:3px;background:var(--fuel-color,var(--forest));max-width:100%}
+html body.blueprint.country-atlas .sheet .fuel b{font-weight:500;white-space:nowrap}
+html body.blueprint.country-atlas .sheet .fuel i{border-radius:1px;width:9px;height:9px;margin-right:9px}
+html body.blueprint.country-atlas .sheet .energy h3{font:500 20px/1.4 var(--sans)}
+html body.blueprint.country-atlas .sheet .impacts{gap:0;border:1px solid var(--line)}
+html body.blueprint.country-atlas .sheet .impacts article{background:transparent;border:0!important;border-right:1px solid var(--line)!important;border-radius:0;padding:24px!important}
+html body.blueprint.country-atlas .sheet .impacts article:last-child{border-right:0!important}
+html body.blueprint.country-atlas .sheet .impacts strong{font:500 32px/1.3 var(--sans)}
+html body.blueprint.country-atlas .sheet .atlas-content>.future{border-radius:0;padding:28px!important}
+html body.blueprint.country-atlas .sheet .futuregrid strong{font-family:var(--sans);font-weight:500}
+html body.blueprint .clim-explorer h3{font:500 clamp(22px,2.6vw,29px)/1.35 var(--sans)}
+html body.blueprint .clim-scenarios{gap:0;border:1px solid #ffffff30}
+html body.blueprint .clim-scenarios button{border:0;border-right:1px solid #ffffff30;box-shadow:none!important;padding:16px;border-radius:0!important}
+html body.blueprint .clim-scenarios button[aria-pressed=true]{box-shadow:inset 0 -3px var(--scenario)!important}
+html body.blueprint .clim-periods{gap:0}
+html body.blueprint .clim-periods button{border-radius:0!important}
+/* Rankings and audit share the same quiet, ruled table language. */
+html body.blueprint :is(.ranking-results,.ranking-reading,.ranking-focus,.health-overview>.health-section,.health-summary article){border:1px solid var(--line);border-radius:0!important;box-shadow:none}
+html body.blueprint .ranking-results{padding:24px}
+html body.blueprint :is(.ranking-result-head h2,.ranking-reading>summary,.ranking-focus h2,.health-head h2){font:500 22px/1.4 var(--sans);letter-spacing:-.3px}
+html body.blueprint .ranking-entry{min-height:74px;padding:14px 12px}
+html body.blueprint .ranking-country-name{font-size:15px}
+html body.blueprint .ranking-amount{font-size:20px}
+html body.blueprint .ranking-year{border-radius:0;font:14px var(--sans);padding:8px 12px}
+html body.blueprint .ranking-focus-value{font:500 32px/1.3 var(--sans)}
+html body.blueprint .health-summary{gap:0;border:1px solid var(--line)}
+html body.blueprint .health-summary article,html body.blueprint .health-summary article:first-child{background:transparent;border:0;border-right:1px solid var(--line);padding:24px}
+html body.blueprint .health-summary article:last-child{border-right:0}
+html body.blueprint .health-summary strong{font:500 27px/1.35 var(--sans)}
+html body.blueprint .health-overview>.health-section{background:transparent;padding:24px}
+html body.blueprint :is(#validation-reserves,.health-overview>.health-caveat){border-radius:0!important}
+html body.blueprint :is(.health-source summary b,.health-rules summary,.source-card h3){font-family:var(--sans);font-weight:500}
+html body.blueprint :is(.health-card strong){font:500 24px/1.3 var(--sans)}
+html body.blueprint .method-panel{border:1px solid var(--line);padding:26px}
+html body.blueprint .method-panel h2{font:500 25px/1.35 var(--sans);letter-spacing:-.4px}
+html body.blueprint .source-card{border-radius:0;box-shadow:none}
+html body.blueprint .source-card p{font-size:16px;line-height:1.75;max-width:85ch}
+/* Home remains an editorial introduction with the new precise framing. */
+html body.blueprint .hero{margin:28px auto;max-width:1280px;border:1px solid var(--line);padding:60px 48px!important;min-height:520px!important}
+html body.blueprint .hero h1{font-size:clamp(42px,5.8vw,76px)!important;line-height:1.07!important;letter-spacing:-2px!important}
+html body.blueprint .hero .intro{font-size:18px;max-width:480px}
+html body.blueprint .search{border-radius:0;box-shadow:none;border-color:var(--line)}
+html body.blueprint .search button{border-radius:2px!important}
+html body.blueprint .explorer-dialog{box-shadow:none;border-radius:0}
+html body.blueprint :is(.explorer-top h2,.row-name,.region-grid h2,.news h2){font-family:var(--sans);font-weight:500}
+html body.blueprint footer{min-height:0;padding-block:24px}
+@media(max-width:1000px){
+ html body.blueprint.country-atlas .sheet .metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html body.blueprint.country-atlas .sheet .metrics>:nth-child(2){border-right:0!important}
+ html body.blueprint.country-atlas .sheet .metrics>:nth-child(-n+2){border-bottom:1px solid var(--line)!important}
+ html body.blueprint .hero{margin-inline:20px;padding:40px 28px!important}
+ html body.blueprint.country-atlas .sheet .donut{width:230px!important;height:230px!important}
+ html body.blueprint.country-atlas .sheet .donut:after{inset:52px}
+ html body.blueprint.country-atlas .sheet .impacts article{border-bottom:1px solid var(--line)!important;border-right:0!important}
+}
+@media(max-width:680px){
+ html body.blueprint .atlas-content{padding:20px 16px!important}
+ html body.blueprint.country-atlas .sheet .tabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ html body.blueprint.country-atlas .sheet .tabs a{font-size:13px;padding:12px 6px;white-space:normal;border-bottom:1px solid var(--line)}
+ html body.blueprint.country-atlas .sheet .metrics>*{padding:16px!important;min-height:0}
+ html body.blueprint.country-atlas .sheet .metrics strong{font-size:28px!important}
+ html body.blueprint.country-atlas .sheet .metrics p{font-size:13px;min-height:38px}
+ html body.blueprint.country-atlas .sheet .energy{grid-template-columns:1fr!important;gap:24px}
+ html body.blueprint .atlas-shortcuts{grid-template-columns:1fr}
+ html body.blueprint .atlas-shortcuts a{padding:20px;border-bottom:1px solid var(--line)!important;border-right:0!important}
+ html body.blueprint .atlas-shortcuts a:last-child{border-bottom:0!important}
+ html body.blueprint .ranking-results{padding:16px 12px}
+ html body.blueprint .ranking-entry{padding-inline:4px}
+ html body.blueprint .ranking-focus-value{font-size:24px}
+ html body.blueprint .health-summary article:first-child{border-right:0;border-bottom:1px solid var(--line)}
+ html body.blueprint .health-summary strong{font-size:24px}
+ html body.blueprint.country-atlas .sheet .atlas-content>.future{padding:20px 14px!important}
+ html body.blueprint .clim-scenarios button{padding:12px 8px}
+ html body.blueprint .clim-scenarios b{font-size:13px}
+ html body.blueprint .method-panel{padding:20px 16px}
+ html body.blueprint .hero{margin:18px;padding:32px 24px!important;min-height:0!important}
+ html body.blueprint .hero h1{font-size:clamp(38px,9vw,56px)!important;letter-spacing:-1.4px!important}
+ html body.blueprint .hero .intro{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){html body.blueprint *{scroll-behavior:auto!important}}
+/* Original editorial home composition, retaining the shared Lato typography. */
+html body.blueprint.home-atlas .hero{position:relative;display:block!important;width:100%;max-width:none;margin:0!important;border:0;border-radius:0!important;padding:88px max(4vw,calc((100vw - 1120px)/2)) 96px!important;min-height:640px!important;overflow:hidden!important}
+html body.blueprint.home-atlas .hero-copy{position:relative;z-index:2;width:min(580px,100%)!important;max-width:580px!important;padding:0!important}
+html body.blueprint.home-atlas .hero-copy h1{font:900 clamp(40px,5.5vw,68px)/1.12 var(--sans)!important;letter-spacing:-1.5px!important;margin:24px 0!important}
+html body.blueprint.home-atlas .hero-copy h1 em{font-family:inherit!important;font-style:normal!important;color:var(--forest)}
+html body.blueprint.home-atlas .hero-copy .intro{font-size:18px!important;max-width:520px;margin-bottom:32px!important}
+html body.blueprint.home-atlas .world-map{display:block;pointer-events:none}
+@media(max-width:680px){html body.blueprint.home-atlas .hero{padding:56px 24px 64px!important;min-height:560px!important}html body.blueprint.home-atlas .hero-copy h1{font-size:clamp(36px,8.5vw,52px)!important}html body.blueprint.home-atlas .hero-copy .intro{font-size:16px!important}html body.blueprint.home-atlas .world-map{right:-280px;top:140px;opacity:.2}}
+/* Shared foundation rules intentionally follow the page-specific legacy styles. */
+/* Complete component treatment: layout, typography and responsive geometry. */
+html body.blueprint .brand{font-family:'Playfair Display',Georgia,serif}
+html body.blueprint h1,html body.blueprint h2,html body.blueprint h3,html body.blueprint h4{font-family:var(--sans)!important;font-style:normal!important}
+html body.blueprint h2 em,html body.blueprint h3 em{font-style:normal!important}
+html body.blueprint footer p{font:14px/1.6 var(--sans)}
+html body.blueprint .hero{display:grid!important;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)!important;gap:0!important;align-items:stretch!important;padding:0!important;min-height:0!important;margin:48px auto!important;width:calc(100% - 64px);overflow:visible!important}
+html body.blueprint .hero-copy{position:relative!important;width:auto!important;max-width:none!important;padding:48px!important;z-index:2}
+html body.blueprint .hero-copy h1{font-family:var(--sans)!important;font-size:44px!important;line-height:1.15!important;margin:24px 0!important;letter-spacing:-1px!important;font-weight:900!important}
+html body.blueprint .hero-copy h1 em{font-family:inherit!important;font-style:normal!important}
+html body.blueprint .hero-copy .intro{font:16px/1.7 var(--sans)!important;margin:0 0 32px!important}
+html body.blueprint .hero-copy .search{width:100%!important;max-width:none!important;margin:0!important;box-shadow:none!important}
+html body.blueprint .hero-copy .data-note{font:14px/1.6 var(--sans);margin:16px 0 0}
+html body.blueprint .home-directory{border-left:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;padding:32px;background:transparent}
+html body.blueprint .directory-heading{display:flex;flex-direction:column;gap:8px;padding:0 0 24px;border-bottom:1px solid var(--line)}
+html body.blueprint .directory-heading span{font:12px/1.5 var(--sans);letter-spacing:1px;color:var(--forest)}
+html body.blueprint .directory-heading b{font-size:22px;font-weight:400}
+html body.blueprint .home-directory>a{display:grid;grid-template-columns:24px 1fr 20px;align-items:center;gap:16px;padding:24px 0;color:inherit;text-decoration:none;border-bottom:1px solid var(--line)}
+html body.blueprint .home-directory>a:last-child{border-bottom:0}
+html body.blueprint .home-directory>a:hover{color:var(--forest)}
+html body.blueprint .home-directory>a>span{font-size:14px;color:var(--forest)}
+html body.blueprint .home-directory h2{font:400 22px/1.3 var(--sans)!important;margin:0 0 8px!important;letter-spacing:0!important}
+html body.blueprint .home-directory p{font:14px/1.6 var(--sans);margin:0;color:var(--muted)}
+html body.blueprint.country-atlas .sheet .chart{padding:24px!important;border:1px solid var(--line);border-radius:2px;background:transparent}
+html body.blueprint.country-atlas .sheet .chart-header{display:flex;align-items:center;gap:24px;padding:0 0 24px;border-bottom:1px solid var(--line)}
+html body.blueprint.country-atlas .sheet .chart-hint{font:12px/1.6 var(--sans)!important;max-width:50ch;margin:12px 0 0}
+html body.blueprint.country-atlas .sheet .chart-readout{margin:0;min-width:140px;justify-content:end;text-align:right}
+html body.blueprint.country-atlas .sheet .chart-readout span{font:400 18px/1.3 var(--sans)}
+html body.blueprint.country-atlas .sheet .chart svg{display:block;aspect-ratio:auto!important;height:320px!important;width:100%!important;margin:24px 0!important}
+html body.blueprint.country-atlas .sheet .chart .history-ylabels text,html body.blueprint.country-atlas .sheet .chart #history-xlabels text{font:14px var(--sans)}
+html body.blueprint.country-atlas .sheet .chart-foot{font:12px/1.5 var(--sans)!important;text-transform:none;letter-spacing:0}
+html body.blueprint.country-atlas .sheet .energy{padding:32px!important;grid-template-columns:minmax(0,1fr) minmax(0,1.45fr)!important;gap:32px!important;border:1px solid var(--line);border-radius:2px}
+html body.blueprint.country-atlas .sheet .energy .donut{position:relative;margin:auto!important;width:min(100%,300px)!important;height:auto!important;aspect-ratio:1;flex-shrink:0}
+html body.blueprint.country-atlas .sheet .energy .donut:after{inset:24%!important}
+html body.blueprint.country-atlas .sheet .energy aside{margin:0!important;padding:24px 0 0!important;min-width:0}
+html body.blueprint.country-atlas .sheet .sources>div{display:grid;grid-template-columns:1fr!important;gap:0;border:1px solid var(--line);border-radius:2px}
+html body.blueprint.country-atlas .sheet .sources>div>a{display:grid;grid-template-columns:minmax(180px,.8fr) minmax(0,1.4fr);gap:32px;align-items:start;padding:24px!important;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;min-height:0}
+html body.blueprint.country-atlas .sheet .sources>div>a:last-child{border-bottom:0}
+html body.blueprint.country-atlas .sheet .sources>div>a:hover{background:#eeeadf}
+html body.blueprint.country-atlas .sheet .sources b{font:400 18px/1.5 var(--sans);margin:0}
+html body.blueprint.country-atlas .sheet .sources span{font:400 14px/1.7 var(--sans)}
+html body.blueprint .category-nav{display:flex;flex-wrap:wrap;gap:0;padding:0;border:1px solid var(--line);margin:32px 0 0}
+html body.blueprint .category-nav button{font:14px/1.5 var(--sans);padding:12px 16px;min-height:48px;border:0;border-right:1px solid var(--line);background:transparent;box-shadow:none}
+html body.blueprint .category-nav button[aria-selected="true"]{background:var(--forest);color:var(--paper)}
+html body.blueprint .source-card{padding:24px 0!important;border:0!important;border-top:1px solid var(--line)!important;background:transparent!important;border-radius:0!important}
+html body.blueprint .source-card h3{font:400 22px/1.4 var(--sans)!important}
+html body.blueprint .source-card .status{font:12px/1.5 var(--sans);border-radius:2px}
+html body.blueprint .method-panel h2{font-size:28px}
+html body.blueprint .method-panel{margin-top:0;border-top:0}
+html body.blueprint .source-card{max-width:none}
+html body.blueprint .source-card a{display:inline-block;font:14px/1.5 var(--sans);margin:0 20px 8px 0;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:600px){html body.blueprint.country-atlas .sheet .chart .history-ylabels text,html body.blueprint.country-atlas .sheet .chart #history-xlabels text{font-size:30px}html body.blueprint.country-atlas .sheet .chart #history-xlabels text:nth-child(2),html body.blueprint.country-atlas .sheet .chart #history-xlabels text:nth-child(4){display:none}}
+html body.blueprint .principles{border-radius:2px;font:14px/1.7 var(--sans)}
+@media(max-width:900px){html body.blueprint .hero{grid-template-columns:1fr!important;width:calc(100% - 32px);margin:24px auto!important}html body.blueprint .hero-copy{padding:32px!important}html body.blueprint .home-directory{border-left:0;border-top:1px solid var(--line);padding:32px}html body.blueprint.country-atlas .sheet .energy{padding:24px!important;gap:24px!important}}
+@media(max-width:600px){html body.blueprint .hero-copy{padding:24px!important}html body.blueprint .hero-copy h1{font-size:36px!important}html body.blueprint .home-directory{padding:24px}html body.blueprint.country-atlas .sheet .chart{padding:16px!important}html body.blueprint.country-atlas .sheet .chart-header{display:block}html body.blueprint.country-atlas .sheet .chart-readout{margin-top:20px;justify-content:start;text-align:left}html body.blueprint.country-atlas .sheet .chart svg{height:260px!important}html body.blueprint.country-atlas .sheet .energy{grid-template-columns:1fr!important;padding:20px!important}html body.blueprint.country-atlas .sheet .sources>div>a{grid-template-columns:1fr;gap:8px;padding:20px!important}html body.blueprint .category-nav button{flex:1 1 40%}}
+html body.blueprint :is(.atlas-workspace,.atlas-shortcuts,.ranking-results,.ranking-focus,.ranking-reading,.health-overview>.health-section,.method-panel,.hero,.explorer-dialog){border-radius:var(--bp-radius)!important;box-shadow:none!important}
+html body.blueprint :is(.ranking-heading h1,.health-hero h1,.sources-page h1,.region h1,.news h1){font-weight:900}
+html body.blueprint.country-atlas .sheet h1{font-weight:900!important}
+html body.blueprint .hero h1{font-family:var(--sans);font-weight:900;font-size:clamp(40px,5vw,64px)!important;line-height:1.1!important;letter-spacing:-1.5px!important}
+html body.blueprint .hero h1 em{font-style:normal;font-weight:900}
+html body.blueprint :is(.ranking-controls input,.ranking-controls select,.explorer-search){min-height:48px}
+html body.blueprint :is(.atlas-content,.ranking-results,.health-overview>.health-section,.method-panel){padding:24px!important}
+html body.blueprint .ranking-metrics a:hover{box-shadow:none}
+@media(max-width:680px){html body.blueprint :is(.atlas-content,.ranking-results,.health-overview>.health-section,.method-panel){padding:16px!important}html body.blueprint .hero h1{font-size:clamp(36px,9vw,48px)!important}}
