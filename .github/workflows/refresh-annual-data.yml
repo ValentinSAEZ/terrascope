@@ -75,6 +75,9 @@ jobs:
       - name: Build and validate the common-year snapshot
         run: npm run data:update
 
+      - name: Regression checks for data integrity
+        run: npm test
+
       - name: Verify the deployable site
         run: npm run build
 

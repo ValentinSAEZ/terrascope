@@ -4,7 +4,7 @@
   "scope": "EU-27",
   "generated_at": "2026-08-31T15:46:05.780Z",
   "publication_policy": "All observed headline metrics use the same reference year. A missing value is never replaced with zero or another year.",
-  "status": "validated",
+  "status": "validated_with_documented_gaps",
   "sources": {
     "co2": {
       "id": "gcb-fossil-co2",
@@ -29,7 +29,7 @@
       "id": "eurostat-electricity",
       "label": "Eurostat · monthly net electricity generation, annualised from 12 complete months",
       "url": "https://ec.europa.eu/eurostat/databrowser/view/nrg_cb_pem/default/table",
-      "definition": "Share of electricity generation. It is not the share of renewables in total final energy consumption."
+      "definition": "Net electricity generation from 12 complete Eurostat monthly observations. Pumped-storage output and other reported fuels are separate from renewables; any unallocated residual remains explicitly visible."
     },
     "warming": {
       "id": "era5-monthly",
@@ -147,7 +147,21 @@
           "value": 73.49,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 76552.50099999999,
+              "RA000": 56257.228,
+              "N9000": 0,
+              "FE": 9865.829000000002,
+              "RA130": 0,
+              "X9900": 10429.444999999998
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -181,7 +195,9 @@
         "renewables": 73.49,
         "nuclear": 0,
         "fossil": 12.89,
-        "adjustment": 13.62
+        "pumped_storage": 0,
+        "other": 13.62,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -377,7 +393,21 @@
           "value": 34.72,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 70706.634,
+              "RA000": 24545.979,
+              "N9000": 29590.659999999996,
+              "FE": 15479.196999999998,
+              "RA130": 1040.9640000000002,
+              "X9900": 49.82899999999999
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -411,7 +441,9 @@
         "renewables": 34.72,
         "nuclear": 41.85,
         "fossil": 21.89,
-        "adjustment": 1.54
+        "pumped_storage": 1.47,
+        "other": 0.07,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -607,7 +639,21 @@
           "value": 30.6,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 35311.020000000004,
+              "RA000": 10806.135999999999,
+              "N9000": 14959.004,
+              "FE": 9510.146,
+              "RA130": 5.468,
+              "X9900": 30.266
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -641,7 +687,9 @@
         "renewables": 30.6,
         "nuclear": 42.36,
         "fossil": 26.93,
-        "adjustment": 0.1
+        "pumped_storage": 0.02,
+        "other": 0.09,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -837,7 +885,21 @@
           "value": 73.69,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 14760.028000000002,
+              "RA000": 10876.242999999999,
+              "N9000": 0,
+              "FE": 3883.785,
+              "RA130": 0,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -871,6 +933,8 @@
         "renewables": 73.69,
         "nuclear": 0,
         "fossil": 26.31,
+        "pumped_storage": 0,
+        "other": 0,
         "adjustment": 0
       },
       "series": {
@@ -1067,7 +1131,21 @@
           "value": 24.02,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 5514.901000000001,
+              "RA000": 1324.4650000000001,
+              "N9000": 0,
+              "FE": 4190.436000000001,
+              "RA130": 0,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -1101,6 +1179,8 @@
         "renewables": 24.02,
         "nuclear": 0,
         "fossil": 75.98,
+        "pumped_storage": 0,
+        "other": 0,
         "adjustment": 0
       },
       "series": {
@@ -1297,7 +1377,21 @@
           "value": 17.23,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 68947.681,
+              "RA000": 11877.009,
+              "N9000": 28049.831,
+              "FE": 28008.297000000002,
+              "RA130": 910.8940000000001,
+              "X9900": 101.651
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -1331,7 +1425,9 @@
         "renewables": 17.23,
         "nuclear": 40.68,
         "fossil": 40.62,
-        "adjustment": 1.47
+        "pumped_storage": 1.32,
+        "other": 0.15,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -1527,7 +1623,21 @@
           "value": 88.38,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 34022.545000000006,
+              "RA000": 30068.18,
+              "N9000": 0,
+              "FE": 3954.365,
+              "RA130": 0,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -1561,6 +1671,8 @@
         "renewables": 88.38,
         "nuclear": 0,
         "fossil": 11.62,
+        "pumped_storage": 0,
+        "other": 0,
         "adjustment": 0
       },
       "series": {
@@ -1757,7 +1869,21 @@
           "value": 62.65,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 5243.23,
+              "RA000": 3284.8759999999997,
+              "N9000": 0,
+              "FE": 1958.354,
+              "RA130": 0,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -1791,6 +1917,8 @@
         "renewables": 62.65,
         "nuclear": 0,
         "fossil": 37.35,
+        "pumped_storage": 0,
+        "other": 0,
         "adjustment": 0
       },
       "series": {
@@ -1987,7 +2115,21 @@
           "value": 55.86,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 79342,
+              "RA000": 44322,
+              "N9000": 31133,
+              "FE": 3887,
+              "RA130": 0,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -2021,6 +2163,8 @@
         "renewables": 55.86,
         "nuclear": 39.24,
         "fossil": 4.9,
+        "pumped_storage": 0,
+        "other": 0,
         "adjustment": 0
       },
       "series": {
@@ -2217,7 +2361,21 @@
           "value": 27.19,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 541491.895,
+              "RA000": 147245.34099999996,
+              "N9000": 361718.484,
+              "FE": 23695.986,
+              "RA130": 2277.917,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -2251,7 +2409,9 @@
         "renewables": 27.19,
         "nuclear": 66.8,
         "fossil": 4.38,
-        "adjustment": 1.63
+        "pumped_storage": 0.42,
+        "other": 0,
+        "adjustment": 1.21
       },
       "series": {
         "co2_territorial_mt": [
@@ -2447,7 +2607,21 @@
           "value": 56.25,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 441200.65300000005,
+              "RA000": 248192.311,
+              "N9000": 0,
+              "FE": 186890.956,
+              "RA130": 5661.131000000001,
+              "X9900": 456.26
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -2481,7 +2655,9 @@
         "renewables": 56.25,
         "nuclear": 0,
         "fossil": 42.36,
-        "adjustment": 1.39
+        "pumped_storage": 1.28,
+        "other": 0.1,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -2677,7 +2853,21 @@
           "value": 50.3,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 51784.00100000001,
+              "RA000": 26046.354,
+              "N9000": 0,
+              "FE": 25721.510000000002,
+              "RA130": 0,
+              "X9900": 16.14
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -2711,7 +2901,9 @@
         "renewables": 50.3,
         "nuclear": 0,
         "fossil": 49.67,
-        "adjustment": 0.03
+        "pumped_storage": 0,
+        "other": 0.03,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -2907,7 +3099,21 @@
           "value": 31.44,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 35702.246999999996,
+              "RA000": 11225.887,
+              "N9000": 15163.284,
+              "FE": 9313.076000000001,
+              "RA130": 0,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -2941,6 +3147,8 @@
         "renewables": 31.44,
         "nuclear": 42.47,
         "fossil": 26.09,
+        "pumped_storage": 0,
+        "other": 0,
         "adjustment": 0
       },
       "series": {
@@ -3137,7 +3345,21 @@
           "value": 46.45,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 29567.953999999998,
+              "RA000": 13732.954000000002,
+              "N9000": 0,
+              "FE": 15483.541,
+              "RA130": 351.45899999999995,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -3171,7 +3393,9 @@
         "renewables": 46.45,
         "nuclear": 0,
         "fossil": 52.37,
-        "adjustment": 1.19
+        "pumped_storage": 1.19,
+        "other": 0,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -3367,7 +3591,21 @@
           "value": 49.16,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 263499.8,
+              "RA000": 129547.781,
+              "N9000": 0,
+              "FE": 132790,
+              "RA130": 1042.219,
+              "X9900": 119.8
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -3401,7 +3639,9 @@
         "renewables": 49.16,
         "nuclear": 0,
         "fossil": 50.39,
-        "adjustment": 0.44
+        "pumped_storage": 0.4,
+        "other": 0.05,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -3597,7 +3837,21 @@
           "value": 72.91,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 5906,
+              "RA000": 4306,
+              "N9000": 0,
+              "FE": 1600,
+              "RA130": 0,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -3631,6 +3885,8 @@
         "renewables": 72.91,
         "nuclear": 0,
         "fossil": 27.09,
+        "pumped_storage": 0,
+        "other": 0,
         "adjustment": 0
       },
       "series": {
@@ -3827,7 +4083,21 @@
           "value": 72.7,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 6286.303000000001,
+              "RA000": 4570.211,
+              "N9000": 0,
+              "FE": 1077.927,
+              "RA130": 552.25,
+              "X9900": 85.915
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -3861,7 +4131,9 @@
         "renewables": 72.7,
         "nuclear": 0,
         "fossil": 17.15,
-        "adjustment": 10.15
+        "pumped_storage": 8.78,
+        "other": 1.37,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -4057,7 +4329,21 @@
           "value": 50.43,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 2723.735,
+              "RA000": 1373.455,
+              "N9000": 0,
+              "FE": 114.86800000000002,
+              "RA130": 1235.412,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -4091,7 +4377,9 @@
         "renewables": 50.43,
         "nuclear": 0,
         "fossil": 4.22,
-        "adjustment": 45.36
+        "pumped_storage": 45.36,
+        "other": 0,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -4287,7 +4575,21 @@
           "value": 15.71,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 2138.604,
+              "RA000": 336.006,
+              "N9000": 0,
+              "FE": 1802.598,
+              "RA130": 0,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -4321,6 +4623,8 @@
         "renewables": 15.71,
         "nuclear": 0,
         "fossil": 84.29,
+        "pumped_storage": 0,
+        "other": 0,
         "adjustment": 0
       },
       "series": {
@@ -4517,7 +4821,21 @@
           "value": 50.6,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 120139.797,
+              "RA000": 60796.365999999995,
+              "N9000": 3382.4080000000004,
+              "FE": 55398.121999999996,
+              "RA130": 0,
+              "X9900": 562.9010000000001
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -4551,7 +4869,9 @@
         "renewables": 50.6,
         "nuclear": 2.82,
         "fossil": 46.11,
-        "adjustment": 0.47
+        "pumped_storage": 0,
+        "other": 0.47,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -4747,7 +5067,21 @@
           "value": 31.17,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 155292.92,
+              "RA000": 48400.719000000005,
+              "N9000": 0,
+              "FE": 105971.52399999999,
+              "RA130": 920.677,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -4781,7 +5115,9 @@
         "renewables": 31.17,
         "nuclear": 0,
         "fossil": 68.24,
-        "adjustment": 0.59
+        "pumped_storage": 0.59,
+        "other": 0,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -4977,7 +5313,21 @@
           "value": 87.49,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 49906.53,
+              "RA000": 43663.77899999999,
+              "N9000": 0,
+              "FE": 6242.753999999999,
+              "RA130": 0,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -5011,6 +5361,8 @@
         "renewables": 87.49,
         "nuclear": 0,
         "fossil": 12.51,
+        "pumped_storage": 0,
+        "other": 0,
         "adjustment": 0
       },
       "series": {
@@ -5207,7 +5559,21 @@
           "value": 49.97,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 47788,
+              "RA000": 23880,
+              "N9000": 10016,
+              "FE": 13892,
+              "RA130": 0,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -5241,6 +5607,8 @@
         "renewables": 49.97,
         "nuclear": 20.96,
         "fossil": 29.07,
+        "pumped_storage": 0,
+        "other": 0,
         "adjustment": 0
       },
       "series": {
@@ -5437,7 +5805,21 @@
           "value": 24.27,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 27573,
+              "RA000": 6693,
+              "N9000": 16912,
+              "FE": 3458,
+              "RA130": 491,
+              "X9900": 19
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -5471,7 +5853,9 @@
         "renewables": 24.27,
         "nuclear": 61.34,
         "fossil": 12.54,
-        "adjustment": 1.85
+        "pumped_storage": 1.78,
+        "other": 0.07,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -5667,7 +6051,21 @@
           "value": 41.04,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 15857.027000000002,
+              "RA000": 6508.453,
+              "N9000": 5551.247,
+              "FE": 3515.422,
+              "RA130": 281.905,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -5701,7 +6099,9 @@
         "renewables": 41.04,
         "nuclear": 35.01,
         "fossil": 22.17,
-        "adjustment": 1.78
+        "pumped_storage": 1.78,
+        "other": 0,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -5897,7 +6297,21 @@
           "value": 56.27,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 266281.08,
+              "RA000": 149832.76100000003,
+              "N9000": 52120.039,
+              "FE": 60258.716,
+              "RA130": 4069.5639999999994,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -5931,7 +6345,9 @@
         "renewables": 56.27,
         "nuclear": 19.57,
         "fossil": 22.63,
-        "adjustment": 1.53
+        "pumped_storage": 1.53,
+        "other": 0,
+        "adjustment": 0
       },
       "series": {
         "co2_territorial_mt": [
@@ -6127,7 +6543,21 @@
           "value": 70.34,
           "unit": "% of electricity generation",
           "year": 2024,
-          "source": "eurostat-electricity"
+          "source": "eurostat-electricity",
+          "provenance": {
+            "calendar_verified": true,
+            "months": 12,
+            "annual_generation_gwh": {
+              "TOTAL": 169575.493,
+              "RA000": 119279.29299999999,
+              "N9000": 48641.111999999994,
+              "FE": 1655.088,
+              "RA130": 0,
+              "X9900": 0
+            },
+            "source_updated_at": "2026-09-14T23:00:00+0200",
+            "retrieved_at": "2026-09-15T09:16:49.753401+00:00"
+          }
         },
         "warming_anomaly_c": {
           "status": "available",
@@ -6161,6 +6591,8 @@
         "renewables": 70.34,
         "nuclear": 28.68,
         "fossil": 0.98,
+        "pumped_storage": 0,
+        "other": 0,
         "adjustment": 0
       },
       "series": {
@@ -6310,17 +6742,246 @@
     }
   },
   "validation": {
-    "checked_at": "2026-08-31T16:18:06.142Z",
+    "checked_at": "2026-09-15T09:27:23.487Z",
+    "contract_version": 2,
     "exact_year_join": true,
     "country_count": 27,
     "core_metrics_complete": true,
-    "sentinel_countries": [
-      "FRA",
-      "DEU",
-      "ESP",
-      "SWE",
-      "POL"
+    "checks": [
+      "exact-eu27",
+      "year-unit-source",
+      "finite-bounds-null",
+      "derived-ratios",
+      "history-order-baseline",
+      "mix-components",
+      "coverage",
+      "weighted-eu-comparison"
     ],
-    "warnings": []
+    "warnings": [
+      "AUT/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "AUT/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "BEL/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "BEL/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "BGR/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "BGR/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "HRV/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "HRV/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "CYP/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "CYP/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "CZE/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "CZE/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "DNK/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "DNK/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "EST/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "EST/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "FIN/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "FIN/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "FRA: 1.21% electricity is an unallocated residual, not an identified source.",
+      "FRA/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "FRA/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "DEU/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "DEU/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "GRC/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "GRC/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "HUN/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "HUN/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "IRL/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "IRL/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "ITA/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "ITA/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "LVA/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "LVA/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "LTU/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "LTU/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "LUX/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "LUX/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "MLT/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "MLT/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "NLD/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "NLD/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "POL/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "POL/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "PRT/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "PRT/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "ROU/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "ROU/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "SVK/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "SVK/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "SVN/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "SVN/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "ESP/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "ESP/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot.",
+      "SWE/warming_anomaly_c: raw calendar / geography not independently evidenced in snapshot.",
+      "SWE/hot_days_ge_30_c: raw calendar / geography not independently evidenced in snapshot."
+    ]
+  },
+  "source_audit": {
+    "checked_at": "2026-09-15T09:16:49.753401+00:00",
+    "reference_year": 2024,
+    "external_checks": 135,
+    "external_matches": 135,
+    "local_climate_checks": 54,
+    "limitations_fr": [
+      "Les valeurs des fournisseurs peuvent être révisées.",
+      "Les agrégats climatiques concordent avec les fichiers locaux, mais les NetCDF et les limites géographiques n’ont pas été retraités dans cet audit.",
+      "Les projections CMIP6 ne font pas partie de cette contre-vérification."
+    ],
+    "sources": {
+      "electricity": {
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_cb_pem?freq=M&unit=GWH&sinceTimePeriod=2024-01&untilTimePeriod=2024-12&siec=TOTAL&siec=RA000&siec=N9000&siec=FE&siec=RA130&siec=X9900&geo=AT&geo=BE&geo=BG&geo=HR&geo=CY&geo=CZ&geo=DK&geo=EE&geo=FI&geo=FR&geo=DE&geo=EL&geo=HU&geo=IE&geo=IT&geo=LV&geo=LT&geo=LU&geo=MT&geo=NL&geo=PL&geo=PT&geo=RO&geo=SK&geo=SI&geo=ES&geo=SE",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "be9836930c27c8e2a236f28fe7ed4cbb13f40c1061f2faf3ea04240d5770d042"
+      },
+      "population": {
+        "url": "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?date=2024&format=json&per_page=400",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "adabba898d02d1e24eb749ce161fcba2d8567bfe4ecb493de5648370cff8439a"
+      },
+      "gdp": {
+        "url": "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.PP.KD?date=2024&format=json&per_page=400",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "1f65128c9ceaae69055c8fa63ef6ee796b5665d6bcfb331b4cfe7b6d0606bb04"
+      },
+      "co2": {
+        "url": "https://ourworldindata.org/grapher/annual-co2-emissions-per-country.csv?csvType=full&useColumnShortNames=true",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "12457dc133224a3fda74ebbc8a0e14d45ea1c2cbde940553355ae6afd7460880"
+      },
+      "fire-AUT": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=AUT&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "12edc03e467c3c48aaefedc6caa12138af9af3985fd755e141e1d92247242486"
+      },
+      "fire-BEL": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=BEL&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "88c9534e9fefdf841b7d0a1715764b530de6faeba48b3d43807b4f8e86bc8e94"
+      },
+      "fire-BGR": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=BGR&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "95d8a176330bd572ca953f9c4dc6d894aacfaccaedaa1e2b64e7f8b6e17d3b5c"
+      },
+      "fire-HRV": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=HRV&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "634007cb0d6c501c3150c7a60548f36e382d01e82ffc8278eb7414140d7588ec"
+      },
+      "fire-CYP": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=CYP&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "da2efcd522df7e176015bd595d988d018353c29e0d5396ce8f5a2c8f05ccbffb"
+      },
+      "fire-CZE": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=CZE&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "14053677611be4894a9cfdce4a67ef47a30777f633f534db080db2b911ac473b"
+      },
+      "fire-DNK": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=DNK&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "bc2c50ca603a5675bc2fa10adf8eddedfb26a385b380b51febbb951d0f58946a"
+      },
+      "fire-EST": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=EST&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "4f4261a7ac169cf6f306a90d34e7b46ce67a4160c7d0b8dc73baaa45d58b9250"
+      },
+      "fire-FIN": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=FIN&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "645398c29d3f9b057cd6db4f992c770090542a4dd528a80900ff27a05d79006b"
+      },
+      "fire-FRA": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=FRA&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "6bbafbc0286449460e6dbadbda4f52cb8a4055e6d4e5066b2bb21f4d53f2cda4"
+      },
+      "fire-DEU": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=DEU&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "1b972601f73187b4a7b73c024b3a7e80b2f8e90fbf4f18d3db63d1ed1c459c15"
+      },
+      "fire-GRC": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=GRC&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "d9dd5100591af885086eb5f4642eb3b53cf60e2488a9d7d78af7d2764d7851f7"
+      },
+      "fire-HUN": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=HUN&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "07381d8659dd79b06305f950194a58f7102451a43a00542c858c73dc0f7a1d33"
+      },
+      "fire-IRL": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=IRL&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "d16aedc98bc9858153e6ad682a8493dbd67b42f77d34f7035c0a4ee32e91ad9d"
+      },
+      "fire-ITA": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=ITA&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "136ba72456a421c2af67dc29a3a913add481677e925b866cfd3747f177d9ad1b"
+      },
+      "fire-LVA": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=LVA&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "6d563d4e6506ee0e79b0ebb9afc1564daf353dd0476916b87385f180f7c1c0b0"
+      },
+      "fire-LTU": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=LTU&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "46eb700d575a785822f8b11d96a2e035eaf525811ca7d62cd7a15d74f2a0580b"
+      },
+      "fire-LUX": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=LUX&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "e261011fbc1e7cf016bfb6e8b060e95dbf69176f2cd666da85c06fad820cb5f3"
+      },
+      "fire-MLT": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=MLT&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "ad9907db43de4a218518c33c116dac8aaba8c86d4d9a3ad8391f02043e3dc3af"
+      },
+      "fire-NLD": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=NLD&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "b46d4b4869ba577d0d912ce67d3f5b8dcec3e2a02b9172ca3a633ae864829965"
+      },
+      "fire-POL": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=POL&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "a2aca3eac40f7d528994e759a1ce323e9f4cbed3be46a22fe37321dd8e38be7a"
+      },
+      "fire-PRT": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=PRT&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "8a5a694242be96260e662eb63f354914e5391fba82b106d74e5856a07cbe938c"
+      },
+      "fire-ROU": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=ROU&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "c9e0d2532a397fe887541d4e5ad959e7bb46fc061d1c39236b0d84388c29b484"
+      },
+      "fire-SVK": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=SVK&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "4a570ddd1e6e9a63c7418faea293a323e982346ec21af408a6a5be5e61dbe64c"
+      },
+      "fire-SVN": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=SVN&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "500af319173ffb7483426e6bcd0fdd0d67f11a0d8fd38fcd080a8ead05cfd49c"
+      },
+      "fire-ESP": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=ESP&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "7b229e157b1f5ce2831d5dfc838c6093324e084cc5040446a67bbcb10599b576"
+      },
+      "fire-SWE": {
+        "url": "https://cprof.effis.emergency.copernicus.eu/api/v3/banf?level=ADM0&value=SWE&year=2024&yearFrom=2024&yearTo=2024&env=PROD",
+        "retrieved_at": "2026-09-15T09:16:49.753401+00:00",
+        "sha256": "a2664f6bc8f759ebbf3aaf0f66c23a1356dbb151cffabdc01ad5106020811bf2"
+      }
+    }
   }
 }

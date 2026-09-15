@@ -72,9 +72,14 @@ def main() -> None:
         target_dates = [timestamps[index] for index in target_indices]
         if len(target_dates) != 12 or {item.month for item in target_dates} != set(range(1, 13)):
             raise SystemExit(f"Incomplete ERA5 monthly calendar for {args.year}.")
+        if [item.month for item in target_dates]!=list(range(1,13)):
+            raise SystemExit('Monthly dates must be sorted before duration weighting.')
         lat, lon = source["latitude"][:], source["longitude"][:]
         country_masks = masks(args.countries, lat, lon)
         values = source["t2m"][target_indices, :, :].reshape(12, -1)
+        unit=source['t2m'].attrs.get('units','')
+        if isinstance(unit,bytes): unit=unit.decode()
+        if unit not in ('K','kelvin','Kelvin'): raise SystemExit('Expected Kelvin temperatures.')
         countries = {}
         for code in sorted(EU27):
             country_baseline = baseline.get("countries", {}).get(code, {}).get("baseline_1991_2020_c")
@@ -82,6 +87,10 @@ def main() -> None:
                 countries[code] = {"status": "not_available", "reason": "Boundary coverage or baseline unavailable."}
                 continue
             indices, area_weights = country_masks[code]
+            selected=values[:,indices]
+            if not np.all(np.isfinite(selected)) or np.any((selected<150)|(selected>350)):
+                countries[code]={'status':'not_available','reason':'Missing or invalid monthly temperatures in selected cells.'}
+                continue
             monthly = [float(np.average(values[index, indices], weights=area_weights)) for index in range(12)]
             month_weights = [calendar.monthrange(args.year, month)[1] for month in range(1, 13)]
             annual_c = float(np.average(monthly, weights=month_weights)) - 273.15
@@ -96,6 +105,7 @@ def main() -> None:
         "indicator": "Observed annual mean 2 m air temperature anomaly",
         "unit": "°C relative to 1991–2020",
         "year": args.year,
+        "validation": {"calendar_verified": True, "unique_months": 12, "geography_verified": False, "baseline_independently_verified": False},
         "source": "Copernicus Climate Change Service / ERA5 monthly averaged reanalysis",
         "method": "Twelve complete monthly means, weighted by month length; national grid-cell means weighted by cosine latitude.",
         "countries": countries,

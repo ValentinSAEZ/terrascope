@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import {strictNumber,annualElectricity,assertCompleteEU} from './data-imports.mjs';
 
 try {
   const localEnv = await readFile(new URL('../.env', import.meta.url), 'utf8');
@@ -11,7 +12,10 @@ try {
 }
 
 const REFERENCE_YEAR = Number(process.env.REFERENCE_YEAR || 2024);
-const OUTPUT = new URL('../data/annual-snapshot.json', import.meta.url);
+// A credential must never silently change the statistical definition.
+const useEmber=process.env.ELECTRICITY_PROVIDER==='ember';
+if(useEmber&&!process.env.EMBER_API_KEY)throw Error('Ember selected without a credential.');
+const OUTPUT = new URL('../data/annual-snapshot.candidate.json', import.meta.url);
 const OBSERVED_TEMPERATURE = new URL('../data/era5-observed-eu.json', import.meta.url);
 const ANNUAL_TEMPERATURE = new URL('../data/era5-annual-eu.json', import.meta.url);
 const HOT_DAYS = new URL('../data/era5-land-hot-days-eu.json', import.meta.url);
@@ -71,9 +75,9 @@ const sourceDefinitions = {
     definition: 'GDP in purchasing-power-parity terms at constant 2021 international dollars.',
   },
   electricity: {
-    id: process.env.EMBER_API_KEY ? 'ember-yearly-electricity' : 'eurostat-electricity',
-    label: process.env.EMBER_API_KEY ? 'Ember · Yearly Electricity Data' : 'Eurostat · monthly net electricity generation, annualised from 12 complete months',
-    url: process.env.EMBER_API_KEY ? 'https://api.ember-energy.org/v1/docs' : 'https://ec.europa.eu/eurostat/databrowser/view/nrg_cb_pem/default/table',
+    id: useEmber ? 'ember-yearly-electricity' : 'eurostat-electricity',
+    label: useEmber ? 'Ember · Yearly Electricity Data' : 'Eurostat · monthly net electricity generation, annualised from 12 complete months',
+    url: useEmber ? 'https://api.ember-energy.org/v1/docs' : 'https://ec.europa.eu/eurostat/databrowser/view/nrg_cb_pem/default/table',
     definition: 'Share of electricity generation. It is not the share of renewables in total final energy consumption.',
   },
   warming: {
@@ -104,7 +108,7 @@ async function fetchWithRetry(url, kind = 'json', attempts = 3) {
   let lastError;
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
-      const response = await fetch(url, { headers: { 'user-agent': 'TerraScope annual data pipeline/1.0' } });
+      const response = await fetch(url, { signal: AbortSignal.timeout(45000), headers: { 'user-agent': 'TerraScope annual data pipeline/1.0' } });
       if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
       return kind === 'text' ? await response.text() : await response.json();
     } catch (error) {
@@ -112,7 +116,7 @@ async function fetchWithRetry(url, kind = 'json', attempts = 3) {
       if (attempt < attempts) await new Promise(resolve => setTimeout(resolve, 700 * attempt));
     }
   }
-  throw new Error(`Unable to retrieve ${url}: ${lastError?.message}`);
+  throw new Error(`Unable to retrieve ${new URL(url).origin}${new URL(url).pathname}: ${lastError?.message}`);
 }
 
 function parseCsv(text) {
@@ -144,15 +148,9 @@ async function worldBankIndicator(indicator) {
   const response = await fetchWithRetry(url);
   const records = Array.isArray(response) ? response[1] : null;
   if (!Array.isArray(records)) throw new Error(`Unexpected World Bank response for ${indicator}`);
-  return new Map(records.filter(record => record.countryiso3code && Number.isFinite(record.value)).map(record => [record.countryiso3code, Number(record.value)]));
-}
-
-function eurostatSum(data, code) {
-  const months = Object.keys(data.dimension?.time?.category?.index || {});
-  const codes = data.dimension?.siec?.category?.index || {};
-  if (!(code in codes)) return 0;
-  const offset = Number(codes[code]) * months.length;
-  return months.reduce((sum, _month, index) => sum + Number(data.value?.[offset + index] || 0), 0);
+  const selected=records.filter(record=>record.countryiso3code&&Number(record.date)===REFERENCE_YEAR&&Number.isFinite(record.value));
+  if(new Set(selected.map(r=>r.countryiso3code)).size!==selected.length)throw Error('Duplicated World Bank country-year.');
+  return new Map(selected.map(record => [record.countryiso3code, Number(record.value)]));
 }
 
 async function eurostatElectricity(country) {
@@ -160,22 +158,9 @@ async function eurostatElectricity(country) {
     freq: 'M', unit: 'GWH', geo: country.eurostat,
     sinceTimePeriod: `${REFERENCE_YEAR}-01`, untilTimePeriod: `${REFERENCE_YEAR}-12`, lang: 'EN',
   });
-  for (const code of ['TOTAL', 'RA000', 'N9000', 'FE']) query.append('siec', code);
+  for (const code of ['TOTAL', 'RA000', 'N9000', 'FE', 'RA130', 'X9900']) query.append('siec', code);
   const data = await fetchWithRetry(`https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_cb_pem?${query}`);
-  const months = Object.keys(data.dimension?.time?.category?.index || {});
-  if (months.length !== 12) throw new Error(`${country.iso2}: Eurostat returned ${months.length}/12 months`);
-  const total = eurostatSum(data, 'TOTAL');
-  const renewable = eurostatSum(data, 'RA000');
-  const nuclear = eurostatSum(data, 'N9000');
-  const fossil = eurostatSum(data, 'FE');
-  if (!(total > 0) || renewable < 0) throw new Error(`${country.iso2}: invalid electricity total`);
-  const components = {
-    renewables: renewable / total * 100,
-    nuclear: nuclear / total * 100,
-    fossil: fossil / total * 100,
-  };
-  components.adjustment = Math.max(0, 100 - components.renewables - components.nuclear - components.fossil);
-  return { renewableShare: components.renewables, components, provider: 'eurostat-electricity' };
+  return annualElectricity(data,REFERENCE_YEAR,country.eurostat);
 }
 
 function emberRows(response) {
@@ -196,14 +181,17 @@ async function emberElectricity(code) {
   const renewableNames = /wind|solar|hydro|bioenergy|geothermal|other renewables/i;
   const fossilNames = /coal|gas|other fossil|oil/i;
   let total = 0;
+  const seen=new Set();
   for (const row of rows) {
     const name = String(row.series ?? row.variable ?? row.category ?? '');
+    if(seen.has(name))throw Error(`${code}: duplicate Ember generation category.`);
+    seen.add(name);
     const value = valueOf(row);
-    if (!Number.isFinite(value) || value < 0) continue;
-    if (renewableNames.test(name)) groups.renewables += value;
+    if (!Number.isFinite(value) || value < 0) throw Error(`${code}: invalid Ember generation.`);
+    if (/^(wind|solar|hydro|bioenergy|geothermal|other renewables)$/i.test(name)) groups.renewables += value;
     else if (/nuclear/i.test(name)) groups.nuclear += value;
-    else if (fossilNames.test(name)) groups.fossil += value;
-    else groups.adjustment += value;
+    else if (/^(coal|gas|other fossil|oil)$/i.test(name)) groups.fossil += value;
+    else throw Error(`${code}: unknown Ember generation category; schema review required.`);
     total += value;
   }
   if (!(total > 0)) throw new Error(`${code}: Ember generation values could not be interpreted`);
@@ -218,7 +206,7 @@ async function gwisBurnedArea(code) {
   });
   const response = await fetchWithRetry(`https://cprof.effis.emergency.copernicus.eu/api/v3/banf?${query}`);
   const record = response?.banfyear?.find(item => Number(item.year) === REFERENCE_YEAR);
-  const value = Number(record?.lc_tot);
+  const value = strictNumber(record?.lc_tot);
   if (!Number.isFinite(value) || value < 0) throw new Error(`${code}: GWIS returned no valid MCD64A1 burned area`);
   return value;
 }
@@ -246,7 +234,7 @@ const [co2Csv, population, gdp, observed, annualObserved, hotDays] = await Promi
   optionalJson(HOT_DAYS),
 ]);
 
-const co2Rows = parseCsv(co2Csv).filter(row => Number.isFinite(Number(row.emissions_total)));
+const co2Rows = parseCsv(co2Csv).filter(row => strictNumber(row.emissions_total)!==null);
 const co2ByCode = new Map();
 for (const row of co2Rows) {
   const values = co2ByCode.get(row.code) || [];
@@ -258,14 +246,15 @@ const world = co2ByCode.get('OWID_WRL')?.find(row => row.year === REFERENCE_YEAR
 if (!world) throw new Error(`Global CO₂ is unavailable for ${REFERENCE_YEAR}`);
 
 const electricityEntries = await mapLimit(Object.entries(countries), 5, async ([code, country]) => {
-  const result = process.env.EMBER_API_KEY ? await emberElectricity(code) : await eurostatElectricity(country);
+  const result = useEmber ? await emberElectricity(code) : await eurostatElectricity(country);
   return [code, result];
 });
 const electricity = new Map(electricityEntries);
 const fireEntries = await mapLimit(Object.keys(countries), 5, async code => [code, await gwisBurnedArea(code)]);
 const burnedArea = new Map(fireEntries);
 
-const euTotalCo2 = Object.keys(countries).reduce((sum, code) => sum + (co2ByCode.get(code)?.find(row => row.year === REFERENCE_YEAR)?.value || 0), 0);
+assertCompleteEU(Object.keys(countries),co2ByCode,population,REFERENCE_YEAR);
+const euTotalCo2 = Object.keys(countries).reduce((sum, code) => sum + co2ByCode.get(code).find(row => row.year === REFERENCE_YEAR).value, 0);
 const euPopulation = Object.keys(countries).reduce((sum, code) => sum + (population.get(code) || 0), 0);
 if (!(euTotalCo2 > 0) || !(euPopulation > 0)) throw new Error('EU comparison denominator is incomplete');
 const euPerCapita = euTotalCo2 * 1e6 / euPopulation;
@@ -280,8 +269,8 @@ for (const [code, country] of Object.entries(countries)) {
   const power = electricity.get(code);
   const temperature = observed?.countries?.[code];
   const annualTemperatureRecord = annualObserved?.year === REFERENCE_YEAR ? annualObserved.countries?.[code] : null;
-  const annualTemperature = Number(annualTemperatureRecord?.annual_temperature_c ?? temperature?.annual_temperature_c?.[REFERENCE_YEAR]);
-  const baselineTemperature = Number(annualTemperatureRecord?.baseline_1991_2020_c ?? temperature?.baseline_1991_2020_c);
+  const annualTemperature = strictNumber(annualTemperatureRecord?.annual_temperature_c ?? temperature?.annual_temperature_c?.[REFERENCE_YEAR]);
+  const baselineTemperature = strictNumber(annualTemperatureRecord?.baseline_1991_2020_c ?? temperature?.baseline_1991_2020_c);
   const fire = burnedArea.get(code);
   const heat = hotDays?.year === REFERENCE_YEAR ? hotDays.countries?.[code] : null;
 
@@ -291,9 +280,9 @@ for (const [code, country] of Object.entries(countries)) {
     co2_per_capita_t: Number.isFinite(co2) && Number.isFinite(people) ? available(co2 * 1e6 / people, 'tCO₂/person', 'terrascope-derived', { numerator_source: 'gcb-fossil-co2', denominator_source: 'world-bank-population' }) : unavailable('Requires same-year CO₂ and population.', 'tCO₂/person', 'terrascope-derived'),
     gdp_ppp_billion: Number.isFinite(economy) ? available(economy / 1e9, 'billion constant 2021 international $', 'world-bank-gdp-ppp') : unavailable('No GDP PPP observation for the reference year.', 'billion constant 2021 international $', 'world-bank-gdp-ppp'),
     co2_intensity_g_per_dollar: Number.isFinite(co2) && Number.isFinite(economy) ? available(co2 * 1e12 / economy, 'gCO₂/constant 2021 international $', 'terrascope-derived', { numerator_source: 'gcb-fossil-co2', denominator_source: 'world-bank-gdp-ppp' }) : unavailable('Requires same-year CO₂ and GDP.', 'gCO₂/constant 2021 international $', 'terrascope-derived'),
-    renewable_electricity_share_pct: power ? available(power.renewableShare, '% of electricity generation', power.provider) : unavailable('No complete electricity year.', '% of electricity generation', sourceDefinitions.electricity.id),
-    warming_anomaly_c: Number.isFinite(annualTemperature) && Number.isFinite(baselineTemperature) ? available(annualTemperature - baselineTemperature, '°C relative to 1991–2020', 'era5-monthly') : unavailable('National ERA5 aggregation is unavailable at the retained resolution.', '°C relative to 1991–2020', 'era5-monthly'),
-    hot_days_ge_30_c: heat?.status === 'available' && Number.isFinite(heat.mean_hot_days) ? available(heat.mean_hot_days, 'days/year', 'era5-land-daily', { method: 'area-weighted national mean of grid-cell counts' }) : unavailable('Annual ERA5-Land processing has not produced a validated national value.', 'days/year', 'era5-land-daily'),
+    renewable_electricity_share_pct: power ? available(power.renewableShare, '% of electricity generation', power.provider, {provenance:power.provenance}) : unavailable('No complete electricity year.', '% of electricity generation', sourceDefinitions.electricity.id),
+    warming_anomaly_c: Number.isFinite(annualTemperature) && Number.isFinite(baselineTemperature) ? available(annualTemperature - baselineTemperature, '°C relative to 1991–2020', 'era5-monthly', {provenance:annualObserved?.validation}) : unavailable('National ERA5 aggregation is unavailable at the retained resolution.', '°C relative to 1991–2020', 'era5-monthly'),
+    hot_days_ge_30_c: heat?.status === 'available' && Number.isFinite(heat.mean_hot_days) ? available(heat.mean_hot_days, 'days/year', 'era5-land-daily', { method: 'area-weighted national mean of grid-cell counts',provenance:hotDays?.validation }) : unavailable('Annual ERA5-Land processing has not produced a validated national value.', 'days/year', 'era5-land-daily'),
     burnt_area_ha: Number.isFinite(fire) ? available(fire, 'ha/year', 'gwis-mcd64a1-burned-area') : unavailable('No harmonised satellite estimate for the reference year.', 'ha/year', 'gwis-mcd64a1-burned-area'),
   };
 
@@ -306,7 +295,7 @@ for (const [code, country] of Object.entries(countries)) {
       difference_from_eu_per_capita_pct: metrics.co2_per_capita_t.status === 'available' ? round((metrics.co2_per_capita_t.value / euPerCapita - 1) * 100, 1) : null,
       emissions_change_since_1990_pct: Number.isFinite(co2) && Number.isFinite(co2In1990) && co2In1990 !== 0 ? round((co2 / co2In1990 - 1) * 100, 1) : null,
     },
-    electricity_mix_pct: power ? Object.fromEntries(Object.entries(power.components).map(([name, value]) => [name, round(value, 2)])) : null,
+    electricity_mix_pct: power?.components ? Object.fromEntries(Object.entries(power.components).map(([name, value]) => [name, round(value, 2)])) : null,
     series: { co2_territorial_mt: emissionsSeries.map(row => ({ year: row.year, value: round(row.value) })) },
   };
 }

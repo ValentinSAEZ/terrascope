@@ -26,6 +26,7 @@
       <article><span>PÉRIMÈTRE</span><strong id="health-scope">—</strong><small id="health-country-count">Pays contrôlés</small></article>
     </section>
 
+    <section class="health-section"><div class="health-head"><h2>Vérification des sources.</h2></div><div id="source-audit" class="health-caveat" role="status">Chargement du dernier audit…</div><details class="health-caveat" id="validation-reserves" hidden><summary>Réserves documentées</summary><ul id="validation-warning-list"></ul></details></section>
     <section class="health-section"><div class="health-head"><h2>Couverture publiée.</h2><p>Une valeur absente reste indisponible : le taux n’est jamais amélioré par une estimation silencieuse.</p></div><div class="health-grid" id="coverage-grid"><p>Chargement de la couverture…</p></div></section>
 
     <section class="health-section"><div class="health-head"><h2>Contrôles bloquants.</h2><p>Le snapshot n’est publié que si ces règles restent satisfaites.</p></div><div class="health-rules"><article class="health-rule"><b>Même année</b><p>Chaque observation principale doit correspondre exactement à l’année commune.</p></article><article class="health-rule"><b>Jamais zéro par défaut</b><p>Une absence de donnée produit « Non publié », jamais une valeur artificielle.</p></article><article class="health-rule"><b>Calendrier complet</b><p>Électricité et climat quotidien exigent douze mois et tous les jours attendus.</p></article><article class="health-rule"><b>Comparabilité européenne</b><p>Unités, définitions et contrôles de bornes sont identiques pour les 27 pays.</p></article></div></section>
@@ -34,14 +35,26 @@
     <p class="health-caveat"><b>Limites assumées.</b> L’indicateur d’inondation reste non publié tant que son périmètre scientifique n’est pas arrêté. Les valeurs 2050–2100 sont des simulations CMIP6 séparées du snapshot observé et ne constituent pas des prévisions.</p>
   </main>
   <footer><a class="brand" href="index.html">terra<span>•</span>scope</a><p>La confiance commence par la traçabilité.</p><a class="health-footer-link" href="sources.html">SOURCES & MÉTHODOLOGIE ↗</a></footer>
-  <script>
+  <script type="module">
+    import {isPublished,validateSnapshot} from './data-contract.js';
     (()=>{
       const labels={co2_territorial_mt:'CO₂ territorial',population:'Population',co2_per_capita_t:'CO₂ par habitant',gdp_ppp_billion:'PIB PPA',co2_intensity_g_per_dollar:'Intensité carbone',renewable_electricity_share_pct:'Électricité renouvelable',warming_anomaly_c:'Réchauffement observé',hot_days_ge_30_c:'Jours ≥ 30 °C',burnt_area_ha:'Surface brûlée'};
       const sourceNames={co2:'Émissions',population:'Population',gdp:'Économie',electricity:'Électricité',warming:'Température',hot_days:'Chaleur extrême',fire:'Incendies'};
       fetch('/data/annual-snapshot.json',{cache:'no-cache'}).then(response=>response.ok?response.json():Promise.reject()).then(snapshot=>{
-        if(!/^validated/.test(snapshot.status)) throw new Error('non validated');
+        const report=validateSnapshot(snapshot);
+        if(!isPublished(snapshot)||report.errors.length) throw new Error('non validated');
         const countries=Object.keys(snapshot.countries||{}).length;
-        document.querySelector('#health-status').textContent='Validé';
+        document.querySelector('#health-status').textContent=report.warnings.length?'Contrôlé · réserves':'Contrôlé';
+        const audit=snapshot.source_audit;
+        document.querySelector('#source-audit').textContent=audit
+          ? audit.external_matches+' / '+audit.external_checks+' observations concordent avec les API publiques, vérifiées le '+new Date(audit.checked_at).toLocaleDateString('fr-FR')+'. '+audit.local_climate_checks+' valeurs climatiques concordent avec les agrégats locaux ; les fichiers bruts et les périmètres géographiques restent à revérifier. Les projections sont hors de cet audit.'
+          : 'Aucune contre-vérification récente des fournisseurs n’est enregistrée. Les contrôles de cohérence ne garantissent pas l’exactitude physique des sources.';
+        document.querySelector('#validation-reserves').hidden=!report.warnings.length;
+        const warnings=[];
+        if(report.warnings.some(w=>w.includes('raw calendar')))warnings.push('Climat : les fichiers bruts et la couverture géographique restent à revérifier. La fenêtre de collecte (34–72° N, 12° O–36° E) exclut des territoires nationaux éloignés. Une moyenne de réanalyse n’est pas une mesure de station.');
+        for(const [code,country] of Object.entries(snapshot.countries))if(country.electricity_mix_pct?.adjustment>.15)warnings.push(country.name_fr+' : '+country.electricity_mix_pct.adjustment.toLocaleString('fr-FR')+' % de la production électrique restent non ventilés. Ce solde n’est pas une filière identifiée.');
+        if(report.warnings.some(w=>w.includes('unavailable')||w.includes('gaps')||w.includes('/27 available')))warnings.push('Certaines séries ou catégories sont incomplètes ; les valeurs absentes ne sont pas estimées.');
+        document.querySelector('#validation-warning-list').replaceChildren(...warnings.map(text=>{const li=document.createElement('li');li.textContent=text;return li;}));
         document.querySelector('#health-year').textContent=snapshot.reference_year;
         document.querySelector('#health-scope').textContent=snapshot.scope;
         document.querySelector('#health-country-count').textContent=countries+' pays contrôlés';

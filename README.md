@@ -39,7 +39,7 @@ Scenarios and policy targets are deliberately outside this annual join: 2030, 20
 | --- | --- | --- |
 | Territorial CO2 emissions | [Global Carbon Budget](https://globalcarbonbudget.org/) via the OWID Grapher distribution | Historical fossil and industrial territorial emissions. |
 | Population and GDP | [World Bank WDI](https://data.worldbank.org/) | Same-year population and constant-2021 PPP GDP used for per-capita and intensity calculations. |
-| Electricity production | [Ember](https://ember-energy.org/data/api/) yearly API when a server key is configured; [Eurostat](https://ec.europa.eu/eurostat/) `nrg_cb_pem` otherwise | Same-year electricity generation by source. Eurostat fallback requires all twelve monthly observations. |
+| Electricity production | [Eurostat](https://ec.europa.eu/eurostat/) `nrg_cb_pem` by default; Ember only with an explicit `ELECTRICITY_PROVIDER=ember` setting | Same-year net generation. Each required series must contain twelve observations; a missing month is never zero-filled. |
 | Observed climate | [Copernicus Climate Change Service](https://climate.copernicus.eu/) ERA5 / ERA5-Land | Area-weighted national temperature indicators and hot-day processing. |
 | Climate simulations | [CMIP6](https://esgf-node.llnl.gov/projects/cmip6/) | Illustrative annual temperature anomalies under SSP2-4.5; clearly labelled as model simulations. |
 | Wildfire impacts | [JRC Global Wildfire Information System](https://gwis.jrc.ec.europa.eu/apps/country.profile/downloads) / MCD64A1 | One satellite-derived annual burned-area method for every country. |
@@ -117,7 +117,7 @@ This is useful for illustrating the direction and scale of climate change, but i
 
 ## Running locally
 
-Requirements: Node.js 18+.
+Requirements: Node.js 20+.
 
 ```bash
 npm run build
@@ -132,7 +132,7 @@ The build creates:
 
 ## Secrets and safety
 
-Never commit API keys. Use a local `.env` file based on `.env.example` when running collectors. For the annual GitHub workflow, configure `COPERNICUS_CDS_API_KEY` and `EMBER_API_KEY` as repository Actions secrets. If Ember is not configured, the EU-27 snapshot uses the no-key Eurostat API and records that provider in its metadata.
+Never commit API keys. Use a local `.env` file based on `.env.example` when running collectors. For the annual GitHub workflow, configure `COPERNICUS_CDS_API_KEY` and optionally `EMBER_API_KEY` as repository Actions secrets. Eurostat is the default provider; selecting Ember requires `ELECTRICITY_PROVIDER=ember`. Merely adding a credential does not change the statistical definition.
 
 The `.gitignore` excludes `.env`, `.cdsapirc`, raw downloads and generated build output. Hosted keys are read server-side or by the annual workflow and are never returned to the browser.
 
@@ -147,6 +147,18 @@ If a credential has been shared publicly, revoke or rotate it in the source prov
 - “Live” refers to the published website. The scientific snapshot is intentionally updated annually after validation, not on every page load.
 
 ## Contributing
+
+### Data integrity and source audits
+
+`npm test` exercises regression cases for missing months, null-to-zero conversion, incorrect units and years, duplicate histories, ratios, electricity categories, EU denominators and tied ranks. `npm run build` also checks the snapshot before creating deployable assets.
+
+`npm run data:update` writes a separate candidate, validates it, then replaces the published JSON atomically. A rejected candidate leaves the previous published snapshot intact. A successful integrity check is not a scientific certification: documented reservations appear on the data-health page.
+
+`npm run data:audit` downloads public data for the existing reference year and writes an evidence report under `output/data-audit/`, including source URLs, retrieval times and SHA-256 hashes. It never updates published values. `node scripts/apply-source-audit.mjs` can enrich a candidate from a fully matching report; `node scripts/validate-annual-snapshot.mjs --candidate` must then validate it.
+
+The September 2026 audit matched 135 observations against providers across all 27 countries (CO₂, population, GDP, renewables, burned area). Another 54 climate values matched local aggregates only. Raw NetCDF inputs, spatial coverage and the CMIP6 projections were not independently reprocessed. Current climate collection uses a European window (72°N, 12°W, 34°N, 36°E), so it does not cover all remote national territories.
+
+Electricity charts retain every positive category, including pumped storage and the provider's other-fuel category. A residual remains unallocated rather than being labelled as a fuel or silently redistributed. National publications can differ because of geographic scope, gross/net generation or revisions; a national figure must not replace one country in the harmonised series.
 
 Contributions are welcome, especially for source review, methodological clarification, country coverage, accessibility and visualisation quality. Please preserve the distinction between observed values, calculated indicators, policy targets and model scenarios in every proposed change.
 

@@ -9,4 +9,6 @@ outputs/
 .cdsapirc
 data/raw/
 data/*.part
+data/*.candidate.json
+output/data-audit/
 __pycache__/

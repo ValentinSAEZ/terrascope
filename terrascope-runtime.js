@@ -44,7 +44,7 @@
   style.textContent += '.sheet .chart{padding:30px 32px 20px!important}.chart-header{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;padding-bottom:20px;border-bottom:1px solid #dedbd2}.sheet .chart h3{font-size:30px;margin:7px 0 0}.sheet .chart h3:after{display:none}.chart-hint{margin:9px 0 0;font-size:8px;color:#74776f}.chart-readout{display:grid;grid-template-columns:auto auto;grid-template-rows:auto auto;column-gap:10px;align-items:baseline;min-width:205px;text-align:right}.chart-readout span{grid-column:1;font:600 22px var(--serif);color:#263e31}.chart-readout strong{grid-column:2;font:600 30px var(--serif);letter-spacing:-.8px;color:#263e31}.chart-readout small{grid-column:1/3;font:8px var(--mono);letter-spacing:.7px;color:#777a72}.sheet .chart svg{height:auto!important;aspect-ratio:1000/300;margin-top:14px!important;overflow:visible!important;touch-action:none}.sheet .chart .history-grid line{stroke:#d8d7d1;stroke-width:1;vector-effect:non-scaling-stroke}.sheet .chart .history-ylabels text,.sheet .chart #history-xlabels text{font:9px var(--mono);fill:#777a72}.sheet .chart #history-area{fill:url(#history-fill);stroke:none;pointer-events:none}.sheet .chart #history{fill:none;stroke:#294637;stroke-width:3.25;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke;pointer-events:none}.sheet .chart #history-cursor{stroke:#bb714e;stroke-width:1;stroke-dasharray:3 4;vector-effect:non-scaling-stroke;pointer-events:none}.sheet .chart #history-point-halo{fill:#f8f6f0;stroke:#bb714e;stroke-width:1;vector-effect:non-scaling-stroke;pointer-events:none}.sheet .chart #history-point{fill:#bb714e;stroke:none;pointer-events:none}.sheet .chart #history-hit{cursor:crosshair;pointer-events:all}.chart-foot{display:flex;justify-content:space-between;gap:18px;padding-top:12px;border-top:1px solid #dedbd2;font:8px var(--mono);letter-spacing:.55px;color:#777a72}@media(max-width:800px){.sheet .chart{padding:22px 18px 16px!important}.chart-header{display:block}.chart-readout{margin-top:17px;min-width:0;justify-content:start;text-align:left}.sheet .chart svg{margin-top:8px!important}.chart-foot{display:grid;gap:5px}.sheet .chart h3{font-size:25px}}';
   const metricValue=metric=>metric?.status==='available'&&Number.isFinite(metric.value)?metric.value:null;
   const snapshotPromise=fetch(url.snapshot,{cache:'no-cache'}).then(r=>r.ok?r.json():Promise.reject(new Error('snapshot unavailable'))).then(data=>{
-    if(!/^validated/.test(data.status)||data.scope!=='EU-27') throw Error('snapshot not validated');
+    if(!['validated','validated_with_documented_gaps'].includes(data.status)||data.scope!=='EU-27') throw Error('snapshot not validated');
     return data;
   });
   snapshotPromise.then(data=>{
@@ -93,14 +93,17 @@
   }).catch(()=>put('#summary','Certaines séries sont temporairement indisponibles. TerraScope n’affiche pas de valeur de remplacement.'));
   snapshotPromise.then(data=>{
     const country=data.countries?.[c[0]],share=metricValue(country?.metrics?.renewable_electricity_share_pct),mix=country?.electricity_mix_pct;
+    const sourceCard=document.querySelector('.sources a[href*="ember"]');
+    if(sourceCard&&data.sources?.electricity){sourceCard.href=data.sources.electricity.url;sourceCard.querySelector('b').textContent=data.sources.electricity.id==='eurostat-electricity'?'Eurostat · production nette':'Ember · production électrique';sourceCard.querySelector('span').textContent='Même fournisseur pour les 27 pays. Douze mois complets ; pompage, autres catégories et solde non ventilé conservés.';}
     if(share===null||!mix) throw Error('electricity unavailable');
-    const palette={renewables:'#397d74',nuclear:'#355c92',fossil:'#b85a32',adjustment:'#a9a59a'},names={renewables:'Renouvelables',nuclear:'Nucléaire',fossil:'Énergies fossiles',adjustment:'Ajustement de périmètre'};
-    const fuels=Object.entries(mix).map(([key,value])=>({name:names[key]||key,value,color:palette[key]||'#a9a59a'})).filter(x=>x.value>.3),total=fuels.reduce((sum,x)=>sum+x.value,0);let at=0;
+    const palette={renewables:'#397d74',nuclear:'#355c92',fossil:'#b85a32',pumped_storage:'#7c6da2',other:'#72786d',adjustment:'#a9a59a'},names={renewables:'Renouvelables',nuclear:'Nucléaire',fossil:'Énergies fossiles',pumped_storage:'Pompage hydraulique',other:'Autres (source)',adjustment:'Solde non ventilé'};
+    const fuels=Object.entries(mix).map(([key,value])=>({name:names[key]||key,value,color:palette[key]||'#a9a59a'})).filter(x=>Number.isFinite(x.value)&&x.value>0),total=fuels.reduce((sum,x)=>sum+x.value,0);let at=0;
+    if(Math.abs(total-100)>.15)throw Error('invalid mix total');
     put('#renewables',n(share)+' %');put('#renewablesy',data.reference_year+' · CLASSEMENT UE ↗');
-    document.querySelector('#donut').style.background='conic-gradient('+fuels.map(x=>{const start=at;at+=x.value/total*100;return x.color+' '+start+'% '+at+'%';}).join(',')+')';
-    document.querySelector('#fuel').innerHTML=fuels.map(x=>'<div><span><i style="background:'+x.color+'"></i>'+x.name+'</span><b>'+n(x.value)+' %</b></div>').join('');
-    put('#energy-title',share>=50?'Un mix majoritairement renouvelable':'Une transition à accélérer');
-    put('#energy-text','Les renouvelables représentent '+n(share)+' % de la production d’électricité en '+data.reference_year+'. Le total est contrôlé à 100 % et l’ajustement de périmètre reste visible.');
+    document.querySelector('#donut').style.background='conic-gradient('+fuels.map(x=>{const start=at;at+=x.value;return x.color+' '+start+'% '+at+'%';}).join(',')+')';
+    document.querySelector('#fuel').innerHTML=fuels.map(x=>'<div><span><i style="background:'+x.color+'"></i>'+x.name+'</span><b>'+x.value.toLocaleString('fr-FR',{maximumFractionDigits:2})+' %</b></div>').join('');
+    put('#energy-title','Production électrique · '+data.reference_year);
+    put('#energy-text','Renouvelables : '+n(share)+' % de la production nette. Le pompage est un stockage d’électricité. '+(mix.adjustment>.15?'Le solde de '+n(mix.adjustment)+' % n’est pas ventilé par les catégories disponibles.':'Toutes les catégories disponibles sont conservées, y compris les petites parts.'));
   }).catch(()=>put('#fuel','Mix électrique temporairement indisponible.'));
   fetch(url.projections).then(r=>r.ok?r.json():Promise.reject()).then(data=>{
     const projection=data.countries?.[c[0]];
@@ -123,7 +126,7 @@
   }).catch(()=>{put('#projection-value','Non affiché');put('#projection-description','Aucune moyenne nationale suffisamment résolue dans le jeu CMIP6 fourni.');});
   snapshotPromise.then(data=>{
     const metrics=data.countries?.[c[0]]?.metrics||{},warming=metricValue(metrics.warming_anomaly_c),hotDays=metricValue(metrics.hot_days_ge_30_c),fire=metricValue(metrics.burnt_area_ha);
-    if(warming!==null){put('#warming',(warming>=0?'+':'')+n(warming));put('#warming-note',data.reference_year+' VS 1991–2020 · ERA5 MENSUEL');}
+    if(warming!==null){put('#warming',(warming>=0?'+':'')+n(warming));put('#warming-note',data.reference_year+' VS 1991–2020 · ERA5 · EMPRISE EUROPÉENNE');}
     else{put('#warming','Non publié');put('#warming-note','AGRÉGATION NATIONALE ERA5 INSUFFISANTE À CETTE RÉSOLUTION');}
     if(hotDays!==null){put('#hot-days',n(hotDays));put('#hot-days-note','ERA5-LAND · MOYENNE NATIONALE PONDÉRÉE EN SURFACE · '+data.reference_year);}
     else{put('#hot-days','Non publié');put('#hot-days-note','TRAITEMENT ERA5-LAND '+data.reference_year+' NON ENCORE VALIDÉ · AUCUNE VALEUR DE REMPLACEMENT');}

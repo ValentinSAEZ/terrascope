@@ -28,6 +28,9 @@ jobs:
       - name: Build TerraScope
         run: npm run build
 
+      - name: Data integrity regression checks
+        run: npm test
+
   deploy:
     name: Deploy VPS
     needs: validate
