@@ -9,7 +9,7 @@ const staticFiles = [
   'index.html', 'country-live.html', 'country.html', 'europe.html', 'news-france.html', 'sources.html', 'ranking.html', 'data-health.html',
   'data/annual-snapshot.json',
   'data/cmip-ssp245-cnrmesm21.json',
-  'terrascope-runtime.js', 'ranking-runtime.js', 'data-contract.js', 'script.js',
+  'terrascope-runtime.js', 'ranking-runtime.js', 'data-contract.js', 'script.js', 'country-ui.js', 'country-ui.css',
   'styles.css', 'economist.css', 'structure.css', 'search-ui.css', 'responsive-ui.css', 'ranking-ui.css',
 ];
 

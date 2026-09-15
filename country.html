@@ -7,7 +7,7 @@
     <title>Redirection vers TerraScope</title>
     <script>
       const query = window.location.search;
-      window.location.replace(`country-live.html${query}`);
+      window.location.replace(`country-live.html${query}${window.location.hash}`);
     </script>
   </head>
   <body></body>
