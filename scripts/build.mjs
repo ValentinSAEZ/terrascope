@@ -1,14 +1,17 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import {isPublished,validateSnapshot} from '../data-contract.js';
+import {validateProjections} from '../projection-contract.js';
 
 const snapshot=JSON.parse(await readFile('data/annual-snapshot.json','utf8'));
 const report=validateSnapshot(snapshot);
 if(!isPublished(snapshot)||report.errors.length)throw Error('Build blocked: '+report.errors.join('; '));
+validateProjections(JSON.parse(await readFile('data/climate-projections.json','utf8')), Object.keys(snapshot.countries));
 
 const staticFiles = [
   'index.html', 'country-live.html', 'country.html', 'europe.html', 'news-france.html', 'sources.html', 'ranking.html', 'data-health.html',
   'data/annual-snapshot.json',
   'data/cmip-ssp245-cnrmesm21.json',
+  'data/climate-projections.json', 'climate-projections.js', 'projection-contract.js', 'climate-projections.css',
   'terrascope-runtime.js', 'ranking-runtime.js', 'data-contract.js', 'script.js', 'country-ui.js', 'country-ui.css',
   'styles.css', 'economist.css', 'structure.css', 'search-ui.css', 'responsive-ui.css', 'ranking-ui.css',
 ];

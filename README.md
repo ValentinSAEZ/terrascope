@@ -41,7 +41,7 @@ Scenarios and policy targets are deliberately outside this annual join: 2030, 20
 | Population and GDP | [World Bank WDI](https://data.worldbank.org/) | Same-year population and constant-2021 PPP GDP used for per-capita and intensity calculations. |
 | Electricity production | [Eurostat](https://ec.europa.eu/eurostat/) `nrg_cb_pem` by default; Ember only with an explicit `ELECTRICITY_PROVIDER=ember` setting | Same-year net generation. Each required series must contain twelve observations; a missing month is never zero-filled. |
 | Observed climate | [Copernicus Climate Change Service](https://climate.copernicus.eu/) ERA5 / ERA5-Land | Area-weighted national temperature indicators and hot-day processing. |
-| Climate simulations | [CMIP6](https://esgf-node.llnl.gov/projects/cmip6/) | Illustrative annual temperature anomalies under SSP2-4.5; clearly labelled as model simulations. |
+| Climate simulations | [World Bank CCKP / CMIP6](https://climateknowledgeportal.worldbank.org/download-data) | Three scenarios, four 20-year periods, provider ensemble median and P10–P90; 1995–2014 reference. |
 | Wildfire impacts | [JRC Global Wildfire Information System](https://gwis.jrc.ec.europa.eu/apps/country.profile/downloads) / MCD64A1 | One satellite-derived annual burned-area method for every country. |
 | Flood-risk context | [European Environment Agency](https://www.eea.europa.eu/) | Links and methodological context; no aggregated loss figure is shown as a flood-only observation without an appropriate hazard filter. |
 | Policy | [UNFCCC](https://unfccc.int/) and European Union | NDC context, Paris Agreement and EU climate-law references. |
@@ -111,9 +111,11 @@ npm run build
 
 ## Climate simulations: an important caveat
 
-The future-climate panel currently uses CMIP6 output from the **CNRM-ESM2-1** model under **SSP2-4.5**. Values are displayed as simulated annual temperature anomalies relative to the model's 1991–2020 baseline.
+The future-climate panel uses the World Bank CCKP **CMIP6 multi-model ensemble**: **SSP1-2.6, SSP2-4.5 and SSP5-8.5**. Four 20-year climatologies (2020–2039 through 2080–2099) are displayed as anomalies relative to **1995–2014**, NOT the ERA5 observation reference of 1991–2020. Provider median, P10 and P90 values are imported unchanged from the national API product. Raw responses and SHA-256 hashes are retained for reproducibility. The former two-point CNRM dataset is archived, not mixed into this chart.
 
-This is useful for illustrating the direction and scale of climate change, but it is **not** a local weather forecast, an official national projection, or a multi-model probabilistic estimate. A future release should add a multi-model ensemble and uncertainty ranges before using simulations for decision support.
+P10–P90 describes the provider ensemble spread, **not an 80% forecast confidence interval**. Model composition may differ between scenarios, and national aggregation of gridded ensemble quantiles need not equal quantiles of national model means. The chart joins period summaries only; it does not interpolate annual predictions. No scenario is assigned a probability. Country boundaries follow CCKP; small-area projections retain resolution limitations.
+
+Run `npm run data:projections` (Python 3, standard library only, no API key) to refresh the complete batch. Missing countries, periods, invalid values or reversed percentiles block replacement of the existing file. The annual refresh workflow includes this step. Browser and build checks independently validate the published projection contract. Source methodology: [CCKP guidance](https://climateknowledgeportal.worldbank.org/guidance-note).
 
 ## Running locally
 

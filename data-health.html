@@ -32,11 +32,17 @@
     <section class="health-section"><div class="health-head"><h2>Contrôles bloquants.</h2><p>Le snapshot n’est publié que si ces règles restent satisfaites.</p></div><div class="health-rules"><article class="health-rule"><b>Même année</b><p>Chaque observation principale doit correspondre exactement à l’année commune.</p></article><article class="health-rule"><b>Jamais zéro par défaut</b><p>Une absence de donnée produit « Non publié », jamais une valeur artificielle.</p></article><article class="health-rule"><b>Calendrier complet</b><p>Électricité et climat quotidien exigent douze mois et tous les jours attendus.</p></article><article class="health-rule"><b>Comparabilité européenne</b><p>Unités, définitions et contrôles de bornes sont identiques pour les 27 pays.</p></article></div></section>
 
     <section class="health-section"><div class="health-head"><h2>Registre des sources.</h2><p>Ouvrir une ligne pour consulter sa définition publiée.</p></div><div class="health-sources" id="health-sources"></div></section>
-    <p class="health-caveat"><b>Limites assumées.</b> L’indicateur d’inondation reste non publié tant que son périmètre scientifique n’est pas arrêté. Les valeurs 2050–2100 sont des simulations CMIP6 séparées du snapshot observé et ne constituent pas des prévisions.</p>
+    <section class="health-section"><div class="health-head"><h2>Projections multi-modèles.</h2></div><p id="projection-health" class="health-caveat" role="status">Vérification de la couverture des scénarios…</p></section>
+    <p class="health-caveat"><b>Limites assumées.</b> L’indicateur d’inondation reste non publié tant que son périmètre scientifique n’est pas arrêté. Les projections CMIP6 sont séparées des observations : moyennes sur 20 ans, référence 1995–2014. P10–P90 décrit la dispersion de l’ensemble fournisseur et non un intervalle de confiance prévisionnel.</p>
   </main>
   <footer><a class="brand" href="index.html">terra<span>•</span>scope</a><p>La confiance commence par la traçabilité.</p><a class="health-footer-link" href="sources.html">SOURCES & MÉTHODOLOGIE ↗</a></footer>
   <script type="module">
     import {isPublished,validateSnapshot} from './data-contract.js';
+    import {validateProjections} from './projection-contract.js';
+    Promise.all([fetch('data/climate-projections.json').then(r=>{if(!r.ok)throw Error();return r.json();}),fetch('data/annual-snapshot.json').then(r=>r.json())]).then(([data,snapshot])=>{
+      validateProjections(data,Object.keys(snapshot.countries));
+      document.querySelector('#projection-health').textContent='27 pays · 3 scénarios · 4 périodes · 972 valeurs (médianes et P10–P90). Import CCKP du '+new Date(data.retrieved_at).toLocaleDateString('fr-FR')+'. Couverture, bornes, ordre des percentiles, référence et traçabilité vérifiés. Les modèles climatiques du fournisseur ne sont pas recalculés ni validés indépendamment par TerraScope.';
+    }).catch(()=>{document.querySelector('#projection-health').textContent='Projections indisponibles ou contrat de données invalide. Aucune valeur de remplacement.';});
     (()=>{
       const labels={co2_territorial_mt:'CO₂ territorial',population:'Population',co2_per_capita_t:'CO₂ par habitant',gdp_ppp_billion:'PIB PPA',co2_intensity_g_per_dollar:'Intensité carbone',renewable_electricity_share_pct:'Électricité renouvelable',warming_anomaly_c:'Réchauffement observé',hot_days_ge_30_c:'Jours ≥ 30 °C',burnt_area_ha:'Surface brûlée'};
       const sourceNames={co2:'Émissions',population:'Population',gdp:'Économie',electricity:'Électricité',warming:'Température',hot_days:'Chaleur extrême',fire:'Incendies'};

@@ -75,7 +75,10 @@ jobs:
       - name: Build and validate the common-year snapshot
         run: npm run data:update
 
-      - name: Regression checks for data integrity
+      - name: Refresh the complete multi-model projection batch
+        run: npm run data:projections
+
+      - name: Validate observations and climate projections
         run: npm test
 
       - name: Verify the deployable site
@@ -84,7 +87,7 @@ jobs:
       - name: Publish validated generated data
         shell: bash
         run: |
-          git add data/annual-snapshot.json
+          git add data/annual-snapshot.json data/climate-projections.json
           if [ -f data/era5-annual-eu.json ]; then
             git add data/era5-annual-eu.json
           fi

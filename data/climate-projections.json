@@ -1,0 +1,2346 @@
+{
+  "schema_version": 1,
+  "source": "World Bank Climate Change Knowledge Portal / CMIP6",
+  "source_url": "https://climateknowledgeportal.worldbank.org/download-data",
+  "documentation_url": "https://worldbank.github.io/climateknowledgeportal/docs/collections/cmip6-x0.25.html",
+  "retrieved_at": "2026-09-15T09:47:08.473691+00:00",
+  "variable": "tas",
+  "unit": "degC",
+  "baseline": "1995-2014",
+  "collection": "cmip6-x0.25",
+  "aggregation": "annual",
+  "product": "climatology_anomaly",
+  "ensemble": "ensemble_all",
+  "periods": [
+    "2020-2039",
+    "2040-2059",
+    "2060-2079",
+    "2080-2099"
+  ],
+  "scenarios": [
+    "ssp126",
+    "ssp245",
+    "ssp585"
+  ],
+  "method": "CCKP national spatial aggregation of bias-corrected downscaled CMIP6 ensemble products; 20-year climatological anomalies relative to 1995-2014. Values and p10/median/p90 are imported unchanged.",
+  "limitations": [
+    "Scenario-conditional, not a prediction or assigned scenario probability.",
+    "P10-P90 is the spread of the provider ensemble product, not an 80% forecast confidence interval.",
+    "The model ensemble composition can differ between scenarios. National aggregation of ensemble quantiles is not necessarily the quantile of national model means.",
+    "Country boundaries and baseline follow CCKP, not the ERA5 observation pipeline. No direct subtraction from observed 1991-2020 anomalies.",
+    "Period centres are plotting positions only; no annual data are interpolated."
+  ],
+  "evidence": [
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2020-2039_p10_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "56b6ff11d91c9b2544247ca38fa96f5372ad40d6cf434badcceac99ae4e95070"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2020-2039_median_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "55c42b41f774f1c934947fc1453aa329c8350c242c7660b5da805449728ec21a"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2020-2039_p90_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "4e3a61ef4fea1414ecac7264686d4f1b5e0458a1b183b4bbc99a25033a5f16a0"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2040-2059_p10_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "6393e37107c054446375b83bbf7d7e9227225c47deaf4a4444759d47d32a18bc"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2040-2059_median_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "aa89f3a01b517cdf10c993e4b7ee57730071674ac69c385aa313b602d3fd36c6"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2040-2059_p90_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "bb7936d7c7ba809a35d5c4b8a0be1054713eb4a2bc4b4b3e4e47c0c03be051ec"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2060-2079_p10_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "324ecb1fe177696551ab97302428b13bb2b1f5c49c03ca637aec466a4e842338"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2060-2079_median_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "51674f1d96e295d12e60fde9bfafae08a635783e1d0f12515280fdfc41b4c5f7"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2060-2079_p90_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "b3e49fea1dc554ba48ad8a85a43c7936631f813da301dfad3f1581e1e73d885d"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2080-2099_p10_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "2629d3c6be7b9e09e17757b46b3277f888450af4e56081f77127309a2adf8c0b"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2080-2099_median_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "5f2aaa05306fa14e36867c099adb2f4a06164afb993b32918de9d98eeebb1ab0"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2080-2099_p90_ssp126_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "5cacdfcde0cd94abb6666528f07cecfdcb1027536d9b8e27721ea33980b3804c"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2020-2039_p10_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "b1b05a756832fdb06fdfc5280f5cc1189b96ead6820f7de8abaa51f22a2b905a"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2020-2039_median_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "82b1cc344710a8ceabeb308c3091d64b9742e7232a4f737250f98c5a59715646"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2020-2039_p90_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "994aed1c9f146edfb04649ce1f455185ee98d943d62b0d4bdca9e12f50feb014"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2040-2059_p10_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "32f61e4290023112271f99f9270bb87dd804c3754705f78a547b0a02ee4b082b"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2040-2059_median_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "931ea3fafa620ef92e3a48eb71406f673fae143a0df0191fd85b8227d7781b3b"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2040-2059_p90_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "0195938a1f036784bbb0ef210d49841e08d22a8b9314b6b7422752110e6684f2"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2060-2079_p10_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "d5d0dc4a5fd9fe2a66abf268b31cb6c5df462b9ab31eba6f40996fd5a08695e8"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2060-2079_median_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "e5cfb9ded283000809606e785849aa6b99a6e8d68b310f07718b7c187598cfc9"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2060-2079_p90_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "c3a7c0e737f410cc098d2c08b54f289c6f69a4525c35ffff607f4d19939e1be8"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2080-2099_p10_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "db0227e5454741e8976871cfdca77414b0f996db5a3c82a16bc3a91e8a6a954e"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2080-2099_median_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "3c59a38a605a0c7e3d239b90376dff6db665c886890a81abc06af4f076468e9e"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2080-2099_p90_ssp245_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "6d5b7dc4b3449db7e453254733eb2f0c77f00a500df9434b3fd667a49b4e14ba"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2020-2039_p10_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "693e8b6dc6ba624ed69c62f19ebfe513c3a7d6846a5ef1ff3b1b40ae486842b5"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2020-2039_median_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "0005e5bba45fc4ec0aa7851bdf2894b39a625b12bc550ec5139199dead91ccf6"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2020-2039_p90_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "6586fbf23fcc8f2330c79e34f92cc938a062047e76b75f24fe1d7b987b9cbe4f"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2040-2059_p10_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "cb66f3dafa4a7be38c1e4ae482b874c79aa3c833c389f74d40234a5039903d42"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2040-2059_median_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "635bc1c1d135105ec8870f11f686dd759a82b9d8518e1de1869dc127f9899476"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2040-2059_p90_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "35b8c6549d83d93a87c8c63063fdfb591e4b633fe9b5a37a3ff38f88e8d3697f"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2060-2079_p10_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "c49dea5c26b8d4504baffeead4aafbe008110377ad836921656b1caf843c179b"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2060-2079_median_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "4630dd33bb8d4613e4d4e04a0305915f25b8ee8b6cf6a30c445fb30388b4d3d6"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2060-2079_p90_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "4b217c955080609e4515c5c56ea5f544a6729c696f419b8a3f1f517b6053f6bb"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2080-2099_p10_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "20c2a1094632c9cda4efc5ce705d5ef2a27197809e99c5f8bfcc8b073b0bfb34"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2080-2099_median_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "7d6ef02a20b2be27249109f3efb96c54b4bd6865ec3c26e0ca1272cfee41e500"
+    },
+    {
+      "url": "https://cckpapi.worldbank.org/cckp/v1/cmip6-x0.25_climatology_tas_anomaly_annual_2080-2099_p90_ssp585_ensemble_all_mean/all_countries?_format=json",
+      "sha256": "096af9f0afc84cc4521dcda4f54de54338422f3245d9e71699569cc22728e06d"
+    }
+  ],
+  "countries": {
+    "AUT": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.56,
+          "median": 0.94,
+          "p90": 1.44
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.75,
+          "median": 1.37,
+          "p90": 2.12
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.87,
+          "median": 1.61,
+          "p90": 2.31
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.79,
+          "median": 1.35,
+          "p90": 2.56
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.75,
+          "median": 1.06,
+          "p90": 1.64
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.09,
+          "median": 1.62,
+          "p90": 2.51
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.57,
+          "median": 2.1,
+          "p90": 3.15
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.73,
+          "median": 2.48,
+          "p90": 3.55
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.61,
+          "median": 1.12,
+          "p90": 1.7
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.38,
+          "median": 2.34,
+          "p90": 2.92
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.41,
+          "median": 3.49,
+          "p90": 4.53
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.66,
+          "median": 4.86,
+          "p90": 6.83
+        }
+      ]
+    },
+    "BEL": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.33,
+          "median": 0.61,
+          "p90": 1.19
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.45,
+          "median": 1.01,
+          "p90": 1.75
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.53,
+          "median": 1.22,
+          "p90": 2.03
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.37,
+          "median": 1.13,
+          "p90": 2.08
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.26,
+          "median": 0.95,
+          "p90": 1.29
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.69,
+          "median": 1.21,
+          "p90": 2.25
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.01,
+          "median": 1.53,
+          "p90": 2.53
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.33,
+          "median": 1.94,
+          "p90": 3.13
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.33,
+          "median": 0.95,
+          "p90": 1.34
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.01,
+          "median": 1.74,
+          "p90": 2.47
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.85,
+          "median": 2.62,
+          "p90": 3.9
+        },
+        {
+          "period": "2080-2099",
+          "p10": 2.78,
+          "median": 4.29,
+          "p90": 5.52
+        }
+      ]
+    },
+    "BGR": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.66,
+          "median": 1.08,
+          "p90": 1.68
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.7,
+          "median": 1.59,
+          "p90": 2.32
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.01,
+          "median": 1.72,
+          "p90": 2.5
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.93,
+          "median": 1.59,
+          "p90": 2.8
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.7,
+          "median": 1.14,
+          "p90": 1.63
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.12,
+          "median": 1.65,
+          "p90": 2.44
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.6,
+          "median": 2.31,
+          "p90": 3.41
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.94,
+          "median": 2.86,
+          "p90": 3.81
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.62,
+          "median": 1.28,
+          "p90": 1.72
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.68,
+          "median": 2.4,
+          "p90": 3.09
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.7,
+          "median": 3.78,
+          "p90": 4.87
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.79,
+          "median": 5.26,
+          "p90": 6.96
+        }
+      ]
+    },
+    "CYP": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.51,
+          "median": 0.94,
+          "p90": 1.27
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.61,
+          "median": 1.35,
+          "p90": 1.72
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.78,
+          "median": 1.46,
+          "p90": 1.96
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.64,
+          "median": 1.22,
+          "p90": 1.95
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.45,
+          "median": 1,
+          "p90": 1.23
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.9,
+          "median": 1.45,
+          "p90": 1.83
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.15,
+          "median": 1.84,
+          "p90": 2.48
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.4,
+          "median": 2.18,
+          "p90": 2.96
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.48,
+          "median": 1.09,
+          "p90": 1.35
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.25,
+          "median": 1.95,
+          "p90": 2.3
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2,
+          "median": 2.84,
+          "p90": 3.55
+        },
+        {
+          "period": "2080-2099",
+          "p10": 2.96,
+          "median": 4.2,
+          "p90": 4.86
+        }
+      ]
+    },
+    "CZE": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.48,
+          "median": 0.87,
+          "p90": 1.31
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.77,
+          "median": 1.29,
+          "p90": 2.03
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.88,
+          "median": 1.64,
+          "p90": 2.24
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.84,
+          "median": 1.37,
+          "p90": 2.53
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.69,
+          "median": 1.08,
+          "p90": 1.58
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.12,
+          "median": 1.58,
+          "p90": 2.49
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.39,
+          "median": 2.05,
+          "p90": 3.08
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.66,
+          "median": 2.37,
+          "p90": 3.45
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.62,
+          "median": 1.13,
+          "p90": 1.6
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.33,
+          "median": 2.25,
+          "p90": 2.77
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.29,
+          "median": 3.3,
+          "p90": 4.55
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.54,
+          "median": 4.91,
+          "p90": 6.62
+        }
+      ]
+    },
+    "DEU": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.47,
+          "median": 0.71,
+          "p90": 1.29
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.62,
+          "median": 1.1,
+          "p90": 1.92
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.8,
+          "median": 1.37,
+          "p90": 2.07
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.73,
+          "median": 1.14,
+          "p90": 2.34
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.44,
+          "median": 1.01,
+          "p90": 1.45
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.86,
+          "median": 1.34,
+          "p90": 2.37
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.27,
+          "median": 1.74,
+          "p90": 2.72
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.47,
+          "median": 2.13,
+          "p90": 3.28
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.58,
+          "median": 0.99,
+          "p90": 1.48
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.13,
+          "median": 1.98,
+          "p90": 2.61
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.2,
+          "median": 3.08,
+          "p90": 4.36
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.19,
+          "median": 4.57,
+          "p90": 5.96
+        }
+      ]
+    },
+    "DNK": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.11,
+          "median": 0.73,
+          "p90": 1.28
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.3,
+          "median": 0.94,
+          "p90": 1.75
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.49,
+          "median": 1.27,
+          "p90": 1.96
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.2,
+          "median": 1.04,
+          "p90": 2.15
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.16,
+          "median": 0.86,
+          "p90": 1.43
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.63,
+          "median": 1.22,
+          "p90": 2.24
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.91,
+          "median": 1.59,
+          "p90": 2.6
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.98,
+          "median": 1.91,
+          "p90": 3.2
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.4,
+          "median": 0.89,
+          "p90": 1.55
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.93,
+          "median": 1.52,
+          "p90": 2.82
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.6,
+          "median": 2.72,
+          "p90": 3.79
+        },
+        {
+          "period": "2080-2099",
+          "p10": 2.52,
+          "median": 3.82,
+          "p90": 5.1
+        }
+      ]
+    },
+    "ESP": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.5,
+          "median": 0.95,
+          "p90": 1.3
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.82,
+          "median": 1.37,
+          "p90": 1.89
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.92,
+          "median": 1.36,
+          "p90": 2.16
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.66,
+          "median": 1.58,
+          "p90": 2.35
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.59,
+          "median": 1,
+          "p90": 1.39
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.01,
+          "median": 1.57,
+          "p90": 2.23
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.5,
+          "median": 1.99,
+          "p90": 3
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.84,
+          "median": 2.5,
+          "p90": 3.43
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.66,
+          "median": 1,
+          "p90": 1.51
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.52,
+          "median": 2.15,
+          "p90": 2.77
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.53,
+          "median": 3.32,
+          "p90": 4.17
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.59,
+          "median": 4.99,
+          "p90": 6.16
+        }
+      ]
+    },
+    "EST": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.29,
+          "median": 1.14,
+          "p90": 1.69
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.58,
+          "median": 1.44,
+          "p90": 2.5
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.05,
+          "median": 1.67,
+          "p90": 2.84
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.82,
+          "median": 1.51,
+          "p90": 3.32
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.62,
+          "median": 1.13,
+          "p90": 1.73
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.09,
+          "median": 1.74,
+          "p90": 3.29
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.72,
+          "median": 2.17,
+          "p90": 3.84
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.48,
+          "median": 2.8,
+          "p90": 4.17
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.53,
+          "median": 1.32,
+          "p90": 2.06
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.52,
+          "median": 2.35,
+          "p90": 3.67
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.73,
+          "median": 3.9,
+          "p90": 5.05
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.43,
+          "median": 5.2,
+          "p90": 7.38
+        }
+      ]
+    },
+    "FIN": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.03,
+          "median": 1.24,
+          "p90": 1.81
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.5,
+          "median": 1.49,
+          "p90": 2.82
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.26,
+          "median": 1.99,
+          "p90": 3.17
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.71,
+          "median": 1.78,
+          "p90": 3.35
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.35,
+          "median": 1.19,
+          "p90": 1.98
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.88,
+          "median": 2.07,
+          "p90": 3.37
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.79,
+          "median": 2.52,
+          "p90": 4.05
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.54,
+          "median": 3.17,
+          "p90": 4.61
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.24,
+          "median": 1.31,
+          "p90": 2.28
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.56,
+          "median": 2.45,
+          "p90": 3.9
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.89,
+          "median": 4.24,
+          "p90": 5.7
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.61,
+          "median": 5.93,
+          "p90": 8.07
+        }
+      ]
+    },
+    "FRA": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.43,
+          "median": 0.79,
+          "p90": 1.23
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.63,
+          "median": 1.13,
+          "p90": 1.84
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.76,
+          "median": 1.38,
+          "p90": 2.11
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.54,
+          "median": 1.22,
+          "p90": 2.18
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.48,
+          "median": 0.95,
+          "p90": 1.37
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.89,
+          "median": 1.4,
+          "p90": 2.35
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.26,
+          "median": 1.77,
+          "p90": 2.83
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.51,
+          "median": 2.19,
+          "p90": 3.41
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.48,
+          "median": 0.89,
+          "p90": 1.44
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.12,
+          "median": 1.89,
+          "p90": 2.6
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.12,
+          "median": 2.85,
+          "p90": 4.06
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.17,
+          "median": 4.43,
+          "p90": 5.86
+        }
+      ]
+    },
+    "GRC": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.56,
+          "median": 1.03,
+          "p90": 1.53
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.65,
+          "median": 1.56,
+          "p90": 2.14
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.97,
+          "median": 1.56,
+          "p90": 2.46
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.94,
+          "median": 1.45,
+          "p90": 2.58
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.64,
+          "median": 1.04,
+          "p90": 1.49
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.13,
+          "median": 1.59,
+          "p90": 2.31
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.58,
+          "median": 2.33,
+          "p90": 3.07
+        },
+        {
+          "period": "2080-2099",
+          "p10": 2.01,
+          "median": 2.65,
+          "p90": 3.53
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.67,
+          "median": 1.16,
+          "p90": 1.64
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.53,
+          "median": 2.24,
+          "p90": 2.86
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.62,
+          "median": 3.38,
+          "p90": 4.43
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.59,
+          "median": 5.17,
+          "p90": 6.22
+        }
+      ]
+    },
+    "HRV": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.57,
+          "median": 0.97,
+          "p90": 1.5
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.71,
+          "median": 1.67,
+          "p90": 2.23
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.96,
+          "median": 1.81,
+          "p90": 2.35
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.9,
+          "median": 1.49,
+          "p90": 2.7
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.83,
+          "median": 1.14,
+          "p90": 1.58
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.15,
+          "median": 1.7,
+          "p90": 2.45
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.59,
+          "median": 2.3,
+          "p90": 3.08
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.74,
+          "median": 2.81,
+          "p90": 3.59
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.61,
+          "median": 1.24,
+          "p90": 1.76
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.53,
+          "median": 2.4,
+          "p90": 3.03
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.42,
+          "median": 3.59,
+          "p90": 4.8
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.67,
+          "median": 5.11,
+          "p90": 6.81
+        }
+      ]
+    },
+    "HUN": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.6,
+          "median": 1.03,
+          "p90": 1.58
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.74,
+          "median": 1.56,
+          "p90": 2.4
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.96,
+          "median": 1.81,
+          "p90": 2.51
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.85,
+          "median": 1.58,
+          "p90": 2.8
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.76,
+          "median": 1.2,
+          "p90": 1.69
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.08,
+          "median": 1.73,
+          "p90": 2.54
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.42,
+          "median": 2.2,
+          "p90": 3.16
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.75,
+          "median": 2.77,
+          "p90": 3.69
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.69,
+          "median": 1.3,
+          "p90": 1.86
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.49,
+          "median": 2.4,
+          "p90": 3.15
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.4,
+          "median": 3.62,
+          "p90": 4.91
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.77,
+          "median": 5.12,
+          "p90": 6.97
+        }
+      ]
+    },
+    "IRL": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": -0.07,
+          "median": 0.41,
+          "p90": 0.89
+        },
+        {
+          "period": "2040-2059",
+          "p10": -0.31,
+          "median": 0.73,
+          "p90": 1.24
+        },
+        {
+          "period": "2060-2079",
+          "p10": -0.23,
+          "median": 0.78,
+          "p90": 1.58
+        },
+        {
+          "period": "2080-2099",
+          "p10": -0.43,
+          "median": 0.81,
+          "p90": 1.55
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": -0.06,
+          "median": 0.65,
+          "p90": 1.01
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0,
+          "median": 0.86,
+          "p90": 1.43
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.14,
+          "median": 1.14,
+          "p90": 1.79
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.01,
+          "median": 1.44,
+          "p90": 2.52
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": -0.02,
+          "median": 0.56,
+          "p90": 1.04
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.32,
+          "median": 1.07,
+          "p90": 1.87
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.78,
+          "median": 1.91,
+          "p90": 2.82
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.31,
+          "median": 2.68,
+          "p90": 4.22
+        }
+      ]
+    },
+    "ITA": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.65,
+          "median": 1.06,
+          "p90": 1.46
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.78,
+          "median": 1.64,
+          "p90": 2.06
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.99,
+          "median": 1.67,
+          "p90": 2.29
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.86,
+          "median": 1.6,
+          "p90": 2.56
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.78,
+          "median": 1.06,
+          "p90": 1.57
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.15,
+          "median": 1.68,
+          "p90": 2.34
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.68,
+          "median": 2.19,
+          "p90": 2.98
+        },
+        {
+          "period": "2080-2099",
+          "p10": 2.08,
+          "median": 2.65,
+          "p90": 3.52
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.7,
+          "median": 1.16,
+          "p90": 1.72
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.43,
+          "median": 2.26,
+          "p90": 2.92
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.52,
+          "median": 3.48,
+          "p90": 4.53
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.78,
+          "median": 5.03,
+          "p90": 6.36
+        }
+      ]
+    },
+    "LTU": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.43,
+          "median": 1.01,
+          "p90": 1.59
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.65,
+          "median": 1.28,
+          "p90": 2.26
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.99,
+          "median": 1.62,
+          "p90": 2.67
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.74,
+          "median": 1.47,
+          "p90": 2.97
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.45,
+          "median": 1.12,
+          "p90": 1.61
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.01,
+          "median": 1.66,
+          "p90": 2.91
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.57,
+          "median": 2.04,
+          "p90": 3.57
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.72,
+          "median": 2.53,
+          "p90": 3.83
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.7,
+          "median": 1.31,
+          "p90": 1.75
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.36,
+          "median": 2.16,
+          "p90": 3.36
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.49,
+          "median": 3.6,
+          "p90": 4.78
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.59,
+          "median": 5.05,
+          "p90": 7.12
+        }
+      ]
+    },
+    "LUX": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.47,
+          "median": 0.69,
+          "p90": 1.26
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.6,
+          "median": 1.11,
+          "p90": 1.77
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.71,
+          "median": 1.29,
+          "p90": 2.1
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.55,
+          "median": 1.14,
+          "p90": 2.15
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.34,
+          "median": 0.99,
+          "p90": 1.37
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.83,
+          "median": 1.35,
+          "p90": 2.34
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.18,
+          "median": 1.76,
+          "p90": 2.64
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.4,
+          "median": 2.08,
+          "p90": 3.36
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.43,
+          "median": 0.96,
+          "p90": 1.42
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.03,
+          "median": 1.92,
+          "p90": 2.53
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.14,
+          "median": 2.8,
+          "p90": 4.28
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.04,
+          "median": 4.51,
+          "p90": 6.04
+        }
+      ]
+    },
+    "LVA": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.34,
+          "median": 1.14,
+          "p90": 1.63
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.59,
+          "median": 1.32,
+          "p90": 2.34
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.02,
+          "median": 1.58,
+          "p90": 2.8
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.78,
+          "median": 1.48,
+          "p90": 3.1
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.5,
+          "median": 1.06,
+          "p90": 1.61
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.11,
+          "median": 1.64,
+          "p90": 3.06
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.7,
+          "median": 2.06,
+          "p90": 3.65
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.55,
+          "median": 2.53,
+          "p90": 3.96
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.62,
+          "median": 1.33,
+          "p90": 1.88
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.4,
+          "median": 2.28,
+          "p90": 3.55
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.62,
+          "median": 3.78,
+          "p90": 4.78
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.51,
+          "median": 5.13,
+          "p90": 7.26
+        }
+      ]
+    },
+    "MLT": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.52,
+          "median": 0.82,
+          "p90": 1.15
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.52,
+          "median": 1.37,
+          "p90": 1.74
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.75,
+          "median": 1.33,
+          "p90": 1.88
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.58,
+          "median": 1.36,
+          "p90": 1.99
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.49,
+          "median": 0.91,
+          "p90": 1.26
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.88,
+          "median": 1.41,
+          "p90": 1.89
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.17,
+          "median": 1.88,
+          "p90": 2.47
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.53,
+          "median": 2.16,
+          "p90": 3.01
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.53,
+          "median": 1.07,
+          "p90": 1.4
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.03,
+          "median": 1.83,
+          "p90": 2.4
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.06,
+          "median": 2.86,
+          "p90": 3.54
+        },
+        {
+          "period": "2080-2099",
+          "p10": 2.79,
+          "median": 4.16,
+          "p90": 5.07
+        }
+      ]
+    },
+    "NLD": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.25,
+          "median": 0.51,
+          "p90": 1.2
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.25,
+          "median": 0.86,
+          "p90": 1.68
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.48,
+          "median": 1.1,
+          "p90": 1.81
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.31,
+          "median": 1.04,
+          "p90": 2.04
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.24,
+          "median": 0.88,
+          "p90": 1.23
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.57,
+          "median": 1.16,
+          "p90": 2.07
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.86,
+          "median": 1.39,
+          "p90": 2.3
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.01,
+          "median": 1.82,
+          "p90": 2.86
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.3,
+          "median": 0.85,
+          "p90": 1.28
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.89,
+          "median": 1.58,
+          "p90": 2.42
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.6,
+          "median": 2.49,
+          "p90": 3.53
+        },
+        {
+          "period": "2080-2099",
+          "p10": 2.64,
+          "median": 3.93,
+          "p90": 5.01
+        }
+      ]
+    },
+    "POL": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.42,
+          "median": 0.89,
+          "p90": 1.35
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.74,
+          "median": 1.25,
+          "p90": 2.21
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.91,
+          "median": 1.6,
+          "p90": 2.37
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.82,
+          "median": 1.41,
+          "p90": 2.69
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.48,
+          "median": 1.09,
+          "p90": 1.6
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.01,
+          "median": 1.56,
+          "p90": 2.65
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.38,
+          "median": 1.94,
+          "p90": 3.31
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.65,
+          "median": 2.34,
+          "p90": 3.59
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.65,
+          "median": 1.25,
+          "p90": 1.65
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.37,
+          "median": 2.16,
+          "p90": 2.98
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.39,
+          "median": 3.31,
+          "p90": 4.75
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.47,
+          "median": 4.97,
+          "p90": 6.67
+        }
+      ]
+    },
+    "PRT": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.41,
+          "median": 0.81,
+          "p90": 1.12
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.58,
+          "median": 1.07,
+          "p90": 1.62
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.72,
+          "median": 1.13,
+          "p90": 1.85
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.52,
+          "median": 1.12,
+          "p90": 1.99
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.56,
+          "median": 0.83,
+          "p90": 1.29
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.85,
+          "median": 1.32,
+          "p90": 1.94
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.27,
+          "median": 1.63,
+          "p90": 2.5
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.51,
+          "median": 1.98,
+          "p90": 3.09
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.47,
+          "median": 0.88,
+          "p90": 1.3
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.2,
+          "median": 1.67,
+          "p90": 2.36
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.2,
+          "median": 2.68,
+          "p90": 3.62
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.15,
+          "median": 4.04,
+          "p90": 5.27
+        }
+      ]
+    },
+    "ROU": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.69,
+          "median": 1.01,
+          "p90": 1.71
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.77,
+          "median": 1.53,
+          "p90": 2.39
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.1,
+          "median": 1.89,
+          "p90": 2.5
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.85,
+          "median": 1.57,
+          "p90": 2.9
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.79,
+          "median": 1.18,
+          "p90": 1.69
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.12,
+          "median": 1.74,
+          "p90": 2.54
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.53,
+          "median": 2.35,
+          "p90": 3.36
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.77,
+          "median": 2.84,
+          "p90": 3.84
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.66,
+          "median": 1.28,
+          "p90": 1.75
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.63,
+          "median": 2.36,
+          "p90": 3.18
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.52,
+          "median": 3.74,
+          "p90": 5
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.75,
+          "median": 5.27,
+          "p90": 7.17
+        }
+      ]
+    },
+    "SVK": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.54,
+          "median": 0.97,
+          "p90": 1.48
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.84,
+          "median": 1.47,
+          "p90": 2.31
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.9,
+          "median": 1.74,
+          "p90": 2.42
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.91,
+          "median": 1.51,
+          "p90": 2.72
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.78,
+          "median": 1.13,
+          "p90": 1.67
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.07,
+          "median": 1.72,
+          "p90": 2.52
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.39,
+          "median": 2.18,
+          "p90": 3.21
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.83,
+          "median": 2.67,
+          "p90": 3.61
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.68,
+          "median": 1.25,
+          "p90": 1.76
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.58,
+          "median": 2.38,
+          "p90": 3.08
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.36,
+          "median": 3.47,
+          "p90": 4.8
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.62,
+          "median": 5.07,
+          "p90": 6.93
+        }
+      ]
+    },
+    "SVN": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": 0.6,
+          "median": 1,
+          "p90": 1.49
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.81,
+          "median": 1.57,
+          "p90": 2.23
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.02,
+          "median": 1.66,
+          "p90": 2.3
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.94,
+          "median": 1.5,
+          "p90": 2.64
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.81,
+          "median": 1.14,
+          "p90": 1.6
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.17,
+          "median": 1.62,
+          "p90": 2.47
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.58,
+          "median": 2.21,
+          "p90": 3.14
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.74,
+          "median": 2.7,
+          "p90": 3.54
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.66,
+          "median": 1.22,
+          "p90": 1.76
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.52,
+          "median": 2.32,
+          "p90": 3.06
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.42,
+          "median": 3.59,
+          "p90": 4.76
+        },
+        {
+          "period": "2080-2099",
+          "p10": 3.69,
+          "median": 5,
+          "p90": 6.88
+        }
+      ]
+    },
+    "SWE": {
+      "ssp126": [
+        {
+          "period": "2020-2039",
+          "p10": -0.06,
+          "median": 1.04,
+          "p90": 1.55
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.21,
+          "median": 1.23,
+          "p90": 2.25
+        },
+        {
+          "period": "2060-2079",
+          "p10": 0.95,
+          "median": 1.57,
+          "p90": 2.48
+        },
+        {
+          "period": "2080-2099",
+          "p10": 0.42,
+          "median": 1.36,
+          "p90": 2.73
+        }
+      ],
+      "ssp245": [
+        {
+          "period": "2020-2039",
+          "p10": 0.37,
+          "median": 1.06,
+          "p90": 1.66
+        },
+        {
+          "period": "2040-2059",
+          "p10": 0.64,
+          "median": 1.76,
+          "p90": 2.77
+        },
+        {
+          "period": "2060-2079",
+          "p10": 1.42,
+          "median": 2.19,
+          "p90": 3.22
+        },
+        {
+          "period": "2080-2099",
+          "p10": 1.13,
+          "median": 2.69,
+          "p90": 3.81
+        }
+      ],
+      "ssp585": [
+        {
+          "period": "2020-2039",
+          "p10": 0.15,
+          "median": 1.08,
+          "p90": 2.09
+        },
+        {
+          "period": "2040-2059",
+          "p10": 1.21,
+          "median": 2.03,
+          "p90": 3.53
+        },
+        {
+          "period": "2060-2079",
+          "p10": 2.35,
+          "median": 3.49,
+          "p90": 5.02
+        },
+        {
+          "period": "2080-2099",
+          "p10": 2.99,
+          "median": 5.05,
+          "p90": 7.06
+        }
+      ]
+    }
+  },
+  "validation": {
+    "status": "validated",
+    "countries": 27,
+    "values": 972
+  }
+}

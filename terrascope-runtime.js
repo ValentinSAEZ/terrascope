@@ -32,7 +32,7 @@
     '<section class="policy"><p class="eyebrow">CADRE POLITIQUE</p><h2>Accords et <em>mise en œuvre.</em></h2><div><article><h3>Accord de Paris</h3><p>'+label+' participe à la contribution déterminée au niveau national de l’Union européenne auprès de la CCNUCC.</p></article><article><h3>Loi européenne sur le climat</h3><p>Réduction nette d’au moins 55 % à 2030 et neutralité climatique à 2050.</p></article><article><h3>Économie & transition</h3><p>L’OCDE fournit les indicateurs comparatifs pour lire la transition dans son contexte économique.</p></article></div></section>'+
     '<section id="sources" class="sources"><p class="eyebrow">NIVEAU 3 · VÉRIFIER & APPROFONDIR</p><h2>Sources, définitions et <em>limites.</em></h2><div><a href="https://globalcarbonbudget.org/gcb-2025/" target="_blank" rel="noopener"><b>Global Carbon Budget</b><span>CO₂ territorial fossile et industriel, série observée arrêtée à l’année commune.</span></a><a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.KD" target="_blank" rel="noopener"><b>Banque mondiale · WDI</b><span>Population et PIB PPA constant 2021, joints exactement sur la même année que le CO₂.</span></a><a href="https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels-monthly-means" target="_blank" rel="noopener"><b>Copernicus C3S · ERA5</b><span>Température annuelle de l’air à 2 m, moyenne nationale pondérée, anomalie annuelle vs 1991–2020.</span></a><a href="https://api.ember-energy.org/v1/docs" target="_blank" rel="noopener"><b>Ember / Eurostat</b><span>Production d’électricité par filière. L’API Ember est prioritaire lorsqu’une clé serveur est configurée ; Eurostat assure l’année européenne.</span></a><a href="https://cds.climate.copernicus.eu/datasets/derived-era5-land-daily-statistics" target="_blank" rel="noopener"><b>Copernicus ERA5-Land</b><span>Jours à T<sub>max</sub> ≥ 30 °C, publiés seulement après un calendrier complet et une agrégation nationale reproductible.</span></a><a href="https://gwis.jrc.ec.europa.eu/apps/country.profile/downloads" target="_blank" rel="noopener"><b>JRC / GWIS MCD64A1</b><span>Surface brûlée annuelle issue d’une méthode satellitaire harmonisée entre pays.</span></a></div><p class="note"><b>Année commune :</b> toutes les observations principales utilisent la même année. Une absence n’est jamais remplacée par zéro. Le donut totalise 100 % et rend visible tout ajustement de périmètre. Les scénarios 2050–2100 restent séparés des observations. <a href="data-health.html">CONSULTER LA SANTÉ DES DONNÉES ↗</a></p></section></main>';
   const projectionCard=document.querySelector('#future .futuregrid article:last-child');
-  projectionCard.innerHTML='<span>ANOMALIE ANNUELLE SIMULÉE · SSP2-4.5</span><div class="projection-controls" role="group" aria-label="Choisir une année simulée"><button type="button" data-projection-year="2050" aria-pressed="true">2050</button><button type="button" data-projection-year="2100" aria-pressed="false">2100</button></div><div class="projection-chart" aria-label="Repères de température annuelle simulée"><div class="projection-axis"><span id="projection-scale">—</span><span>0 °C</span></div><div class="projection-bars"><div><i id="projection-bar-2050"></i><b>2050</b></div><div><i id="projection-bar-2100"></i><b>2100</b></div></div></div><strong id="projection-value">Chargement…</strong><p id="projection-description">Écart de température par rapport à 1991–2020 · CMIP6 / Copernicus.</p>';
+  projectionCard.textContent='Chargement des projections multi-modèles…';
   const chart=document.querySelector('.chart');
   chart.querySelector('svg text[x="80"][y="22"]')?.remove();
   chart.querySelector('.chart-note')?.remove();
@@ -105,25 +105,10 @@
     put('#energy-title','Production électrique · '+data.reference_year);
     put('#energy-text','Renouvelables : '+n(share)+' % de la production nette. Le pompage est un stockage d’électricité. '+(mix.adjustment>.15?'Le solde de '+n(mix.adjustment)+' % n’est pas ventilé par les catégories disponibles.':'Toutes les catégories disponibles sont conservées, y compris les petites parts.'));
   }).catch(()=>put('#fuel','Mix électrique temporairement indisponible.'));
-  fetch(url.projections).then(r=>r.ok?r.json():Promise.reject()).then(data=>{
-    const projection=data.countries?.[c[0]];
-    if(!projection||projection.status!=='available') throw Error('projection not available');
-    const at2050=projection.anomaly_vs_1991_2020_c?.['2050'], at2100=projection.anomaly_vs_1991_2020_c?.['2100'];
-    if(!Number.isFinite(at2050)||!Number.isFinite(at2100)) throw Error('invalid projection');
-    const values={2050:at2050,2100:at2100};
-    const scale=Math.max(1,Math.ceil(Math.max(at2050,at2100)*1.2));
-    put('#projection-scale','+'+n(scale)+' °C');
-    Object.entries(values).forEach(([year,value])=>{const bar=document.querySelector('#projection-bar-'+year);if(bar)bar.style.height=Math.max(4,value/scale*88)+'px';});
-    const selectProjection=year=>{
-      const value=values[year];
-      put('#projection-value',year+' · '+(value>=0?'+':'')+n(value)+' °C');
-      put('#projection-description','Anomalie annuelle simulée vs 1991–2020 · CMIP6 CNRM-ESM2-1 · SSP2-4.5. Repère annuel issu d’un seul modèle : ce n’est ni une prévision météo ni une fourchette d’incertitude.');
-      document.querySelectorAll('[data-projection-year]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.projectionYear===String(year))));
-      document.querySelectorAll('[id^="projection-bar-"]').forEach(bar=>bar.classList.toggle('is-selected',bar.id==='projection-bar-'+year));
-    };
-    document.querySelectorAll('[data-projection-year]').forEach(button=>button.addEventListener('click',()=>selectProjection(button.dataset.projectionYear)));
-    selectProjection('2050');
-  }).catch(()=>{put('#projection-value','Non affiché');put('#projection-description','Aucune moyenne nationale suffisamment résolue dans le jeu CMIP6 fourni.');});
+  projectionCard.replaceChildren(Object.assign(document.createElement('p'), {textContent:'Chargement des projections multi-modèles…'}));
+  import('./climate-projections.js').then(module=>module.mountProjections(projectionCard,c[0])).catch(()=>{
+    projectionCard.textContent='Projections indisponibles. Aucune valeur de remplacement.';
+  });
   snapshotPromise.then(data=>{
     const metrics=data.countries?.[c[0]]?.metrics||{},warming=metricValue(metrics.warming_anomaly_c),hotDays=metricValue(metrics.hot_days_ge_30_c),fire=metricValue(metrics.burnt_area_ha);
     if(warming!==null){put('#warming',(warming>=0?'+':'')+n(warming));put('#warming-note',data.reference_year+' VS 1991–2020 · ERA5 · EMPRISE EUROPÉENNE');}
