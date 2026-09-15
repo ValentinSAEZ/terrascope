@@ -1,0 +1,72 @@
+name: Deploy TerraScope VPS
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+concurrency:
+  group: terrascope-production
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build TerraScope
+        run: npm run build
+
+  deploy:
+    name: Deploy VPS
+    needs: validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure SSH
+        shell: bash
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          printf '%s\n' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          printf '%s\n' "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Deploy TerraScope
+        shell: bash
+        run: |
+          ssh "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" <<'EOF'
+            set -e
+
+            cd /var/www/terrascope
+
+            if [ -n "$(git status --porcelain)" ]; then
+              echo "ERROR: TerraScope VPS repository contains local changes."
+              git status --short
+              exit 1
+            fi
+
+            git pull --ff-only origin main
+
+            npm run build
+
+            test -f public/index.html
+
+            git restore dist
+
+            echo "TerraScope deployment successful."
+          EOF
