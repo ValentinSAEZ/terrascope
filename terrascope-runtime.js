@@ -106,7 +106,7 @@
     put('#energy-text','Renouvelables : '+n(share)+' % de la production nette. Le pompage est un stockage d’électricité. '+(mix.adjustment>.15?'Le solde de '+n(mix.adjustment)+' % n’est pas ventilé par les catégories disponibles.':'Toutes les catégories disponibles sont conservées, y compris les petites parts.'));
   }).catch(()=>put('#fuel','Mix électrique temporairement indisponible.'));
   projectionCard.replaceChildren(Object.assign(document.createElement('p'), {textContent:'Chargement des projections multi-modèles…'}));
-  import('./climate-projections.js').then(module=>module.mountProjections(projectionCard,c[0])).catch(()=>{
+  import('./climate-projections.js?v=cmip6-ensemble-1').then(module=>module.mountProjections(projectionCard,c[0])).catch(()=>{
     projectionCard.textContent='Projections indisponibles. Aucune valeur de remplacement.';
   });
   snapshotPromise.then(data=>{

@@ -12,7 +12,8 @@ test('country atlas keeps all six existing data panels', async () => {
 test('atlas is deferred and its assets are shipped by the build', async () => {
   const html = await readFile('country-live.html', 'utf8');
   const build = await readFile('scripts/build.mjs', 'utf8');
-  assert.match(html, /<script src="country-ui.js" defer><\/script>/);
+  assert.match(html, /<script src="country-ui.js\?v=cmip6-ensemble-1" defer><\/script>/);
+  assert.match(html, /src="terrascope-runtime.js\?v=cmip6-ensemble-1"/);
   for (const file of ['country-ui.js','country-ui.css']) assert.ok(build.includes("'"+file+"'"));
 });
 test('legacy country URL preserves deep-linked topic', async () => {

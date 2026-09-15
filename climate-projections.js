@@ -5,7 +5,7 @@ const el=(tag,text,className)=>{const n=document.createElement(tag);if(text)n.te
 const mark=(tag,attrs,text)=>{const n=document.createElementNS(svgNS,tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;return n;};
 
 export async function mountProjections(root,code) {
-  const css=el('link');css.rel='stylesheet';css.href='climate-projections.css';document.head.append(css);
+  const css=el('link');css.rel='stylesheet';css.href='climate-projections.css?v=cmip6-ensemble-1';document.head.append(css);
   root.classList.add('clim-explorer');
   root.parentElement.prepend(root);
   const future=root.closest('#future');
