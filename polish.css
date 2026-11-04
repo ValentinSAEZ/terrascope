@@ -173,3 +173,7 @@ html body.blueprint .uncovered .lede { max-width: 640px; font-size: 18px; line-h
 html body.blueprint .uncovered-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); border-top: 1px solid var(--line); }
 html body.blueprint .uncovered-list a { display: block; padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; }
 html body.blueprint .uncovered-list a:hover { color: var(--forest); }
+
+/* Accueil : sources des repères mondiaux. */
+html body.blueprint .headline-sources { max-width: 520px; margin: 10px 0 0; font: 12px/1.6 var(--sans); color: var(--muted); }
+html body.blueprint .headline-sources a { color: var(--forest); text-underline-offset: 3px; }
