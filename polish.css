@@ -1,0 +1,168 @@
+/* TerraScope — finitions visuelles.
+   Chargé après blueprint-ui.css sur toutes les pages. Ne change ni les couleurs,
+   ni les polices : il prolonge les fondations existantes (Lato, vert forêt,
+   papier, filets de 1 px, angles de 2 px, aplats sans ombre). */
+
+html body.blueprint {
+  --tint: #eeeadf;
+  --tint-strong: #e6e1d4;
+  --ink-2: #5f625a;
+  --gutter: max(4vw, calc((100vw - 1120px) / 2));
+}
+html body.blueprint ::selection { background: #cfe0d4; color: var(--ink); }
+html body.blueprint a { transition: color .15s ease, background-color .15s ease, border-color .15s ease; }
+
+/* ---------- En-tête & pied de page ---------- */
+html body.blueprint .nav { background: rgba(247, 245, 239, .94); backdrop-filter: saturate(1.2) blur(6px); }
+html body.blueprint :is(.menu, .ranking-back):hover { color: var(--ink); }
+html body.blueprint .back { display: inline-flex; gap: 6px; text-decoration: none; }
+html body.blueprint .back:hover { color: var(--ink); }
+
+html body.blueprint footer {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: center;
+  padding: 32px var(--gutter);
+  border-top: 1px solid var(--line);
+}
+html body.blueprint footer p { margin: 0; color: var(--ink-2); }
+html body.blueprint footer .footer-links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+html body.blueprint footer a:not(.brand) {
+  font: 700 12px/1.5 var(--sans);
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  color: var(--forest);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+html body.blueprint footer a:not(.brand):hover { border-bottom-color: currentColor; }
+@media (max-width: 760px) {
+  html body.blueprint footer { grid-template-columns: 1fr; gap: 12px; padding: 28px 20px; }
+}
+
+/* ---------- Accueil ---------- */
+html body.blueprint.home-atlas .home-paths {
+  padding: 72px var(--gutter);
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+html body.blueprint .home-paths a {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+}
+html body.blueprint .home-paths a + a { border-left: 0; }
+html body.blueprint .home-paths .eyebrow { margin: 0; }
+html body.blueprint .home-paths h3 { margin: 6px 0 0; font: 900 22px/1.25 var(--sans); letter-spacing: -.3px; }
+html body.blueprint .home-paths p { margin: 0; flex: 1; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+html body.blueprint .home-paths b { margin-top: 8px; font: 700 14px var(--sans); color: var(--forest); }
+html body.blueprint .home-paths a:hover { background: var(--forest); border-color: var(--forest); color: var(--paper); }
+html body.blueprint .home-paths a:hover :is(p, b, .eyebrow) { color: rgba(247, 245, 239, .86); }
+
+@media (max-width: 900px) {
+  html body.blueprint.home-atlas .home-paths { grid-template-columns: 1fr; }
+  html body.blueprint .home-paths a + a { border-left: 1px solid var(--line); border-top: 0; }
+}
+@media (max-width: 600px) {
+  html body.blueprint.home-atlas .home-paths { padding: 48px 20px; }
+}
+
+/* ---------- Fiches pays ---------- */
+html body.blueprint .atlas-shortcuts a { transition: background-color .15s ease; }
+html body.blueprint .atlas-shortcuts a:hover { background: var(--tint); }
+html body.blueprint .atlas-shortcuts a:hover h3 { color: var(--forest); }
+html body.blueprint.country-atlas .sheet .metrics .rank-card:hover { background: var(--tint) !important; }
+html body.blueprint.country-atlas .sheet .tabs a:not([aria-current]):hover { background: var(--tint); }
+html body.blueprint .atlas-explanation summary,
+html body.blueprint .atlas-policy summary { cursor: pointer; }
+html body.blueprint .atlas-explanation summary:hover,
+html body.blueprint .atlas-policy summary:hover { color: var(--forest); }
+
+/* Graphiques : angles et aplats alignés sur les fondations (2 px, sans ombre). */
+html body.blueprint .sheet :is(.tsc-card, .tsc-energy, .tsc-table) { border-radius: 2px; }
+html body.blueprint .sheet .tsc-tooltip { border-radius: 2px; box-shadow: none; }
+html body.blueprint .sheet :is(.tsc-seg, .tsc-ranked-track, .tsc-ranked-fill) { border-radius: 2px; }
+html body.blueprint .sheet .tsc-title { font-weight: 900; letter-spacing: -.3px; }
+html body.blueprint #future :is(.cx, .cx-side, .cx-scenarios, .cx-scenarios button, .cx-periods button) { border-radius: 2px; }
+html body.blueprint #future .cx-col { rx: 2px; }
+html body.blueprint #future .cx .cx-title { font-weight: 900; letter-spacing: -.3px; }
+
+/* ---------- Sources & méthodologie ---------- */
+html body.blueprint .sources-page .lede { font-size: 18px; line-height: 1.65; color: var(--ink-2); }
+@media (min-width: 601px) { html body.blueprint .category-nav button { flex: 1 1 auto; } }
+html body.blueprint .category-nav button { cursor: pointer; transition: background-color .15s ease, color .15s ease; }
+html body.blueprint .category-nav button:last-child { border-right: 0; }
+html body.blueprint .category-nav button:not([aria-selected="true"]):hover { background: var(--tint); }
+html body.blueprint .method-panel { border-top: 0; }
+html body.blueprint .method-panel > .eyebrow { margin-bottom: 4px; }
+html body.blueprint .source-card .status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  background: var(--tint);
+  border: 1px solid var(--line);
+  font: 700 12px/1.4 var(--sans) !important;
+  letter-spacing: .4px;
+  color: var(--forest);
+}
+html body.blueprint .source-card .status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+html body.blueprint .source-card h3 { font-weight: 900 !important; letter-spacing: -.3px; margin-top: 14px !important; }
+html body.blueprint .source-card a:hover { color: var(--ink); }
+html body.blueprint .method-list { display: grid; border-top: 1px solid var(--line); }
+html body.blueprint .method-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 24px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+html body.blueprint .method-row strong {
+  justify-self: start;
+  padding: 3px 10px;
+  background: var(--tint);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font: 700 12px/1.5 var(--sans);
+  letter-spacing: .6px;
+  color: var(--forest);
+}
+html body.blueprint .method-row span { font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+@media (max-width: 600px) {
+  html body.blueprint .method-row { grid-template-columns: 1fr; gap: 8px; }
+}
+
+/* ---------- Santé des données ---------- */
+html body.blueprint .health-rule { transition: background-color .15s ease; }
+html body.blueprint .health-rule:hover { background: var(--tint); }
+html body.blueprint .health-source summary { cursor: pointer; }
+html body.blueprint .health-source summary:hover b { color: var(--forest); }
+
+/* ---------- Classement ---------- */
+html body.blueprint .ranking-metrics a:not([aria-current="true"]):hover { background: var(--tint); }
+
+@media (prefers-reduced-motion: reduce) {
+  html body.blueprint * { transition: none !important; }
+}
+
+/* Sources sur mobile : les catégories passent sur deux colonnes au lieu de déborder. */
+@media (max-width: 600px) {
+  html body.blueprint .category-nav { display: grid !important; grid-template-columns: 1fr 1fr; overflow: visible !important; }
+  html body.blueprint .category-nav button { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left; }
+  html body.blueprint .category-nav button:nth-child(2n) { border-right: 0; }
+  html body.blueprint .category-nav button:last-child { grid-column: 1 / -1; border-bottom: 0; }
+}
