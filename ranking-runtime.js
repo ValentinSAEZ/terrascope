@@ -26,7 +26,7 @@ function render(){
   for(const r of visible){
     const li=element('li','ranking-item'+(r.name===current?' is-current':''));li.id='rank-'+r.code;
     const link=element('a','ranking-entry');link.href=window.TerraCountries?.resolve(r.name)?TerraCountries.path(TerraCountries.resolve(r.name)):'country-live.html?country='+encodeURIComponent(r.name);
-    const position=element('span','ranking-position',String(r.rank));const block=element('span','ranking-country-block'),name=element('span','ranking-country-name'),flag=element('img');flag.src='https://flagcdn.com/'+r.iso2.toLowerCase()+'.svg';flag.alt='';flag.loading='lazy';
+    const position=element('span','ranking-position',String(r.rank));const block=element('span','ranking-country-block'),name=element('span','ranking-country-name'),flag=element('img');flag.src='/assets/flags/'+(window.TerraCountries?.byIso3(r.code)?.flag||r.iso2.toLowerCase())+'.svg';flag.alt='';flag.loading='lazy';
     name.append(flag,element('span','',r.name));const track=element('span','ranking-track'+(metric==='change'?' signed':'')),bar=element('i',r.value>0&&metric==='change'?'positive':'');track.setAttribute('aria-hidden','true');
     const width=Math.abs(r.value)/max*(metric==='change'?50:100);bar.style.width=width+'%';bar.style.left=(metric==='change'?(r.value<0?50-width:50):0)+'%';track.append(bar);block.append(name,track);
     const amount=element('strong','ranking-amount',formatted(r.value));link.append(position,block,amount);li.append(link);fragment.append(li);
