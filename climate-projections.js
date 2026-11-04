@@ -1,4 +1,4 @@
-import {scenarios,periods,validateProjections} from './projection-contract.js';
+import {scenarios,periods,validateProjections} from '/projection-contract.js';
 
 const format=v=>(v>=0?'+':'−')+Math.abs(v).toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})+' °C';
 const tick=v=>(v>0?'+':v<0?'−':'')+Math.abs(v).toLocaleString('fr-FR',{maximumFractionDigits:1})+' °C';
@@ -10,7 +10,7 @@ const span=p=>p.replace('-','–');
 const ticksFor=(lo,hi)=>{const step=hi-lo>6?2:hi-lo>3?1:.5,out=[];for(let v=Math.floor(lo/step)*step;v<=Math.ceil(hi/step)*step+1e-9;v+=step)out.push(Math.round(v*10)/10);return out;};
 
 export async function mountProjections(slot,code) {
-  const css=el('link');css.rel='stylesheet';css.href='climate-projections.css?v=charts-3';document.head.append(css);
+  const css=el('link');css.rel='stylesheet';css.href='/climate-projections.css?v=charts-3';document.head.append(css);
   const future=slot.closest('#future');
   const response=await fetch('/data/climate-projections.json');
   if(!response.ok)throw Error('Projection data unavailable');

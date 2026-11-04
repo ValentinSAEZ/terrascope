@@ -67,5 +67,8 @@
     return String(value).replace(/[&<>"']/g, ch => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch]));
   }
 
-  global.TerraCountries = Object.freeze({list, resolve, capitalize, verb, escapeHtml, byIso3: iso3 => list.find(c => c.iso3 === iso3) || null});
+  /** Adresse canonique de la fiche (page statique générée au build). */
+  const path = c => '/pays/' + c.slug + '/';
+
+  global.TerraCountries = Object.freeze({list, resolve, path, capitalize, verb, escapeHtml, byIso3: iso3 => list.find(c => c.iso3 === iso3) || null});
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -58,14 +58,14 @@ suggestions.addEventListener('click', (event) => {
   if (!button) return;
   input.value = button.dataset.country;
   closeSuggestions();
-  window.location.href = `country-live.html?country=${encodeURIComponent(button.dataset.country)}`;
+  window.location.href = registry.path(registry.resolve(button.dataset.country));
 });
 document.addEventListener('pointerdown', event => { if (!form.contains(event.target)) closeSuggestions(); });
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   closeSuggestions();
   const selected = registry.resolve(input.value)?.name;
-  if (selected) window.location.href = `country-live.html?country=${encodeURIComponent(selected)}`;
+  if (selected) window.location.href = registry.path(registry.resolve(selected));
   else input.focus();
 });
 
@@ -95,7 +95,7 @@ function closeExplorer() { explorer.hidden = true; explorerButton.setAttribute('
 explorerButton.setAttribute('aria-controls', 'country-explorer'); explorerButton.setAttribute('aria-expanded', 'false'); explorer.id = 'country-explorer';
 explorerButton.addEventListener('click', openExplorer);
 explorer.querySelector('.explorer-close').addEventListener('click', closeExplorer);
-explorer.addEventListener('click', event => { if (event.target === explorer) closeExplorer(); const row = event.target.closest('.explorer-row'); if (row) window.location.href = `country-live.html?country=${encodeURIComponent(row.dataset.country)}`; });
+explorer.addEventListener('click', event => { if (event.target === explorer) closeExplorer(); const row = event.target.closest('.explorer-row'); if (row) window.location.href = registry.path(registry.resolve(row.dataset.country)); });
 explorerSearch.addEventListener('input', renderExplorer);
 explorer.querySelector('.sort-options').addEventListener('click', event => { const button = event.target.closest('button[data-sort]'); if (!button) return; explorerSort = button.dataset.sort; explorer.querySelectorAll('[data-sort]').forEach(item => item.classList.toggle('is-active', item === button)); renderExplorer(); });
 document.addEventListener('keydown', event => { if (event.key === 'Escape' && !explorer.hidden) closeExplorer(); });

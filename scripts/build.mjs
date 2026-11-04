@@ -1,6 +1,8 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { dirname } from 'node:path';
 import {isPublished,validateSnapshot} from '../data-contract.js';
 import {validateProjections} from '../projection-contract.js';
+import {registry, renderCountryPage, sitemap, robots} from './country-pages.mjs';
 
 const snapshot=JSON.parse(await readFile('data/annual-snapshot.json','utf8'));
 const report=validateSnapshot(snapshot);
@@ -22,6 +24,17 @@ await rm('public', { recursive: true, force: true });
 await mkdir('public/data', { recursive: true });
 await Promise.all(staticFiles.map(file => cp(file, `public/${file}`)));
 
+// Pages statiques par pays, sitemap et robots.txt (servis tels quels par le serveur de fichiers).
+const shell = await readFile('country-live.html', 'utf8');
+const generated = {};
+for (const place of registry.list) generated[`pays/${place.slug}/index.html`] = renderCountryPage(shell, place, snapshot);
+generated['sitemap.xml'] = sitemap(snapshot.generated_at.slice(0, 10));
+generated['robots.txt'] = robots();
+for (const [file, body] of Object.entries(generated)) {
+  await mkdir(dirname(`public/${file}`), { recursive: true });
+  await writeFile(`public/${file}`, body);
+}
+
 await rm('dist', { recursive: true, force: true });
 await mkdir('dist/server/api', { recursive: true });
 await cp('public', 'dist/public', { recursive: true });
@@ -33,9 +46,12 @@ const mime = file => {
   if (file.endsWith('.css')) return 'text/css; charset=utf-8';
   if (file.endsWith('.js')) return 'application/javascript; charset=utf-8';
   if (file.endsWith('.json')) return 'application/json; charset=utf-8';
+  if (file.endsWith('.xml')) return 'application/xml; charset=utf-8';
+  if (file.endsWith('.txt')) return 'text/plain; charset=utf-8';
   return 'application/octet-stream';
 };
 const entries = await Promise.all(staticFiles.map(async file => [file, { body: await readFile(file, 'utf8'), type: mime(file) }]));
+for (const [file, body] of Object.entries(generated)) entries.push([file, { body, type: mime(file) }]);
 const worker = `import ember from './api/ember.js';
 import gdelt from './api/gdelt.js';
 
@@ -57,7 +73,8 @@ export default {
     const pathname = requestUrl.pathname;
     if (pathname === '/briefing') return gdelt.fetch(request, env, ctx);
     if (pathname === '/api/ember') return ember.fetch(request, env, ctx);
-    const asset = assets[aliases[pathname] || pathname.slice(1)];
+    const key = aliases[pathname] || pathname.slice(1);
+    const asset = assets[key] || (key.endsWith('/') ? assets[key + 'index.html'] : assets[key + '/index.html']);
     if (!asset) return new Response('Not found', { status: 404 });
     const mustRevalidate = asset.type.includes('text/html') || asset.type.includes('javascript') || pathname === '/data/annual-snapshot.json';
     return new Response(asset.body, {
@@ -72,4 +89,4 @@ export default {
 `;
 
 await writeFile('dist/server/index.js', worker);
-console.log(`TerraScope build complete: ${staticFiles.length} static files.`);
+console.log(`TerraScope build complete: ${staticFiles.length} static files, ${Object.keys(generated).length} generated.`);
