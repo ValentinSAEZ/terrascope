@@ -39,7 +39,7 @@ function showMatches() {
     const rightScore=right.normalized.startsWith(query)?0:right.normalized.split(/[-\s]/).some(word=>word.startsWith(query))?1:2;
     return leftScore-rightScore||left.country.localeCompare(right.country,'fr');
   }).slice(0, 6);
-  suggestions.innerHTML = matches.length ? matches.map((item,index) => `<button id="country-option-${index}" type="button" role="option" aria-selected="false" data-country="${item.country}"><img src="https://flagcdn.com/${countryIso2Search[item.country]}.svg" alt="" width="28" height="20"><span><b>${item.country}</b><small>Fiche climat · Union européenne</small></span><i>↗</i></button>`).join('') : '<p class="suggestions-empty">Aucun pays disponible ne correspond à cette recherche.</p>';
+  suggestions.innerHTML = matches.length ? matches.map((item,index) => `<button id="country-option-${index}" type="button" role="option" aria-selected="false" data-country="${item.country}"><img src="/assets/flags/${countryIso2Search[item.country]}.svg" alt="" width="28" height="20"><span><b>${item.country}</b><small>Fiche climat · Union européenne</small></span><i>↗</i></button>`).join('') : '<p class="suggestions-empty">Aucun pays disponible ne correspond à cette recherche.</p>';
   suggestions.hidden = false;
   input.setAttribute('aria-expanded', 'true');
   activeSuggestion = -1;
@@ -88,7 +88,7 @@ let explorerRows = countries.map(name => ({ name, emission: null, year: null }))
 function renderExplorer() {
   const term = explorerSearch.value.trim().toLocaleLowerCase('fr');
   const visible = explorerRows.filter(row => row.name.toLocaleLowerCase('fr').includes(term)).sort((left, right) => explorerSort === 'name' ? left.name.localeCompare(right.name, 'fr') : (right.emission ?? -Infinity) - (left.emission ?? -Infinity));
-  explorerList.innerHTML = visible.length ? visible.map((row, index) => `<button class="explorer-row" type="button" data-country="${row.name}"><span class="rank">${String(index + 1).padStart(2, '0')}</span><img class="explorer-flag" src="https://flagcdn.com/${countryIso2[row.name]}.svg" width="20" height="15" alt=""><span class="row-name">${row.name}</span><span class="row-emission">${row.emission === null ? 'chargement…' : `${row.emission.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} MtCO₂`}</span><span class="row-arrow">↗</span></button>`).join('') : `<p class="explorer-empty">Aucun pays ne correspond à cette recherche.</p>`;
+  explorerList.innerHTML = visible.length ? visible.map((row, index) => `<button class="explorer-row" type="button" data-country="${row.name}"><span class="rank">${String(index + 1).padStart(2, '0')}</span><img class="explorer-flag" src="/assets/flags/${countryIso2[row.name]}.svg" width="20" height="15" alt=""><span class="row-name">${row.name}</span><span class="row-emission">${row.emission === null ? 'chargement…' : `${row.emission.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} MtCO₂`}</span><span class="row-arrow">↗</span></button>`).join('') : `<p class="explorer-empty">Aucun pays ne correspond à cette recherche.</p>`;
 }
 function openExplorer() { explorer.hidden = false; explorerButton.setAttribute('aria-expanded', 'true'); renderExplorer(); setTimeout(() => explorerSearch.focus(), 0); }
 function closeExplorer() { explorer.hidden = true; explorerButton.setAttribute('aria-expanded', 'false'); explorerButton.focus(); }

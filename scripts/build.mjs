@@ -1,4 +1,5 @@
-import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { dirname } from 'node:path';
 import {isPublished,validateSnapshot} from '../data-contract.js';
 import {validateProjections} from '../projection-contract.js';
@@ -17,6 +18,7 @@ const staticFiles = [
   'health-ui.css', 'health-ui.js',
   'blueprint-ui.css', 'blueprint-ui.js',
   'terrascope-runtime.js', 'ranking-runtime.js', 'data-contract.js', 'script.js', 'country-ui.js', 'country-ui.css', 'country-charts.js', 'country-charts.css', 'polish.css', 'country-registry.js',
+  ...(await readdir('assets/flags')).map(file => `assets/flags/${file}`), 'assets/world-natural-earth.svg',
   'styles.css', 'economist.css', 'structure.css', 'search-ui.css', 'responsive-ui.css', 'ranking-ui.css',
 ];
 
@@ -24,8 +26,20 @@ await rm('public', { recursive: true, force: true });
 await mkdir('public/data', { recursive: true });
 await Promise.all(staticFiles.map(file => cp(file, `public/${file}`)));
 
+// Versionnage par empreinte : chaque « fichier.js?v=… » ou « fichier.css?v=… »
+// publié pointe vers un hash de son contenu réel, calculé à chaque build.
+const fingerprint = {};
+for (const file of staticFiles.filter(f => /\.(js|css)$/.test(f))) fingerprint[file] = createHash('sha256').update(await readFile(file)).digest('hex').slice(0, 10);
+const withHashes = text => text.replace(/([\w./-]+\.(?:js|css))\?v=[\w.-]+/g, (match, file) => {
+  const key = file.replace(/^\.?\//, '');
+  return fingerprint[key] ? `${file}?v=${fingerprint[key]}` : match;
+});
+for (const file of staticFiles.filter(f => /\.(html|js|css)$/.test(f))) {
+  await writeFile(`public/${file}`, withHashes(await readFile(file, 'utf8')));
+}
+
 // Pages statiques par pays, sitemap et robots.txt (servis tels quels par le serveur de fichiers).
-const shell = await readFile('country-live.html', 'utf8');
+const shell = withHashes(await readFile('country-live.html', 'utf8'));
 const generated = {};
 for (const place of registry.list) generated[`pays/${place.slug}/index.html`] = renderCountryPage(shell, place, snapshot);
 generated['sitemap.xml'] = sitemap(snapshot.generated_at.slice(0, 10));
@@ -48,9 +62,10 @@ const mime = file => {
   if (file.endsWith('.json')) return 'application/json; charset=utf-8';
   if (file.endsWith('.xml')) return 'application/xml; charset=utf-8';
   if (file.endsWith('.txt')) return 'text/plain; charset=utf-8';
+  if (file.endsWith('.svg')) return 'image/svg+xml';
   return 'application/octet-stream';
 };
-const entries = await Promise.all(staticFiles.map(async file => [file, { body: await readFile(file, 'utf8'), type: mime(file) }]));
+const entries = await Promise.all(staticFiles.map(async file => [file, { body: await readFile(`public/${file}`, 'utf8'), type: mime(file) }]));
 for (const [file, body] of Object.entries(generated)) entries.push([file, { body, type: mime(file) }]);
 const worker = `import ember from './api/ember.js';
 import gdelt from './api/gdelt.js';
