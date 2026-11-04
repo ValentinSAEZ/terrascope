@@ -177,3 +177,8 @@ html body.blueprint .uncovered-list a:hover { color: var(--forest); }
 /* Accueil : sources des repères mondiaux. */
 html body.blueprint .headline-sources { max-width: 520px; margin: 10px 0 0; font: 12px/1.6 var(--sans); color: var(--muted); }
 html body.blueprint .headline-sources a { color: var(--forest); text-underline-offset: 3px; }
+
+/* Cadre politique : deux engagements, deux colonnes. */
+html body.blueprint .sheet .policy > div { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+@media (max-width: 800px) { html body.blueprint .sheet .policy > div { grid-template-columns: 1fr !important; } }
+html body.blueprint .sheet .metric-explainer a { color: var(--forest); }
