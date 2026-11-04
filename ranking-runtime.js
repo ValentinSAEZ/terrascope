@@ -7,7 +7,7 @@ const configs={
   renewables:{title:'Électricité renouvelable',unit:'% de la production électrique',key:'renewable_electricity_share_pct',sources:['electricity'],order:'desc',definition:'Part de l’électricité produite à partir de sources renouvelables.',reading:'Le nucléaire n’est pas une énergie renouvelable. Cette mesure ne concerne ni toute l’énergie consommée, ni la part bas-carbone du mix.',formula:'Production renouvelable ÷ production totale × 100. Le périmètre exact du fournisseur est indiqué ci-dessous.'},
 };
 const $=selector=>document.querySelector(selector),params=new URLSearchParams(location.search);
-let metric=configs[params.get('metric')]?params.get('metric'):'co2',snapshot=null,current=params.get('country');
+let metric=configs[params.get('metric')]?params.get('metric'):'co2',snapshot=null,current=window.TerraCountries?.resolve(params.get('country'))?.name??null;
 const format=n=>n.toLocaleString('fr-FR',{maximumFractionDigits:2});
 $('#reading-panel').open=!matchMedia('(max-width:680px)').matches;
 const normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
@@ -42,7 +42,7 @@ function render(){
   $('#source-detail').replaceChildren(sourceDetail);
 }
 document.querySelectorAll('[data-metric]').forEach(a=>a.addEventListener('click',event=>{if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;event.preventDefault();metric=a.dataset.metric;history.pushState(null,'',a.href);configure();render();}));
-window.addEventListener('popstate',()=>{const p=new URLSearchParams(location.search);metric=configs[p.get('metric')]?p.get('metric'):'co2';current=p.get('country');configure();render();});
+window.addEventListener('popstate',()=>{const p=new URLSearchParams(location.search);metric=configs[p.get('metric')]?p.get('metric'):'co2';current=window.TerraCountries?.resolve(p.get('country'))?.name??null;configure();render();});
 $('#country-filter').addEventListener('input',render);$('#sort-order').addEventListener('change',render);
 $('#find-current').addEventListener('click',()=>{$('#country-filter').value='';render();document.querySelector('.ranking-item.is-current')?.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});});
 configure();

@@ -1,7 +1,7 @@
 /* Atlas presentation: keep the existing data nodes and chart event handlers. */
 (() => {
   const sheet = document.querySelector('.sheet');
-  if (!sheet) return;
+  if (!sheet || !sheet.querySelector('.hero-sheet')) return;
   document.body.classList.add('country-atlas');
   const css = document.createElement('link');
   css.rel = 'stylesheet'; css.href = 'country-ui.css';

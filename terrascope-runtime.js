@@ -1,35 +1,52 @@
 /* TerraScope — aucune valeur de remplacement lorsqu’une source ne répond pas. */
 (() => {
   if (!/\/country-live(?:\.html)?$/.test(location.pathname)) return;
-  const countries = {
-    Allemagne:['DEU','DE','Germany','de'], Autriche:['AUT','AT','Austria','at'], Belgique:['BEL','BE','Belgium','be'],
-    Bulgarie:['BGR','BG','Bulgaria','bg'], Chypre:['CYP','CY','Cyprus','cy'], Croatie:['HRV','HR','Croatia','hr'],
-    Danemark:['DNK','DK','Denmark','dk'], Espagne:['ESP','ES','Spain','es'], Estonie:['EST','EE','Estonia','ee'],
-    Finlande:['FIN','FI','Finland','fi'], France:['FRA','FR','France','fr'], Grèce:['GRC','EL','Greece','gr'],
-    Hongrie:['HUN','HU','Hungary','hu'], Irlande:['IRL','IE','Ireland','ie'], Italie:['ITA','IT','Italy','it'],
-    Lettonie:['LVA','LV','Latvia','lv'], Lituanie:['LTU','LT','Lithuania','lt'], Luxembourg:['LUX','LU','Luxembourg','lu'],
-    Malte:['MLT','MT','Malta','mt'], 'Pays-Bas':['NLD','NL','Netherlands','nl'], Pologne:['POL','PL','Poland','pl'],
-    Portugal:['PRT','PT','Portugal','pt'], Roumanie:['ROU','RO','Romania','ro'], Slovaquie:['SVK','SK','Slovakia','sk'],
-    Slovénie:['SVN','SI','Slovenia','si'], Suède:['SWE','SE','Sweden','se'], Tchéquie:['CZE','CZ','Czechia','cz']
-  };
-  const label = new URLSearchParams(location.search).get('country') || 'Allemagne';
-  const c = countries[label] || countries.Allemagne;
-  const url = {
-    snapshot:'/data/annual-snapshot.json',
-    projections:'/data/cmip-ssp245-cnrmesm21.json',
-  };
+  const C = window.TerraCountries;
+  const raw = new URLSearchParams(location.search).get('country');
+  // Sans paramètre : la liste des pays est sur l'accueil.
+  if (raw === null || raw.trim() === '') { location.replace('index.html'); return; }
+  const place = C.resolve(raw);
+  // Pays hors UE-27 ou inconnu : aucun chiffre, aucun repli sur un autre pays.
+  if (!place) { renderUncovered(); return; }
+  if (raw !== place.name) history.replaceState(null, '', '?country=' + encodeURIComponent(place.name) + location.hash);
+  const label = C.escapeHtml(place.name);
+  const c = [place.iso3, place.eurostat, place.english, place.flag];
+  const url = {snapshot:'/data/annual-snapshot.json'};
   const n = value => Number(value).toLocaleString('fr-FR',{maximumFractionDigits:1});
   const put = (id, value) => { const node=document.querySelector(id); if(node) node.textContent=value; };
-  document.title=label+' — TerraScope';
+  document.title=place.name+' — TerraScope';
+
+  function renderUncovered() {
+    document.title = 'Pays non couvert — TerraScope';
+    const robots = document.createElement('meta'); robots.name = 'robots'; robots.content = 'noindex';
+    document.head.append(robots);
+    const make = (tag, className, text) => { const node = document.createElement(tag); if (className) node.className = className; if (text) node.textContent = text; return node; };
+    const header = make('header', 'nav');
+    const brand = make('a', 'brand'); brand.href = 'index.html'; brand.append('terra', make('span', '', '•'), 'scope');
+    const back = make('a', 'menu', 'RETOUR ↖'); back.href = 'index.html';
+    header.append(brand, back);
+    const main = make('main', 'sheet uncovered');
+    const home = make('a', 'back', '← EXPLORER LES PAYS'); home.href = 'index.html';
+    const list = make('ul', 'uncovered-list');
+    for (const item of C.list) {
+      const li = make('li'); const link = make('a', '', item.name);
+      link.href = 'country-live.html?country=' + encodeURIComponent(item.name);
+      li.append(link); list.append(li);
+    }
+    main.append(home, make('p', 'eyebrow', 'FICHE PAYS'), make('h1', '', 'Pays non couvert.'),
+      make('p', 'lede', 'TerraScope couvre les 27 pays de l’Union européenne. Aucune donnée n’est affichée pour un pays hors de ce périmètre : nous ne substituons jamais les chiffres d’un autre pays.'),
+      make('p', 'eyebrow', 'PAYS DISPONIBLES'), list);
+    document.body.replaceChildren(make('div', 'topline'), header, main);
+  }
   document.body.innerHTML =
     '<div class="topline"></div><header class="nav"><a class="brand" href="index.html">terra<span>•</span>scope</a><div class="ticker"><span>PORTRAIT CLIMATIQUE</span><i></i><span>DONNÉES PUBLIQUES & MÉTHODOLOGIE</span></div><a class="menu" href="index.html">RETOUR <b>↖</b></a></header>'+
-    '<main class="sheet"><a class="back" href="index.html">← EXPLORER LES PAYS</a><section class="hero-sheet"><div class="identity"><img src="https://flagcdn.com/'+c[3]+'.svg" alt="Drapeau de '+label+'"><div><p class="eyebrow">FICHE PAYS · UNION EUROPÉENNE</p><h1>'+label+'<br><em>portrait climatique.</em></h1></div></div><p class="lede" id="summary">Chargement des séries publiques et de leurs millésimes…</p><nav class="tabs"><a href="#portrait">PORTRAIT</a><a href="#emissions">ÉMISSIONS</a><a href="#energy">TRANSITION</a><a href="#impacts">IMPACTS</a><a href="#future">FUTUR</a><a href="#sources">SOURCES</a></nav></section>'+
+    '<main class="sheet"><a class="back" href="index.html">← EXPLORER LES PAYS</a><section class="hero-sheet"><div class="identity"><img src="https://flagcdn.com/'+c[3]+'.svg" alt="Drapeau '+C.escapeHtml(place.of)+'"><div><p class="eyebrow">FICHE PAYS · UNION EUROPÉENNE</p><h1>'+label+'<br><em>portrait climatique.</em></h1></div></div><p class="lede" id="summary">Chargement des séries publiques et de leurs millésimes…</p><nav class="tabs"><a href="#portrait">PORTRAIT</a><a href="#emissions">ÉMISSIONS</a><a href="#energy">TRANSITION</a><a href="#impacts">IMPACTS</a><a href="#future">FUTUR</a><a href="#sources">SOURCES</a></nav></section>'+
     '<section id="portrait"><div class="head"><div><p class="eyebrow">NIVEAU 1 · PORTRAIT CLIMATIQUE</p><h2>Les repères <em>essentiels.</em></h2></div><p>Quatre repères observés la même année. Les cartes soulignées ouvrent le classement européen correspondant.</p></div><div class="metrics"><article class="climate-card"><p>RÉCHAUFFEMENT OBSERVÉ</p><strong id="warming">—</strong><span>°C AU-DESSUS DE 1991–2020</span><small id="warming-note">CHARGEMENT…</small></article><a class="rank-card" href="ranking.html?metric=co2&country='+encodeURIComponent(label)+'"><p>CO₂ TERRITORIAL</p><strong id="co2">—</strong><span>MtCO₂ / an</span><small id="co2y">VOIR LE CLASSEMENT UE</small></a><a class="rank-card" href="ranking.html?metric=capita&country='+encodeURIComponent(label)+'"><p>CO₂ PAR HABITANT</p><strong id="capita">—</strong><span>tCO₂ / hab.</span><small id="capitay">VOIR LE CLASSEMENT UE</small></a><a class="rank-card" href="ranking.html?metric=renewables&country='+encodeURIComponent(label)+'"><p>PRODUCTION RENOUVELABLE</p><strong id="renewables">—</strong><span>PART DE L’ÉLECTRICITÉ PRODUITE</span><small id="renewablesy">VOIR LE CLASSEMENT UE</small></a></div></section>'+
     '<section id="emissions" class="wash"><div class="head"><div><p class="eyebrow">CAUSES · RESPONSABILITÉ CLIMATIQUE</p><h2>Ce que le pays <em>émet.</em></h2></div><p>CO₂ fossile et industriel, territorial. Ce n’est ni l’empreinte de consommation ni l’ensemble des GES en CO₂e.</p></div><div class="compare"><article><p>PART MONDIALE</p><strong id="world">—</strong><small>DES ÉMISSIONS CO₂</small></article><article><p>COMPARAISON UE</p><strong id="compare-eu">—</strong><small>ÉCART À LA MOYENNE UE · PAR HAB.</small></article><article><p>INTENSITÉ DU PIB</p><strong id="intensity">—</strong><small>gCO₂ / $ INT. 2021 · CO₂ / PIB PPA<br><span class="metric-explainer">CO₂ émis pour produire 1 $ international de richesse. Plus bas = économie moins carbonée.</span></small></article></div><div id="history-chart" class="tsc-card"><p class="tsc-subtitle">Chargement de la série historique…</p></div></section>'+
     '<section id="energy"><div class="head"><div><p class="eyebrow">ORIGINE DES ÉMISSIONS · TRANSITION</p><h2>Le système <em>énergétique.</em></h2></div><p>Le mix porte sur la production d’électricité : il n’épuise pas les émissions de transport, industrie, bâtiments ou agriculture.</p></div><div class="tsc-energy"><div><p class="tsc-eyebrow" id="mix-eyebrow">PRODUCTION NETTE D’ÉLECTRICITÉ</p><h3 class="tsc-title">Mix électrique par filière</h3><p class="tsc-subtitle">Part de chaque filière dans la production nette, en %.</p><div id="mix-chart" style="margin-top:22px"><p class="tsc-subtitle">Chargement du mix électrique…</p></div></div><aside><p class="eyebrow">LECTURE</p><h3 id="energy-title">Transition en cours</h3><p id="energy-text">La composition du mix situe les leviers de décarbonation de l’électricité.</p></aside></div></section>'+
     '<section id="impacts"><div class="head"><div><p class="eyebrow">CONSÉQUENCES · RISQUES & VULNÉRABILITÉS</p><h2>Les impacts à <em>surveiller.</em></h2></div><p>Chaleur, incendies et inondations sont présentés séparément : leurs périmètres et leurs sources ne sont pas interchangeables.</p></div><div class="impacts"><article><p>COPERNICUS ERA5-LAND · CHALEUR EXTRÊME</p><strong id="hot-days">Non publié</strong><span>JOURS AVEC T<sub>max</sub> ≥ 30 °C</span><small id="hot-days-note">SÉRIE NATIONALE HARMONISÉE EN COURS D’INTÉGRATION · AUCUNE VALEUR DE REMPLACEMENT.</small></article><article><p>JRC / GWIS · SURFACE BRÛLÉE</p><strong id="wildfires">—</strong><span>SURFACE BRÛLÉE · ha / an</span><small id="wildfire-note">MCD64A1 · CHARGEMENT DU TOTAL SATELLITAIRE…</small><a href="https://gwis.jrc.ec.europa.eu/apps/country.profile/downloads" target="_blank" rel="noopener">CONSULTER GWIS ↗</a></article><article><p>EEA · INONDATIONS OBSERVÉES</p><strong>Non publié</strong><span>DOMMAGES & VICTIMES</span><small>LES PERTES EEA DOIVENT ÊTRE FILTRÉES PAR ALÉA AVANT PUBLICATION. LA SÉRIE AGRÉGÉE N’EST PAS ÉTIQUETÉE « INONDATION ».</small><a href="https://www.eea.europa.eu/en/analysis/indicators/economic-losses-from-climate-related" target="_blank" rel="noopener">CONSULTER L’EEA ↗</a></article></div></section>'+
     '<section id="future" class="future"><div class="head"><div><p class="eyebrow">TRAJECTOIRE · 2030 & 2050</p><h2>Ce qui est <em>engagé.</em></h2></div><p>Des objectifs politiques, pas des projections officielles de température.</p></div><div class="futuregrid"><article><span>2030</span><strong>−55 %</strong><p>Objectif européen de réduction nette des émissions par rapport à 1990.</p></article><article><span>2050</span><strong>Neutralité</strong><p>Objectif de neutralité climatique de la loi européenne sur le climat.</p></article><article><span>2050 / 2100</span><strong>Scénarios climatiques</strong><p>À connecter à Copernicus / CMIP : les bases OCDE, Eurostat, OMS et UNICEF ne produisent pas seules de projections nationales de température.</p></article></div></section>'+
-    '<section class="policy"><p class="eyebrow">CADRE POLITIQUE</p><h2>Accords et <em>mise en œuvre.</em></h2><div><article><h3>Accord de Paris</h3><p>'+label+' participe à la contribution déterminée au niveau national de l’Union européenne auprès de la CCNUCC.</p></article><article><h3>Loi européenne sur le climat</h3><p>Réduction nette d’au moins 55 % à 2030 et neutralité climatique à 2050.</p></article><article><h3>Économie & transition</h3><p>L’OCDE fournit les indicateurs comparatifs pour lire la transition dans son contexte économique.</p></article></div></section>'+
+    '<section class="policy"><p class="eyebrow">CADRE POLITIQUE</p><h2>Accords et <em>mise en œuvre.</em></h2><div><article><h3>Accord de Paris</h3><p>'+C.escapeHtml(C.capitalize(place.the))+' '+C.verb(place,'participe','participent')+' à la contribution déterminée au niveau national de l’Union européenne auprès de la CCNUCC.</p></article><article><h3>Loi européenne sur le climat</h3><p>Réduction nette d’au moins 55 % à 2030 et neutralité climatique à 2050.</p></article><article><h3>Économie & transition</h3><p>L’OCDE fournit les indicateurs comparatifs pour lire la transition dans son contexte économique.</p></article></div></section>'+
     '<section id="sources" class="sources"><p class="eyebrow">NIVEAU 3 · VÉRIFIER & APPROFONDIR</p><h2>Sources, définitions et <em>limites.</em></h2><div><a href="https://globalcarbonbudget.org/gcb-2025/" target="_blank" rel="noopener"><b>Global Carbon Budget</b><span>CO₂ territorial fossile et industriel, série observée arrêtée à l’année commune.</span></a><a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.KD" target="_blank" rel="noopener"><b>Banque mondiale · WDI</b><span>Population et PIB PPA constant 2021, joints exactement sur la même année que le CO₂.</span></a><a href="https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels-monthly-means" target="_blank" rel="noopener"><b>Copernicus C3S · ERA5</b><span>Température annuelle de l’air à 2 m, moyenne nationale pondérée, anomalie annuelle vs 1991–2020.</span></a><a href="https://api.ember-energy.org/v1/docs" target="_blank" rel="noopener"><b>Ember / Eurostat</b><span>Production d’électricité par filière. L’API Ember est prioritaire lorsqu’une clé serveur est configurée ; Eurostat assure l’année européenne.</span></a><a href="https://cds.climate.copernicus.eu/datasets/derived-era5-land-daily-statistics" target="_blank" rel="noopener"><b>Copernicus ERA5-Land</b><span>Jours à T<sub>max</sub> ≥ 30 °C, publiés seulement après un calendrier complet et une agrégation nationale reproductible.</span></a><a href="https://gwis.jrc.ec.europa.eu/apps/country.profile/downloads" target="_blank" rel="noopener"><b>JRC / GWIS MCD64A1</b><span>Surface brûlée annuelle issue d’une méthode satellitaire harmonisée entre pays.</span></a></div><p class="note"><b>Année commune :</b> toutes les observations principales utilisent la même année. Une absence n’est jamais remplacée par zéro. Le donut totalise 100 % et rend visible tout ajustement de périmètre. Les scénarios 2050–2100 restent séparés des observations. <a href="data-health.html">CONSULTER LA SANTÉ DES DONNÉES ↗</a></p></section></main>';
   const projectionCard=document.querySelector('#future .futuregrid article:last-child');
   projectionCard.textContent='Chargement des projections multi-modèles…';
@@ -62,9 +79,9 @@
       title:'Émissions de CO₂ depuis 1990',
       subtitle:'Émissions territoriales de CO₂ fossile et industriel, en millions de tonnes par an. Échelle à partir de zéro.',
       source:'Source : Global Carbon Budget via Our World in Data',
-      ariaLabel:'Émissions territoriales de CO₂ de '+label+', en MtCO₂ par an, de '+co2[0].year+' à '+last.year
+      ariaLabel:'Émissions territoriales de CO₂ '+place.of+', en MtCO₂ par an, de '+co2[0].year+' à '+last.year
     });
-    put('#summary','En '+data.reference_year+', '+label+' a émis '+n(last.value)+' MtCO₂. Les émissions ont '+(change<0?'baissé':'augmenté')+' de '+n(Math.abs(change))+' % depuis '+base.year+'. Tous les repères observés utilisent cette même année.');
+    put('#summary','En '+data.reference_year+', '+place.the+' '+C.verb(place,'a émis','ont émis')+' '+n(last.value)+' MtCO₂. Les émissions ont '+(change<0?'baissé':'augmenté')+' de '+n(Math.abs(change))+' % depuis '+base.year+'. Tous les repères observés utilisent cette même année.');
   }).catch(()=>put('#summary','Certaines séries sont temporairement indisponibles. TerraScope n’affiche pas de valeur de remplacement.'));
   snapshotPromise.then(data=>{
     const country=data.countries?.[c[0]],share=metricValue(country?.metrics?.renewable_electricity_share_pct),mix=country?.electricity_mix_pct;
@@ -77,7 +94,7 @@
     put('#renewables',n(share)+' %');put('#renewablesy',data.reference_year+' · CLASSEMENT UE ↗');
     TerraCharts.mixBreakdown(document.querySelector('#mix-chart'),{
       items:Object.entries(mix).map(([key,value])=>({key,value,name:names[key]||key,color:palette[key]||'#a9a59a'})).filter(x=>Number.isFinite(x.value)&&x.value>0),
-      ariaLabel:'Mix de production électrique de '+label+' en '+data.reference_year
+      ariaLabel:'Mix de production électrique '+place.of+' en '+data.reference_year
     });
     put('#mix-eyebrow','Production nette d’électricité · '+data.reference_year);
     put('#energy-title','Production électrique · '+data.reference_year);
