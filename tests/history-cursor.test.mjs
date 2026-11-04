@@ -11,8 +11,8 @@ const load = () => {
 
 test('axis ticks are round, start at the origin and cover the maximum', () => {
   const {niceTicks} = load();
-  assert.deepEqual(niceTicks(0, 430, 5), [0, 100, 200, 300, 400, 500]);
-  assert.deepEqual(niceTicks(0, 9.2, 5), [0, 2, 4, 6, 8, 10]);
+  assert.deepEqual([...niceTicks(0, 430, 5)], [0, 100, 200, 300, 400, 500]);
+  assert.deepEqual([...niceTicks(0, 9.2, 5)], [0, 2, 4, 6, 8, 10]);
   for (const max of [3.4, 57, 812, 1240]) {
     const ticks = niceTicks(0, max, 5);
     assert.equal(ticks[0], 0);
