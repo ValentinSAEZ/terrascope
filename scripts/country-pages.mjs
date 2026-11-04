@@ -73,7 +73,7 @@ export function renderCountryPage(shell, place, snapshot) {
     <h1>${esc(place.name)}</h1>
     <p class="lede" id="summary">${esc(summary)}</p>
     <section class="metrics" aria-label="Repères ${esc(f.year)}">
-      ${f.warming !== null ? card('Réchauffement observé', (f.warming >= 0 ? '+' : '−') + n(Math.abs(f.warming)), '°C au-dessus de 1991–2020') : ''}
+      ${f.warming !== null ? card('Réchauffement observé', (f.warming < 0 ? '−' : '+') + Math.abs(f.warming).toLocaleString('fr-FR', {minimumFractionDigits: 1, maximumFractionDigits: 1}), '°C au-dessus de 1991–2020') : ''}
       ${f.co2 !== null ? card('CO₂ territorial', n(f.co2), `MtCO₂ en ${f.year}`) : ''}
       ${f.perCapita !== null ? card('CO₂ par habitant', n(f.perCapita), `tCO₂ / hab. en ${f.year}`) : ''}
       ${f.renewables !== null ? card('Production renouvelable', n(f.renewables) + ' %', `de l’électricité produite en ${f.year}`) : ''}
