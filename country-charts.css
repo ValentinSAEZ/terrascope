@@ -1,0 +1,231 @@
+/* TerraScope — graphiques de la fiche pays (voir country-charts.js). */
+body .sheet {
+  --c-surface: #fbfaf6;
+  --c-ink: #252824;
+  --c-ink-2: #5d6159;
+  --c-muted: #878a82;
+  --c-grid: #e7e4dc;
+  --c-axis: #c9c5ba;
+  --c-accent: #2d684c;
+  --c-ref: #b3602f;
+  --c-up: #a4472a;
+  --c-down: #2d684c;
+}
+
+/* ---------- Carte ---------- */
+body .sheet .tsc-card,
+body .sheet .tsc-energy {
+  position: relative;
+  margin-top: 28px;
+  padding: 28px 28px 20px;
+  background: var(--c-surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: var(--sans);
+  color: var(--c-ink);
+}
+body .sheet .tsc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding-bottom: 20px;
+}
+body .sheet .tsc-eyebrow {
+  margin: 0 0 8px;
+  font: 500 11px/1.4 var(--sans);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+body .sheet .tsc-title {
+  margin: 0;
+  font: 600 22px/1.3 var(--sans);
+  letter-spacing: -.01em;
+  color: var(--c-ink);
+}
+body .sheet .tsc-subtitle {
+  margin: 6px 0 0;
+  max-width: 54ch;
+  font: 400 14px/1.5 var(--sans);
+  color: var(--c-ink-2);
+}
+
+/* ---------- Chiffres clés ---------- */
+body .sheet .tsc-stats { display: flex; gap: 28px; flex-shrink: 0; }
+body .sheet .tsc-stat { display: grid; gap: 2px; text-align: right; }
+body .sheet .tsc-stat + .tsc-stat { padding-left: 28px; border-left: 1px solid var(--line); }
+body .sheet .tsc-stat-label { font: 500 12px/1.4 var(--sans); color: var(--c-muted); }
+body .sheet .tsc-stat-value {
+  display: block;
+  margin: 0;
+  font: 600 30px/1.1 var(--sans);
+  letter-spacing: -.02em;
+  color: var(--c-ink);
+}
+body .sheet .tsc-stat-unit { font: 400 12px/1.4 var(--sans); color: var(--c-muted); }
+body .sheet .tsc-delta.is-down { color: var(--c-down); }
+body .sheet .tsc-delta.is-up { color: var(--c-up); }
+
+/* ---------- Zone de tracé ---------- */
+body .sheet .tsc-plot { position: relative; width: 100%; }
+body .sheet .tsc-plot svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  outline: none;
+  touch-action: pan-y;
+  cursor: crosshair;
+}
+body .sheet .tsc-plot svg:focus-visible { box-shadow: 0 0 0 2px var(--c-surface), 0 0 0 4px var(--c-accent); border-radius: 2px; }
+body .sheet .tsc-grid line { stroke: var(--c-grid); stroke-width: 1; shape-rendering: crispEdges; }
+body .sheet .tsc-grid line.tsc-baseline,
+body .sheet .tsc-grid line.tsc-tick { stroke: var(--c-axis); }
+body .sheet .tsc-axis {
+  font: 400 12px var(--sans);
+  font-variant-numeric: tabular-nums;
+  fill: var(--c-muted);
+}
+body .sheet .tsc-ref line { stroke: var(--c-ref); stroke-width: 1; stroke-dasharray: 4 4; opacity: .7; }
+body .sheet .tsc-ref-label { font: 500 11px var(--sans); fill: var(--c-ref); }
+body .sheet .tsc-area { fill: var(--c-accent); opacity: .09; stroke: none; }
+body .sheet .tsc-line {
+  fill: none;
+  stroke: var(--c-accent);
+  stroke-width: 2.25;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+body .sheet .tsc-dot { fill: var(--c-accent); stroke: var(--c-surface); stroke-width: 2; }
+body .sheet .tsc-end-value { font: 600 15px var(--sans); fill: var(--c-ink); }
+body .sheet .tsc-end-unit { font: 400 11px var(--sans); fill: var(--c-muted); }
+body .sheet .tsc-crosshair { stroke: var(--c-ink); stroke-width: 1; opacity: .25; shape-rendering: crispEdges; }
+body .sheet .tsc-hover-dot { fill: var(--c-surface); stroke: var(--c-accent); stroke-width: 2.5; }
+body .sheet .tsc-hit { fill: transparent; pointer-events: all; }
+
+/* ---------- Info-bulle ---------- */
+body .sheet .tsc-tooltip {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  gap: 2px;
+  min-width: 120px;
+  padding: 9px 12px;
+  background: #1f2823;
+  color: #f4f2ec;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(20, 28, 22, .18);
+  pointer-events: none;
+  white-space: nowrap;
+  font: 400 12px/1.4 var(--sans);
+}
+body .sheet .tsc-tooltip[hidden] { display: none; }
+body .sheet .tsc-tip-year { font-weight: 500; color: #b9c7bc; }
+body .sheet .tsc-tooltip b { font: 600 17px/1.25 var(--sans); color: #fff; }
+body .sheet .tsc-tip-meta { color: #c8d2c9; }
+
+/* ---------- Pied & tableau ---------- */
+body .sheet .tsc-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font: 400 12px/1.5 var(--sans);
+  color: var(--c-muted);
+}
+body .sheet .tsc-data { margin-top: 10px; font: 400 13px/1.5 var(--sans); }
+body .sheet .tsc-data summary {
+  cursor: pointer;
+  width: max-content;
+  color: var(--c-accent);
+  font-weight: 500;
+  list-style-position: inside;
+}
+body .sheet .tsc-table { max-height: 320px; overflow: auto; margin-top: 10px; border: 1px solid var(--line); border-radius: 4px; }
+body .sheet .tsc-table table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+body .sheet .tsc-table caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+body .sheet .tsc-table th,
+body .sheet .tsc-table td { padding: 7px 12px; text-align: right; border-bottom: 1px solid var(--c-grid); }
+body .sheet .tsc-table th:first-child,
+body .sheet .tsc-table td:first-child { text-align: left; }
+body .sheet .tsc-table th { position: sticky; top: 0; background: var(--c-surface); font-weight: 600; color: var(--c-ink-2); }
+body .sheet .tsc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0; }
+
+/* ---------- Mix électrique ---------- */
+body .sheet .tsc-energy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(220px, 1fr);
+  gap: 36px;
+}
+body .sheet .tsc-energy aside {
+  margin: 0;
+  padding: 0 0 0 32px;
+  border-left: 1px solid var(--line);
+}
+body .sheet .tsc-energy aside h3 { margin: 0 0 10px; font: 600 18px/1.35 var(--sans); color: var(--c-ink); }
+body .sheet .tsc-energy aside p:last-child { margin: 0; font: 400 14px/1.6 var(--sans); color: var(--c-ink-2); }
+body .sheet .tsc-mix { position: relative; font-family: var(--sans); }
+body .sheet .tsc-stack-wrap { position: relative; margin: 6px 0 28px; }
+body .sheet .tsc-stack { display: flex; gap: 2px; height: 28px; }
+body .sheet .tsc-seg {
+  position: relative;
+  min-width: 3px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  overflow: visible;
+  transition: opacity .15s ease;
+}
+body .sheet .tsc-seg em {
+  padding-left: 8px;
+  font: 600 12px var(--sans);
+  font-style: normal;
+  color: #fff;
+  white-space: nowrap;
+}
+body .sheet .tsc-stack-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font: 400 11px var(--sans);
+  color: var(--c-muted);
+}
+body .sheet .tsc-ranked { list-style: none; margin: 0; padding: 0; }
+body .sheet .tsc-ranked li {
+  display: grid;
+  grid-template-columns: minmax(130px, 11rem) minmax(0, 1fr) 4.5rem;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 0;
+  border-top: 1px solid var(--c-grid);
+  transition: opacity .15s ease;
+}
+body .sheet .tsc-ranked li:last-child { border-bottom: 1px solid var(--c-grid); }
+body .sheet .tsc-ranked-name { display: flex; align-items: center; gap: 9px; font: 500 14px/1.3 var(--sans); color: var(--c-ink); }
+body .sheet .tsc-ranked-name i { flex: none; width: 10px; height: 10px; border-radius: 3px; }
+body .sheet .tsc-ranked-track { height: 8px; background: #efece5; border-radius: 4px; overflow: hidden; }
+body .sheet .tsc-ranked-fill { display: block; height: 100%; border-radius: 4px; min-width: 2px; }
+body .sheet .tsc-ranked b {
+  text-align: right;
+  font: 600 14px var(--sans);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-ink);
+}
+body .sheet .tsc-mix.has-focus [data-key]:not(.is-active) { opacity: .35; }
+body .sheet .tsc-stack-tip { left: 0; }
+
+@media (max-width: 760px) {
+  body .sheet .tsc-card,
+  body .sheet .tsc-energy { padding: 20px 16px 16px; }
+  body .sheet .tsc-header { flex-direction: column; gap: 16px; }
+  body .sheet .tsc-stat { text-align: left; }
+  body .sheet .tsc-stat-value { font-size: 26px; }
+  body .sheet .tsc-foot span:last-child { display: none; }
+  body .sheet .tsc-energy { grid-template-columns: 1fr; gap: 24px; }
+  body .sheet .tsc-energy aside { padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+  body .sheet .tsc-ranked li { grid-template-columns: minmax(0, 1fr) 4rem; row-gap: 6px; }
+  body .sheet .tsc-ranked-track { grid-column: 1 / -1; grid-row: 2; }
+}
