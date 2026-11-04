@@ -4,7 +4,7 @@
   if (!sheet || !sheet.querySelector('.hero-sheet')) return;
   document.body.classList.add('country-atlas');
   const css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = 'country-ui.css';
+  css.rel = 'stylesheet'; css.href = '/country-ui.css';
   document.head.append(css);
   const hero = sheet.querySelector('.hero-sheet');
   const title = hero.querySelector('h1');
@@ -18,7 +18,7 @@
   const sidebar = document.createElement('aside'); sidebar.className = 'atlas-sidebar';
   const kicker = document.createElement('p'); kicker.className = 'eyebrow'; kicker.textContent = 'EXPLORER LA FICHE';
   sidebar.append(kicker, nav);
-  const health = document.createElement('a'); health.href = 'data-health.html'; health.className = 'atlas-health'; health.textContent = 'Santé des données ↗'; sidebar.append(health);
+  const health = document.createElement('a'); health.href = '/data-health.html'; health.className = 'atlas-health'; health.textContent = 'Santé des données ↗'; sidebar.append(health);
   const content = document.createElement('div'); content.className = 'atlas-content';
   const panels = links.map(link => sheet.querySelector(link.hash));
   panels.forEach(panel => { panel.setAttribute('aria-labelledby', 'nav-' + panel.id); content.append(panel); });
