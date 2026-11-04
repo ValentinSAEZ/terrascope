@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "updated": "2026-11-05",
+  "policy": "Chaque chiffre de l'accueil est daté et sourcé. Toute valeur affichée dans index.html doit figurer ici.",
+  "items": {
+    "world_co2": {
+      "label": "Émissions mondiales de CO₂ fossile",
+      "value": 37.8,
+      "display": "37,8",
+      "unit": "GtCO₂",
+      "year": 2024,
+      "source": "Global Carbon Budget 2025",
+      "url": "https://globalcarbonbudget.org/"
+    },
+    "global_warming": {
+      "label": "Température moyenne mondiale",
+      "value": 1.55,
+      "display": "+1,55",
+      "uncertainty": 0.13,
+      "unit": "°C",
+      "year": 2024,
+      "baseline": "1850–1900",
+      "source": "Organisation météorologique mondiale (OMM), 10 janvier 2025",
+      "url": "https://wmo.int/news/media-centre/wmo-confirms-2024-warmest-year-record-about-155degc-above-pre-industrial-level"
+    },
+    "cbam_price": {
+      "label": "Prix des certificats CBAM",
+      "value": 82.32,
+      "display": "82,32",
+      "unit": "€/tCO₂e",
+      "period": "T3 2026",
+      "published": "2026-10-05",
+      "source": "Commission européenne",
+      "url": "https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/price-cbam-certificates_en",
+      "next_update": "2027-01-04",
+      "update_rule": "Trimestriel en 2026 ; hebdomadaire à partir de 2027 selon la Commission."
+    }
+  }
+}

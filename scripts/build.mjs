@@ -11,7 +11,7 @@ const staticFiles = [
   'index.html', 'country-live.html', 'country.html', 'europe.html', 'news-france.html', 'sources.html', 'ranking.html', 'data-health.html',
   'data/annual-snapshot.json',
   'data/cmip-ssp245-cnrmesm21.json',
-  'data/climate-projections.json', 'climate-projections.js', 'projection-contract.js', 'climate-projections.css',
+  'data/climate-projections.json', 'data/headline.json', 'climate-projections.js', 'projection-contract.js', 'climate-projections.css',
   'health-ui.css', 'health-ui.js',
   'blueprint-ui.css', 'blueprint-ui.js',
   'terrascope-runtime.js', 'ranking-runtime.js', 'data-contract.js', 'script.js', 'country-ui.js', 'country-ui.css', 'country-charts.js', 'country-charts.css', 'polish.css', 'country-registry.js',
